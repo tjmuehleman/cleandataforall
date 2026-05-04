@@ -251,11 +251,11 @@ const TICKER = [
 
 const PILLARS = [
   { num: '01', title: 'Publish plainly',
-    body: 'Open formats, documented schemas, durable URLs. If a spreadsheet needs a phone call to make sense of, it is not yet public.' },
+    body: "CSV, not Excel. Documented schemas. URLs that still work in five years. If you need a phone call to understand what we sent you, we haven't actually published anything yet." },
   { num: '02', title: 'Show the seams',
-    body: 'Every dataset has a history of decisions. We show the edits, the judgment calls, and the things we could not reconcile. Transparency is a method, not a posture.' },
+    body: "Every dataset is a history of decisions somebody made and mostly didn't document. We document ours — the edits, the judgment calls, the stuff we genuinely couldn't reconcile. Transparency is a method, not a posture." },
   { num: '03', title: 'Leave the light on',
-    body: 'Datasets disappear. Pages rot. We archive what we cite, and we keep the archive running after the news cycle has moved on.' },
+    body: "Datasets disappear. Pages rot. We archive what we cite and we keep the lights on long after the news cycle has moved on. Somebody's going to need this in three years." },
 ];
 
 // ==================== components.jsx ====================
@@ -344,13 +344,9 @@ const TopBar = () => (
     <Container>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
         <div style={{ display:'flex', gap:20 }}>
-          <span>Vol. XIII</span><span style={{ opacity:.5 }}>·</span>
-          <span>Issue 018</span><span style={{ opacity:.5 }}>·</span>
-          <span>Saturday, April 18, 2026</span>
+          <span>April 24, 2026</span>
         </div>
         <div style={{ display:'flex', gap:20 }}>
-          <a href="#dispatches" style={{ textDecoration:'none' }}>Dispatches</a>
-          <a href="#archive" style={{ textDecoration:'none' }}>Archive</a>
           <a href="#about" style={{ textDecoration:'none' }}>About</a>
           <a href="#subscribe" style={{ textDecoration:'none' }}>Subscribe</a>
         </div>
@@ -398,33 +394,28 @@ const HeroLede = () => (
       </div>
       <aside style={{ borderLeft:'1px solid var(--rule)', paddingLeft:'clamp(20px, 3vw, 48px)', display:'grid', gap:24 }} className="cdfa-hero-aside">
         <div style={{ display:'grid', gap:6 }}>
-          <Small style={{ color:'var(--muted)' }}>In this issue</Small>
+          <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
-              ['The quiet deletion of the municipal water dataset','p. 04'],
-              ['Why your county reports crime in three units','p. 11'],
-              ['Open, but illegible: the PDF problem','p. 18'],
-              ['A working definition of "clean"','p. 24'],
-            ].map(([t,p],i)=>(
-              <li key={i} style={{ display:'flex', gap:12, padding:'8px 0', borderBottom:'1px dotted var(--rule)' }}>
-                <span style={{ fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)', minWidth:28 }}>0{i+1}</span>
-                <span style={{ flex:1 }}>{t}</span>
-                <span style={{ fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)' }}>{p}</span>
+              ['Michigan’s teacher pipeline is up 87%. The national headline still says collapse.','michigan-teacher-prep-recovery.html'],
+              ['Arizona has three years of the best voucher data in the country — the headline number still depends on how you ask','arizona-universal-voucher-two-numbers.html'],
+              ['The average recovered. The bottom didn’t.','naep-2024-average-recovered-bottom-didnt.html'],
+              ['33 states banned cellphones in school. The evidence is one anonymous district.','phone-ban-one-paper.html'],
+              ['An mpox database update found a virus we already had','mpox-database-update.html'],
+            ].map(([t,href],i)=>(
+              <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
+                <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
+                  <span style={{ fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)', minWidth:28 }}>0{i+1}</span>
+                  <span style={{ flex:1 }}>{t}</span>
+                </a>
               </li>
             ))}
           </ol>
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
-          <div>
-            <Small style={{ color:'var(--muted)' }}>Readers</Small>
-            <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:34, lineHeight:1 }}>48,210</div>
-            <div style={{ fontFamily:'var(--mono)', fontSize:11, color:'var(--muted)' }}>across 94 countries</div>
-          </div>
-          <div>
-            <Small style={{ color:'var(--muted)' }}>Since</Small>
-            <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:34, lineHeight:1 }}>2013</div>
-            <div style={{ fontFamily:'var(--mono)', fontSize:11, color:'var(--muted)' }}>every Saturday, mostly</div>
-          </div>
+        <div>
+          <Small style={{ color:'var(--muted)' }}>Since</Small>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:34, lineHeight:1 }}>2013</div>
+          <div style={{ fontFamily:'var(--mono)', fontSize:11, color:'var(--muted)' }}>every Saturday, mostly</div>
         </div>
       </aside>
     </div>
@@ -440,7 +431,7 @@ const HeroLede = () => (
 const Pillars = () => (
   <section id="about" style={{ padding:'80px 0 60px', borderTop:'1px solid var(--rule)' }}>
     <Container>
-      <SectionHeader number="§ 01" label="Our method" title="Three things we will not compromise on." />
+      <SectionHeader number="§ 01" label="Our method" title="Public Data is a utility." />
       <div style={{ display:'grid', gridTemplateColumns:'repeat(3, minmax(0,1fr))', gap:'clamp(24px, 3vw, 56px)', marginTop:8 }} className="cdfa-pillars">
         {PILLARS.map((p,i)=>(
           <article key={p.num} style={{ borderTop:'1px solid var(--ink)', paddingTop:18 }}>
@@ -625,24 +616,6 @@ const SubscribeAndColophon = ({ showColophon }) => {
             </form>
             {sent && <p style={{ marginTop:10, fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)' }}>Check your inbox — the confirmation note is on its way.</p>}
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:32 }} className="cdfa-footer-nav">
-            <div>
-              <Small style={{ color:'var(--muted)' }}>The bulletin</Small>
-              <ul style={{ listStyle:'none', padding:0, margin:'10px 0 0', display:'grid', gap:6, fontSize:16 }}>
-                {['Latest dispatch','The archive','Working definitions','Editorial standards','Our method'].map(x=>(
-                  <li key={x}><a href="#" style={{ textDecoration:'none', borderBottom:'1px dotted var(--rule)' }}>{x}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <Small style={{ color:'var(--muted)' }}>The shop</Small>
-              <ul style={{ listStyle:'none', padding:0, margin:'10px 0 0', display:'grid', gap:6, fontSize:16 }}>
-                {['Datasets we maintain','Tools & utilities','Citations (BibTeX)','Mirrors','RSS feed'].map(x=>(
-                  <li key={x}><a href="#" style={{ textDecoration:'none', borderBottom:'1px dotted var(--rule)' }}>{x}</a></li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
         {showColophon && (
           <>
@@ -650,22 +623,22 @@ const SubscribeAndColophon = ({ showColophon }) => {
             <div style={{ padding:'24px 0 40px', display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
               <div>
                 <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
-                <div>Set in the display, body, and mono of your choosing. Paper colour is a warm off-white; ink is nearly black but not quite. No stock photography, ever.</div>
+                <div>Hosted on GitHub Pages. No trackers, no cookies, no stock photography. Built by hand at Standard Co.</div>
               </div>
               <div>
-                <div style={{ color:'var(--ink)', marginBottom:6 }}>Licence</div>
+                <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
                 <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
               </div>
               <div>
                 <div style={{ color:'var(--ink)', marginBottom:6 }}>Contact</div>
-                <div>editor@cleandataforall.org<br/>Standard Co, est. 2013<br/>A reader-supported project.</div>
+                <div>info@standardco.de<br/>Standard Co, est. 2013<br/>A reader-supported project.</div>
               </div>
             </div>
           </>
         )}
         <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
           <span>© 2013–2026 Standard Co · All rights unreserved</span>
-          <span>Made by hand on a Saturday</span>
+          <span>Made with help from Claude</span>
         </div>
       </Container>
       <style>{`
