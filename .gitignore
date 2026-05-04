@@ -1,0 +1,20 @@
+# Secrets / auth
+.cdfa-token
+*.token
+*.pem
+.env
+.env.*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local-only working folders (don't ship to the public site)
+src/
+uploads/
+
+# Misc
+node_modules/
+*.log
