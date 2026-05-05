@@ -6,14 +6,15 @@ Clean Data for All publishes one or two pieces per week. Every number traces to 
 
 ## Recent posts
 
-- [Murders fell 21% in 2025. The data pipeline noticed before the rest of us.](https://www.cleandataforall.com/murders-fell-21-percent-2025.html): The story behind the largest one-year murder decline ever recorded — and why the data caught up before the news cycle did.
-- [Mississippi went from 49th to 9th in 4th-grade reading. The fight that mattered wasn't about the score.](https://www.cleandataforall.com/mississippi-49-to-9.html): The Mississippi NAEP gain held up under demographic adjustment. The fight was about whether the gain was real.
-- [Louisiana led the nation in FAFSA for 7 years — repealed the policy in 2024, dropped from 5th to 29th](https://www.cleandataforall.com/louisiana-fafsa-policy-off.html): A clean policy-on/policy-off natural experiment in a single state.
-- [The average recovered. The bottom didn't.](https://www.cleandataforall.com/naep-2024-average-recovered-bottom-didnt.html): NAEP 2024 averages ticked back up — but the lowest-scoring quartile of U.S. students is still in freefall.
-- [Michigan's teacher pipeline is up 87%. The national headline still says collapse.](https://www.cleandataforall.com/michigan-teacher-prep-recovery.html): Nine states are quietly recovering teacher-prep enrollment while the national narrative misses it.
-- [An mpox database update found a virus we already had](https://www.cleandataforall.com/mpox-database-update.html): A December 2025 update to the Nextclade reference database retroactively reclassified a September case in India — a lesson on the limits of pathogen surveillance pipelines.
-- [Arizona has three years of the best voucher data in the country](https://www.cleandataforall.com/arizona-universal-voucher-two-numbers.html): The headline number still depends on how you ask.
-- [TB set two records in 2023. Both are about the data pipeline, not the disease.](https://www.cleandataforall.com/tb-two-records.html): What the WHO Global TB Report's record-setting numbers actually mean.
+- [Removing five states does not turn the U.S. into Finland](https://www.cleandataforall.com/blog/remove-five-states.html): A fact-check of the viral "47th in math/science" claim. Both the rank and the five-state arithmetic are wrong; the data points the opposite direction.
+- [Murders fell 21% in 2025. The data pipeline noticed before the rest of us.](https://www.cleandataforall.com/blog/murders-fell-21-percent-2025.html): The story behind the largest one-year murder decline ever recorded — and why the data caught up before the news cycle did.
+- [Mississippi went from 49th to 9th in 4th-grade reading. The fight that mattered wasn't about the score.](https://www.cleandataforall.com/blog/mississippi-49-to-9.html): The Mississippi NAEP gain held up under demographic adjustment. The fight was about whether the gain was real.
+- [Louisiana led the nation in FAFSA for 7 years — repealed the policy in 2024, dropped from 5th to 29th](https://www.cleandataforall.com/blog/louisiana-fafsa-policy-off.html): A clean policy-on/policy-off natural experiment in a single state.
+- [The average recovered. The bottom didn't.](https://www.cleandataforall.com/blog/naep-2024-average-recovered-bottom-didnt.html): NAEP 2024 averages ticked back up — but the lowest-scoring quartile of U.S. students is still in freefall.
+- [Michigan's teacher pipeline is up 87%. The national headline still says collapse.](https://www.cleandataforall.com/blog/michigan-teacher-prep-recovery.html): Nine states are quietly recovering teacher-prep enrollment while the national narrative misses it.
+- [An mpox database update found a virus we already had](https://www.cleandataforall.com/blog/mpox-database-update.html): A December 2025 update to the Nextclade reference database retroactively reclassified a September case in India — a lesson on the limits of pathogen surveillance pipelines.
+- [Arizona has three years of the best voucher data in the country](https://www.cleandataforall.com/blog/arizona-universal-voucher-two-numbers.html): The headline number still depends on how you ask.
+- [TB set two records in 2023. Both are about the data pipeline, not the disease.](https://www.cleandataforall.com/blog/tb-two-records.html): What the WHO Global TB Report's record-setting numbers actually mean.
 
 ## About
 
