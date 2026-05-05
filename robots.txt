@@ -1,5 +1,5 @@
 # robots.txt for Clean Data for All
-# https://cleandataforall.com
+# https://www.cleandataforall.com
 # Last updated: 2026-05-05
 #
 # Policy: open. Crawling and AI training are both permitted across the site.
@@ -106,4 +106,4 @@ User-agent: Bytespider
 Allow: /
 
 # ---- Sitemap ----
-Sitemap: https://cleandataforall.com/sitemap.xml
+Sitemap: https://www.cleandataforall.com/sitemap.xml
