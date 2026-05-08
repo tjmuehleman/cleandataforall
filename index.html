@@ -213,10 +213,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
-  { n: '030', date: 'May 6, 2026', read: '3 min', kind: 'Analysis',
-    title: 'The cellphone-ban paper says two things. The headline picked one.',
-    dek: 'NBER w34388 studied one large Florida district under the state’s 2023 ban. The +1.1 percentile finding made the news. The disproportionate Black-student suspension spike was in the same paper.',
-    href: 'blog/cellphone-ban-two-findings.html', shape: 'bars' },
+  { n: ‘031’, date: ‘May 8, 2026’, read: ‘4 min’, kind: ‘Analysis’,
+    title: ‘New York\’s algebra-access gap is a join problem’,
+    dek: ‘58% of New York 7th graders tested proficient in math last year. Only 37% of 8th graders enrolled in Algebra 1. The 20,000-student gap only became visible when someone joined two datasets the state had never connected.’,
+    href: ‘blog/ny-algebra-access-gap.html’, shape: ‘overlap’ },
+  { n: ‘030’, date: ‘May 6, 2026’, read: ‘3 min’, kind: ‘Analysis’,
+    title: ‘The cellphone-ban paper says two things. The headline picked one.’,
+    dek: ‘NBER w34388 studied one large Florida district under the state’s 2023 ban. The +1.1 percentile finding made the news. The disproportionate Black-student suspension spike was in the same paper.’,
+    href: ‘blog/cellphone-ban-two-findings.html’, shape: ‘bars’ },
   { n: '029', date: 'May 5, 2026', read: '5 min', kind: 'Fact Check',
     title: 'Removing five states does not turn the U.S. into Finland',
     dek: 'A screenshot crossed my feed claiming the U.S. ranks 47th in math and science — but rises to 15th if we remove five Southern states. Both numbers are wrong, and the data points the opposite direction.',
@@ -422,11 +426,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
-              ['The cellphone-ban paper says two things. The headline picked one.','blog/cellphone-ban-two-findings.html'],
-              ['Removing five states does not turn the U.S. into Finland','blog/remove-five-states.html'],
-              ['Murders fell 21% in 2025. The data pipeline noticed before the rest of us.','blog/murders-fell-21-percent-2025.html'],
-              ['Louisiana spent six years at #1 in FAFSA completion. The recovery happened everywhere else.','blog/louisiana-fafsa-policy-off.html'],
-              ['Mississippi went from 49th to 9th in 4th grade reading. The fight that mattered wasn’t about the score.','blog/mississippi-49-to-9.html'],
+              [‘New York\’s algebra-access gap is a join problem’,’blog/ny-algebra-access-gap.html’],
+              [‘The cellphone-ban paper says two things. The headline picked one.’,’blog/cellphone-ban-two-findings.html’],
+              [‘Removing five states does not turn the U.S. into Finland’,’blog/remove-five-states.html’],
+              [‘Murders fell 21% in 2025. The data pipeline noticed before the rest of us.’,’blog/murders-fell-21-percent-2025.html’],
+              [‘Louisiana spent six years at #1 in FAFSA completion. The recovery happened everywhere else.’,’blog/louisiana-fafsa-policy-off.html’],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
