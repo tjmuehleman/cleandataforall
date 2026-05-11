@@ -213,6 +213,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '033', date: 'May 11, 2026', read: '4 min', kind: 'Data Study',
+    title: 'Two TB projections landed in September. They don’t agree. That’s the data story.',
+    dek: 'A Harvard–BU paper in The Lancet and a separate team in PLOS Global Public Health published peer-reviewed forecasts of what the U.S. funding cuts cost. Their numbers are different. Both are right.',
+    href: 'blog/two-tb-projections-september.html', shape: 'bars' },
   { n: '032', date: 'May 11, 2026', read: '5 min', kind: 'Analysis',
     title: 'One revision, 12 states flipped',
     dek: 'The BLS April 2026 benchmark reconciled monthly survey estimates against full administrative records and turned the 2025 jobs narrative inside out. Before: 34 states growing. After: 22. The data wasn\'t wrong, exactly. It just wasn\'t finished.',
@@ -430,11 +434,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Two TB projections landed in September. They don’t agree.','blog/two-tb-projections-september.html'],
               ['One revision, 12 states flipped','blog/one-revision-12-states-flipped.html'],
               ['New York\'s algebra-access gap is a join problem','blog/ny-algebra-access-gap.html'],
               ['The cellphone-ban paper says two things. The headline picked one.','blog/cellphone-ban-two-findings.html'],
               ['Removing five states does not turn the U.S. into Finland','blog/remove-five-states.html'],
-              ['Murders fell 21% in 2025. The data pipeline noticed before the rest of us.','blog/murders-fell-21-percent-2025.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
