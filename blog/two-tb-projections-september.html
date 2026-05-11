@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Two TB projections landed in September. They don&rsquo;t agree. That&rsquo;s the data story. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '033',
+  date:    'May 11, 2026',
+  readTime: '4 min',
+  title:   'Two TB projections landed in September. They don’t agree. That’s the data story.',
+  dek:     'A Harvard–BU paper in The Lancet and a separate team in PLOS Global Public Health published peer-reviewed forecasts of what the U.S. funding cuts cost. Their numbers are different. Both are right.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>&larr; All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+          <a href="../index.html#subscribe" style={{ textDecoration:'none' }}>Subscribe</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>&#8470; {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'32px 0', margin:'0 0 56px' }}>
+      <img
+        src="https://quickchart.io/chart/render/zf-81eea4d5-82bc-45a3-92aa-c7501f01f015"
+        alt="Projected additional child TB deaths 2025–2034 under three funding scenarios — Lancet Child & Adolescent Health, September 2025"
+        style={{ display:'block', width:'100%', maxWidth:900, margin:'0 auto' }}
+      />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, textAlign:'center' }}>
+        Source: Menzies et al., <a href="https://www.thelancet.com/journals/lanchi/article/PIIS2352-4642(25)00218-4/abstract">The Lancet Child &amp; Adolescent Health</a>, Sept 12, 2025. Press summary: <a href="https://hsph.harvard.edu/news/u-s-funding-cuts-could-result-in-nearly-9-million-child-tuberculosis-cases-1-5-million-child-deaths/">Harvard T.H. Chan</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body helpers ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>&mdash; {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          On September 12, 2025, <em>The Lancet Child &amp; Adolescent Health</em> <a href="https://www.thelancet.com/journals/lanchi/article/PIIS2352-4642(25)00218-4/abstract">published</a> a Harvard and Boston University mathematical model of what U.S. funding withdrawal does to pediatric tuberculosis over the next decade. The same month, a separate model from a different team, scoped differently, ran in <a href="https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0004899"><em>PLOS Global Public Health</em></a>. Both peer-reviewed. Both built on the same WHO baseline. Both right.
+        </P>
+
+        <P>
+          They report different numbers. That is the most useful data point in the room.
+        </P>
+
+        <P>
+          The Lancet paper, scope = children, window = 2025&ndash;2034, projects <strong>2.5 million additional pediatric TB cases and 340,000 additional child deaths</strong> if the U.S. drops bilateral aid alone. Layer a <a href="https://www.devex.com/news/devex-checkup-why-the-us-commitment-to-the-global-fund-has-cratered-107231">Global Fund withdrawal</a> on top &mdash; the administration has signaled it will pay one-fifth of Global Fund activities going forward, down from one-third &mdash; and the model runs to <strong>8.9 million additional child cases and more than 1.5 million additional child deaths</strong>. <a href="https://hsph.harvard.edu/news/u-s-funding-cuts-could-result-in-nearly-9-million-child-tuberculosis-cases-1-5-million-child-deaths/">(Press summary.)</a>
+        </P>
+
+        <P>
+          The PLOS paper, scope = all ages, window = 2025&ndash;2030, <a href="https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0004899">26 high-burden countries</a>, runs three scenarios and gets <strong>+0.63M / +1.66M / +10.67M cases</strong> with corresponding deaths of <strong>+99,900 / +268,600 / +2,243,700</strong>.
+        </P>
+
+        <P>
+          Same disease. Same cuts. One paper on five-year all-ages outcomes; the other on ten-year pediatric outcomes. Different methodologies. Different baselines. Both right. Both pointing at the same hole in the ground. Neither paper is the floor.
+        </P>
+
+        <H2>What the cuts actually cut</H2>
+
+        <P>
+          It is easy to read these as papers about drugs. They aren&rsquo;t.
+        </P>
+
+        <P>
+          USAID provided <a href="https://www.cidrap.umn.edu/tuberculosis/usaid-funding-freeze-disrupts-global-tuberculosis-control-efforts">approximately $406 million for global TB control in 2024</a>, and from 2015 to 2024 the U.S. government accounted for <a href="https://www.who.int/teams/global-programme-on-tuberculosis-and-lung-health/tb-reports/global-tuberculosis-report-2025/featured-topics/Impact-of-2025-funding-cuts">roughly 50% of all international donor funding for TB</a>. <a href="https://www.who.int/news/item/05-03-2025-funding-cuts-to-tuberculosis-programmes-endanger-millions-of-lives">Stop-work orders</a> landed in late January 2025. Of 162 USAID awards that touched TB, <a href="https://www.cidrap.umn.edu/tuberculosis/usaid-funding-freeze-disrupts-global-tuberculosis-control-efforts">79% were terminated</a>. The Global Fund&rsquo;s 2024&ndash;2026 cycle was <a href="https://www.devex.com/news/global-fund-plans-to-cut-1-4-billion-from-grants-it-has-already-awarded-110481">cut by $1.43 billion &mdash; 11% of allocation</a>, with some country grants taking cuts of 16%.
+        </P>
+
+        <P>
+          What that money paid for is mostly not pharmacology. TB drugs are off-patent. The money paid for the system that finds the patient and follows them &mdash; molecular diagnostics, contact tracing, community health workers, the case-based digital surveillance that turns &ldquo;estimated&rdquo; into &ldquo;notified.&rdquo;
+        </P>
+
+        <P>
+          (Last year I <a href="../blog/tb-two-records.html">wrote about</a> how only 133 of ~215 countries were on case-based digital TB surveillance as of 2023. The rest are still on aggregated, paper-based reporting. WHO had been pushing hard to accelerate that transition. USAID was the largest single donor to it. That is part of what got the stop-work order.)
+        </P>
+
+        <Fig caption={<>U.S. government share of international donor funding for TB, 2015&ndash;2024 average. Source: <a href="https://www.who.int/teams/global-programme-on-tuberculosis-and-lung-health/tb-reports/global-tuberculosis-report-2025/featured-topics/Impact-of-2025-funding-cuts">WHO Global Tuberculosis Report 2025</a>.</>}>
+          <img src="https://quickchart.io/chart/render/zf-3cfe728f-2b3a-47c6-a45b-076aa8b8f225" alt="U.S. share of international donor TB funding, 2015–2024 — roughly 50%, per WHO" style={{ width:'100%', display:'block' }} />
+        </Fig>
+
+        <P>
+          So the data pipeline producing the baseline both papers project from &mdash; the WHO Global TB Report &mdash; runs partly on the bilateral aid that got cut. The projections look out ten years. Year one is the year the input quality starts to fall.
+        </P>
+
+        <H2>The conditional in the title</H2>
+
+        <P>
+          Here is the part I cannot stop thinking about. The Harvard team also estimated that <a href="https://hsph.harvard.edu/news/u-s-funding-cuts-could-result-in-nearly-9-million-child-tuberculosis-cases-1-5-million-child-deaths/"><strong>90% of the additional projected child deaths could be avoided if funding was restored after just one year</strong></a>.
+        </P>
+
+        <P>
+          Ninety percent. From one year of policy reversal. The remaining 10% accrues anyway &mdash; TB has a long latent period, and today&rsquo;s untreated transmission shows up in case counts two and three years from now. But the bulk of the projected harm is conditional.
+        </P>
+
+        <P>
+          And that is what distinguishes a forecast from a budget choice. A forecast says: here is what will happen. A conditional projection says: here is what will happen <em>unless we don&rsquo;t</em>. The &ldquo;unless we don&rsquo;t&rdquo; window for TB closes earlier than the ten-year horizon of the headline numbers suggests.
+
+        </P>
+
+        <Callout label="What I&rsquo;d watch next">
+          The 2025 WHO Global TB Report covers the first calendar year of the cuts. It is already <a href="https://www.who.int/news/item/12-11-2025-global-gains-in-tuberculosis-response-endangered-by-funding-challenges">flagging service disruptions across the 30 highest-burden countries</a>. The first numerical test will be the 2026 report&rsquo;s case-notification series &mdash; specifically the gap between notified and estimated cases. If the gap widens fast in the countries that lost the most USAID bilateral support, the input-quality concern from these projection papers is no longer hypothetical.
+        </Callout>
+
+        <P>
+          Two papers, different methods, same direction, range on the magnitude. The variance is a feature.
+        </P>
+
+        <P>
+          If you&rsquo;re going to repeat one number from these papers, skip the death toll and repeat the 90%. The death toll is downstream of a choice still being made daily.
+        </P>
+
+        <Divider />
+
+        <H3>Sources</H3>
+
+        <UL items={[
+          <><a href="https://www.thelancet.com/journals/lanchi/article/PIIS2352-4642(25)00218-4/abstract">Menzies, Brown, Imai-Eaton, Dodd, Cohen, Martinez. &ldquo;Potential paediatric tuberculosis incidence and deaths resulting from interruption in programmes supported by international health aid, 2025&ndash;34: a mathematical modelling study.&rdquo; <em>The Lancet Child &amp; Adolescent Health</em>, Sept 12, 2025.</a> &mdash; the 2.5M cases / 340K deaths (bilateral aid only) and 8.9M / 1.5M+ (full withdrawal) figures, plus the 90% reversibility claim.</>,
+          <><a href="https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0004899">Mandal, Nair, Sahu, Ditiu, Pretorius. &ldquo;A deadly equation: The global toll of US TB funding cuts.&rdquo; <em>PLOS Global Public Health</em>, Sept 2025.</a> &mdash; the 26-country, all-ages, 2025&ndash;2030 scenarios: 0.63M / 1.66M / 10.67M additional cases.</>,
+          <><a href="https://hsph.harvard.edu/news/u-s-funding-cuts-could-result-in-nearly-9-million-child-tuberculosis-cases-1-5-million-child-deaths/">Harvard T.H. Chan press summary</a> &mdash; pediatric scenario language, 90% reversibility framing.</>,
+          <><a href="https://www.who.int/teams/global-programme-on-tuberculosis-and-lung-health/tb-reports/global-tuberculosis-report-2025/featured-topics/Impact-of-2025-funding-cuts">WHO Global TB Report 2025 &mdash; Impact of 2025 funding cuts</a> &mdash; USG share of donor funding (50%, 2015&ndash;2024); USAID priority-country dependency; Global Fund 11% cut.</>,
+          <><a href="https://www.cidrap.umn.edu/tuberculosis/usaid-funding-freeze-disrupts-global-tuberculosis-control-efforts">CIDRAP &mdash; USAID funding freeze disrupts global tuberculosis control efforts</a> &mdash; $406M USAID TB total 2024; 162 awards / 79% terminated; late January 2025 stop-work orders.</>,
+          <><a href="https://www.devex.com/news/global-fund-plans-to-cut-1-4-billion-from-grants-it-has-already-awarded-110481">Devex &mdash; Global Fund plans to cut $1.4 billion from grants it has already awarded</a> &mdash; $1.43B / 11% Global Fund cycle cut, with some country grants at 16%.</>,
+          <><a href="https://www.who.int/news/item/12-11-2025-global-gains-in-tuberculosis-response-endangered-by-funding-challenges">WHO &mdash; Global gains in tuberculosis response endangered by funding challenges (Nov 12, 2025)</a> &mdash; ongoing service-disruption reports from 30 highest-burden countries.</>,
+        ]} />
+
+        <p style={{ marginTop:48, fontStyle:'italic', color:'var(--muted)' }}>&mdash; T.J. M&uuml;ehleman</p>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => {
+  const [email, setEmail] = React.useState('');
+  const [sent, setSent] = React.useState(false);
+  return (
+    <footer id="subscribe" style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+      <Container>
+        <div style={{ padding:'64px 0 40px', maxWidth:560 }}>
+          <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, color:'var(--muted)' }}>&sect; Subscribe</span>
+          <h3 style={{ fontFamily:'var(--display)', fontWeight:900, letterSpacing:'-0.01em', fontSize:'clamp(32px, 4vw, 56px)', lineHeight:0.95, margin:'8px 0 16px' }}>
+            The dispatch,<br/>every Saturday morning.
+          </h3>
+          <p style={{ fontSize:17, lineHeight:1.55, maxWidth:'42ch', margin:'0 0 24px', textWrap:'pretty' }}>
+            One email a week. A short essay, a chart, and links to anything we read
+            that changed the way we read public data. No tracking pixels.
+          </p>
+          <form onSubmit={(e)=>{ e.preventDefault(); setSent(true); }}
+            style={{ display:'flex', gap:0, maxWidth:460, border:'1.5px solid var(--ink)' }}>
+            <input value={email} onChange={e=>setEmail(e.target.value)}
+              type="email" placeholder="you@yourdomain.org" required
+              style={{ flex:1, border:0, background:'transparent', padding:'14px 16px', fontFamily:'var(--body)', fontSize:16, color:'var(--ink)', outline:'none' }}/>
+            <button type="submit"
+              style={{ border:0, borderLeft:'1.5px solid var(--ink)', padding:'0 20px', background:'var(--ink)', color:'var(--paper)', fontFamily:'var(--mono)', fontSize:12, letterSpacing:'0.12em', textTransform:'uppercase', cursor:'pointer', fontWeight:600 }}>
+              {sent ? 'Sent ✓' : 'Subscribe →'}
+            </button>
+          </form>
+          {sent && <p style={{ marginTop:10, fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)' }}>Check your inbox &mdash; the confirmation note is on its way.</p>}
+        </div>
+
+        <Rule />
+
+        <div style={{ padding:'24px 0 40px', display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }}>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+            <div>Hosted on GitHub Pages. No trackers, no cookies, no stock photography. Built by hand at Standard Co.</div>
+          </div>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+            <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+          </div>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>Contact</div>
+            <div>info@standardco.de<br/>Standard Co, est. 2013<br/>A reader-supported project.</div>
+          </div>
+        </div>
+
+        <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+          <span>&copy; 2013&ndash;2026 Standard Co &middot; All rights unreserved</span>
+          <span>Made with help from Claude</span>
+        </div>
+      </Container>
+    </footer>
+  );
+};
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
