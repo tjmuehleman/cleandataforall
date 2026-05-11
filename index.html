@@ -213,6 +213,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '034', date: 'May 11, 2026', read: '4 min', kind: 'Data Study',
+    title: 'Tennessee’s reading rankings jumped fifteen spots. The score barely moved.',
+    dek: 'Tennessee moved from 35th to 20th in the 8th-grade reading rankings. Its average score went up one point — not statistically significant. Rankings are a relative measure. The whole field is falling.',
+    href: 'blog/tennessee-eighth-grade-reading-ranking.html', shape: 'bars' },
   { n: '033', date: 'May 11, 2026', read: '4 min', kind: 'Data Study',
     title: 'Two TB projections landed in September. They don’t agree. That’s the data story.',
     dek: 'A Harvard–BU paper in The Lancet and a separate team in PLOS Global Public Health published peer-reviewed forecasts of what the U.S. funding cuts cost. Their numbers are different. Both are right.',
@@ -434,11 +438,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Tennessee’s reading rankings jumped fifteen spots. The score barely moved.','blog/tennessee-eighth-grade-reading-ranking.html'],
               ['Two TB projections landed in September. They don’t agree.','blog/two-tb-projections-september.html'],
               ['One revision, 12 states flipped','blog/one-revision-12-states-flipped.html'],
               ['New York\'s algebra-access gap is a join problem','blog/ny-algebra-access-gap.html'],
               ['The cellphone-ban paper says two things. The headline picked one.','blog/cellphone-ban-two-findings.html'],
-              ['Removing five states does not turn the U.S. into Finland','blog/remove-five-states.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
