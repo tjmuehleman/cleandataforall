@@ -213,6 +213,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '035', date: 'May 12, 2026', read: '3 min', kind: 'Data Study',
+    title: 'One reform, two scoreboards. The slow one moved last.',
+    dek: 'Tennessee passed a major reading law in 2021. The state test showed gains three years running. The federal scoreboard barely budged. Four years later, both are pointing the same way.',
+    href: 'blog/tennessee-two-scoreboards.html', shape: 'bars' },
   { n: '034', date: 'May 11, 2026', read: '4 min', kind: 'Data Study',
     title: 'Tennessee’s reading rankings jumped fifteen spots. The score barely moved.',
     dek: 'Tennessee moved from 35th to 20th in the 8th-grade reading rankings. Its average score went up one point — not statistically significant. Rankings are a relative measure. The whole field is falling.',
@@ -438,11 +442,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['One reform, two scoreboards. The slow one moved last.','blog/tennessee-two-scoreboards.html'],
               ['Tennessee’s reading rankings jumped fifteen spots. The score barely moved.','blog/tennessee-eighth-grade-reading-ranking.html'],
               ['Two TB projections landed in September. They don’t agree.','blog/two-tb-projections-september.html'],
               ['One revision, 12 states flipped','blog/one-revision-12-states-flipped.html'],
               ['New York\'s algebra-access gap is a join problem','blog/ny-algebra-access-gap.html'],
-              ['The cellphone-ban paper says two things. The headline picked one.','blog/cellphone-ban-two-findings.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
