@@ -213,10 +213,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '038', date: 'May 16, 2026', read: '5 min', kind: 'Data Study',
+    title: 'The measles clock',
+    dek: 'The U.S. eliminated measles in 2000. In 2025 we had the worst year since. With seven months left in 2026, we are already on the second-worst. The clock that would un-eliminate it has rules nobody has started.',
+    href: 'blog/measles-second-worst-year.html', shape: 'bars' },
   { n: '037', date: 'May 14, 2026', read: '4 min', kind: 'Data Study',
     title: 'The chronic absenteeism recovery has the shape of a curve that doesn’t reach 15%.',
     dek: 'Pre-pandemic, the country sat near 15% chronic absenteeism. It peaked at 28.5% in 2022. Each year since, the gain has been roughly half the size of the last. That’s not the shape of a recovery. That’s an asymptote.',
-    href: 'blog/chronic-absenteeism-asymptote.html', shape: 'bars' },
+    href: 'blog/chronic-absenteeism-asymptote.html', shape: 'line' },
   { n: '036', date: 'May 13, 2026', read: '3 min', kind: 'Data Study',
     title: 'Every state\'s SNAP rolls fell. Unemployment didn\'t move.',
     dek: 'Roughly 4.3 million fewer Americans were on SNAP in January 2026 than a year earlier. The unemployment rate barely budged. The two numbers were supposed to track each other. This year they didn&rsquo;t.',
@@ -450,11 +454,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The measles clock','blog/measles-second-worst-year.html'],
               ['The chronic absenteeism recovery has the shape of a curve that doesn’t reach 15%.','blog/chronic-absenteeism-asymptote.html'],
               ['Every state\'s SNAP rolls fell. Unemployment didn\'t move.','blog/every-state-snap-rolls-fell.html'],
               ['One reform, two scoreboards. The slow one moved last.','blog/tennessee-two-scoreboards.html'],
               ['Tennessee’s reading rankings jumped fifteen spots. The score barely moved.','blog/tennessee-eighth-grade-reading-ranking.html'],
-              ['Two TB projections landed in September. They don’t agree.','blog/two-tb-projections-september.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
