@@ -213,10 +213,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '042', date: 'May 20, 2026', read: '4 min', kind: 'Data Study',
+    title: 'Canada lost measles in November. The lab network that watches for the next one is going broke.',
+    dek: 'Canada&#8217;s measles elimination status came off after 12 months of sustained transmission. The U.S. is on the same clock. And the global lab network that does the counting went looking for $3.6 million on the public internet.',
+    href: 'blog/canada-lost-measles-lab-network-broke.html', shape: 'bars' },
   { n: '041', date: 'May 19, 2026', read: '4 min', kind: 'Data Study',
     title: 'The reading recession headline has 38 states on it. Not 50.',
     dek: 'The Harvard-Stanford-Dartmouth Education Scorecard says only five (or seven) states improved reading 2022 to 2025. Twelve states aren&#8217;t in the analysis at all. The denominator is the part nobody&#8217;s reading.',
-    href: 'blog/reading-recession-38-states-not-50.html', shape: 'bars' },
+    href: 'blog/reading-recession-38-states-not-50.html', shape: 'line' },
   { n: '040', date: 'May 18, 2026', read: '3 min', kind: 'Data Study',
     title: 'The U.S. just turned off the hunger meter. The last reading was 13.7%.',
     dek: 'On December 30, 2025, USDA published its final annual household food security report. After 30 years of one consistent series, the only national measurement of who can&rsquo;t eat in America is over &mdash; in the same calendar year the program it measured got cut by $186 billion.',
@@ -466,11 +470,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Canada lost measles in November. The lab network that watches for the next one is going broke.','blog/canada-lost-measles-lab-network-broke.html'],
               ['The reading recession headline has 38 states on it. Not 50.','blog/reading-recession-38-states-not-50.html'],
               ['The U.S. just turned off the hunger meter. The last reading was 13.7%.','blog/usda-final-hunger-reading.html'],
               ['The FBI’s pipeline got fast. The polls trying to measure how it landed are a mess.','blog/fbi-2025-pipeline-polls.html'],
               ['The measles clock','blog/measles-second-worst-year.html'],
-              ['The chronic absenteeism recovery has the shape of a curve that doesn’t reach 15%.','blog/chronic-absenteeism-asymptote.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
