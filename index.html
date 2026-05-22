@@ -213,6 +213,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '044', date: 'May 22, 2026', read: '3 min', kind: 'Data Study',
+    title: '80% of American students use AI for schoolwork. The evidence base is 20 papers.',
+    dek: 'Stanford filtered 800-plus academic papers on AI in K-12 down to 20 high-quality causal studies. Zero were conducted in U.S. classrooms &#8212; the country running the biggest education experiment of the decade.',
+    href: 'blog/stanford-ai-evidence-base-20-papers.html', shape: 'rings' },
   { n: '043', date: 'May 21, 2026', read: '3 min', kind: 'Data Study',
     title: 'The measles outbreak was already in the data five school years ago',
     dek: 'The CDC pushes the U.S. measles case count every Friday. The kindergarten MMR coverage data &#8212; the leading indicator that says whether a chain has a path &#8212; runs once a year, on a school-year clock.',
@@ -474,11 +478,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['80% of American students use AI for schoolwork. The evidence base is 20 papers.','blog/stanford-ai-evidence-base-20-papers.html'],
               ['The measles outbreak was already in the data five school years ago','blog/measles-leading-indicator-broke.html'],
               ['Canada lost measles in November. The lab network that watches for the next one is going broke.','blog/canada-lost-measles-lab-network-broke.html'],
               ['The reading recession headline has 38 states on it. Not 50.','blog/reading-recession-38-states-not-50.html'],
               ['The U.S. just turned off the hunger meter. The last reading was 13.7%.','blog/usda-final-hunger-reading.html'],
-              ['The FBI’s pipeline got fast. The polls trying to measure how it landed are a mess.','blog/fbi-2025-pipeline-polls.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
