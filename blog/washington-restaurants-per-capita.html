@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Does Washington State really have a lot of restaurants? &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '048',
+  date:    'May 27, 2026',
+  readTime: '3 min',
+  title:   'Does Washington State really have a lot of restaurants?',
+  dek:     'Washington has the 13th-most restaurants in America. Per capita, it’s exactly the median — 25th of 50. Oregon, with half the population, has more dining seats per resident than we do.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+          <a href="../index.html#subscribe" style={{ textDecoration:'none' }}>Subscribe</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }} dangerouslySetInnerHTML={{__html: POST.title}} />
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }} dangerouslySetInnerHTML={{__html: POST.dek}} />
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'40px 0', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, textAlign:'center' }}>
+        <img
+          src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Hawaii%22%2C%22Montana%22%2C%22Oregon%22%2C%22Rhode+Island%22%2C%22New+York%22%2C%22Wyoming%22%2C%22California%22%2C%22Washington%22%2C%22Florida%22%2C%22Texas%22%2C%22Arizona%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Restaurants+per+10%2C000+residents%22%2C%22data%22%3A%5B30.5%2C30.2%2C28.2%2C28.1%2C24.9%2C24.6%2C21.7%2C21.0%2C20.7%2C18.1%2C16.3%5D%2C%22backgroundColor%22%3A%5B%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%233a3a3a%22%2C%22%235a5a5a%22%2C%22%23777777%22%2C%22%23777777%22%2C%22%23777777%22%2C%22%23141210%22%2C%22%23777777%22%2C%22%23777777%22%2C%22%23777777%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Restaurants+per+10%2C000+residents+%28selected+states%29%22%2C%22fontSize%22%3A16%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A36%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%2C%22max%22%3A32%2C%22stepSize%22%3A5%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Restaurants+per+10%2C000%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=520&bkg=transparent&devicePixelRatio=2"
+          alt="Horizontal bar chart of restaurants per 10,000 residents for selected U.S. states. Hawaii 30.5, Montana 30.2, Oregon 28.2, Rhode Island 28.1, New York 24.9, Wyoming 24.6, California 21.7, Washington 21.0, Florida 20.7, Texas 18.1, Arizona 16.3."
+          style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+        />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, maxWidth:760, margin:'12px auto 0' }}>
+          Sources: Toast / National Restaurant Association &mdash; <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">How Many Restaurants Are in the United States?</a> Restaurants per 10,000 = 10,000 &divide; Toast&rsquo;s residents-per-restaurant figure for each state.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Washington has{' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">16,732 restaurants</a>.
+          That number puts the state{' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">13th in the country by raw count</a>,
+          tucked between Virginia (16,930) and Massachusetts (15,709). Sounds like a lot. Locally,
+          it feels like a lot. The Seattle food press writes about it like a lot.
+        </P>
+
+        <P>
+          I run a data company. The raw count is the number you read. The per-capita rank is the
+          number that means something. Run that math and the answer is annoyingly clean.
+        </P>
+
+        <H2>Washington is the median state</H2>
+
+        <P>
+          Toast&rsquo;s blog post publishes the National Restaurant Association&rsquo;s state-level
+          counts alongside a {' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">residents-per-restaurant column</a>.
+          Washington&rsquo;s figure is 476 &mdash; one restaurant for every 476 people. Convert to
+          restaurants per 10,000 residents and you get 21.0.
+        </P>
+
+        <P>
+          Now rank the 50 states by that metric. The leaders are tourism-heavy and
+          population-light:{' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">Hawaii at 30.5</a>,
+          Montana at 30.2, Oregon at 28.2, Rhode Island at 28.1, then New York at 24.9. The
+          laggards are population-heavy and growing fast: Arizona at 16.3, Oklahoma at 17.2, New
+          Mexico at 17.3, Texas at 18.1. Washington at 21.0 lands at{' '}
+          <strong>25th out of 50</strong> &mdash; the literal median.
+        </P>
+
+        <Callout label="The data-pipeline read">
+          Washington is 13th by absolute count and 25th per capita. The gap between those two
+          ranks is the entire answer to &ldquo;does Washington have a lot of restaurants?&rdquo;
+          We have a lot because we have a lot of people. We don&rsquo;t have a lot per person.
+        </Callout>
+
+        <H2>Oregon is the comp nobody wants</H2>
+
+        <P>
+          The cleanest comparison is the state directly south. Oregon has{' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">11,928 restaurants</a>{' '}
+          for a population of about 4.23 million &mdash; 28.2 per 10,000 residents, fourth in the
+          country. Washington has 16,732 restaurants for about 7.96 million people &mdash; 21.0
+          per 10,000. So Oregon has 71% as many restaurants as Washington but serves them to 53%
+          as many people. Same coast, same climate, same coffee. Different per-capita density,
+          and not by a little.
+        </P>
+
+        <P>
+          Put more bluntly: a Washingtonian who moves to Portland walks into a city with 34%
+          more restaurants per person.
+        </P>
+
+        <H2>The number being counted isn&rsquo;t one number</H2>
+
+        <P>
+          The Toast article has two tables. One lists restaurants{' '}
+          <a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">by type</a>{' '}
+          (fast-food chains 207,800; single-location full-service 150,100; chain full-service
+          137,500; coffee &amp; snack 83,000; bars 67,800; etc.). Add those rows up and you
+          get about 1.03 million. The other table lists restaurants by state and adds to about
+          708,000.
+        </P>
+
+        <P>
+          Two of the article&rsquo;s own tables don&rsquo;t agree on the national total. The
+          reason isn&rsquo;t a typo. The type rows overlap &mdash; a single storefront can be a
+          pizza restaurant <em>and</em> an Italian restaurant <em>and</em> a chain location, and
+          IBISWorld&rsquo;s typology counts it under each. The state rows are NRA&rsquo;s
+          NAICS-based head count, which dedupes. So &ldquo;how many restaurants are in the U.S.&rdquo;
+          is roughly 700,000 if you&rsquo;re counting storefronts and roughly a million if
+          you&rsquo;re counting storefront-categories.
+        </P>
+
+        <P>
+          For Washington that ambiguity bites both ways. The 16,732 is a head count. The
+          neighborhoods you walk to count by type &mdash; the new ramen place is also the new
+          sake bar is also the new noodle counter. The state ranking would not change much
+          either way; the local feel might.
+        </P>
+
+        <Divider />
+
+        <H2>So, do we have a lot of restaurants?</H2>
+
+        <P>
+          Sort of. In absolute terms, yes &mdash; 13th nationally. Per capita, no. Twenty-fifth of
+          fifty, exactly average, surrounded on the leaderboard by North Carolina, Illinois, Ohio,
+          and Florida. The states that punch above their weight (Hawaii, Montana, Oregon, Rhode
+          Island) all share one thing Washington doesn&rsquo;t: a tourism economy substantially
+          larger than the resident base it&rsquo;s feeding.
+        </P>
+
+        <P>
+          Seattle&rsquo;s food reputation is doing some heavy lifting here. The state&rsquo;s
+          per-capita count quietly disagrees.
+        </P>
+
+        <Divider />
+
+        <H3>Sources</H3>
+        <UL items={[
+          <><a href="https://pos.toasttab.com/blog/on-the-line/how-many-restaurants-are-in-the-us">Toast / Caroline Price &mdash; How Many Restaurants Are in the United States?</a> (May 14, 2026): state-by-state restaurant counts (sourced to the National Restaurant Association), residents-per-restaurant figures, IBISWorld type breakdown.</>,
+          <><a href="https://restaurant.org/research-and-media/research/industry-statistics/state-statistics/">National Restaurant Association &mdash; State statistics</a> (underlying data behind Toast&rsquo;s state table).</>,
+          <>Per-capita rank computed by sorting Toast&rsquo;s residents-per-restaurant column ascending; restaurants per 10,000 residents = 10,000 &divide; that column. Washington&rsquo;s implied population from Toast&rsquo;s math (16,732 &times; 476 = 7,964,432) matches the U.S. Census 2023 estimate within rounding.</>,
+        ]} />
+
+        <P>
+          <em>&mdash; TJ</em>
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => {
+  const [email, setEmail] = React.useState('');
+  const [sent, setSent] = React.useState(false);
+  return (
+    <footer id="subscribe" style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+      <Container>
+        <div style={{ padding:'64px 0 40px', maxWidth:560 }}>
+          <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, color:'var(--muted)' }}>§ Subscribe</span>
+          <h3 style={{ fontFamily:'var(--display)', fontWeight:900, letterSpacing:'-0.01em', fontSize:'clamp(32px, 4vw, 56px)', lineHeight:0.95, margin:'8px 0 16px' }}>
+            The dispatch,<br/>every Saturday morning.
+          </h3>
+          <p style={{ fontSize:17, lineHeight:1.55, maxWidth:'42ch', margin:'0 0 24px', textWrap:'pretty' }}>
+            One email a week. A short essay, a chart, and links to anything we read
+            that changed the way we read public data. No tracking pixels.
+          </p>
+          <form onSubmit={(e)=>{ e.preventDefault(); setSent(true); }}
+            style={{ display:'flex', gap:0, maxWidth:460, border:'1.5px solid var(--ink)' }}>
+            <input value={email} onChange={e=>setEmail(e.target.value)}
+              type="email" placeholder="you@yourdomain.org" required
+              style={{ flex:1, border:0, background:'transparent', padding:'14px 16px', fontFamily:'var(--body)', fontSize:16, color:'var(--ink)', outline:'none' }}/>
+            <button type="submit"
+              style={{ border:0, borderLeft:'1.5px solid var(--ink)', padding:'0 20px', background:'var(--ink)', color:'var(--paper)', fontFamily:'var(--mono)', fontSize:12, letterSpacing:'0.12em', textTransform:'uppercase', cursor:'pointer', fontWeight:600 }}>
+              {sent ? 'Sent ✓' : 'Subscribe →'}
+            </button>
+          </form>
+          {sent && <p style={{ marginTop:10, fontFamily:'var(--mono)', fontSize:12, color:'var(--muted)' }}>Check your inbox — the confirmation note is on its way.</p>}
+        </div>
+
+        <Rule />
+
+        <div style={{ padding:'24px 0 40px', display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }}>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+            <div>Hosted on GitHub Pages. No trackers, no cookies, no stock photography. Built by hand at Standard Co.</div>
+          </div>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+            <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+          </div>
+          <div>
+            <div style={{ color:'var(--ink)', marginBottom:6 }}>Contact</div>
+            <div>info@standardco.de<br/>Standard Co, est. 2013<br/>A reader-supported project.</div>
+          </div>
+        </div>
+
+        <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+          <span>© 2013–2026 Standard Co · All rights unreserved</span>
+          <span>Made with help from Claude</span>
+        </div>
+      </Container>
+      <style>{`
+        @media (max-width: 820px){
+          .cdfa-colophon{ grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </footer>
+  );
+};
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
