@@ -222,10 +222,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '049', date: 'May 27, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Schools spent tens of millions to ban phones. The only number that moved was phone use.',
+    dek: 'The biggest U.S. study of school phone bans landed last month. The thing the policy was buying — test scores, attention, bullying — did not move. Phone use during third period did.',
+    href: 'blog/phone-ban-column-of-zeroes.html', shape: 'bars' },
   { n: '048', date: 'May 27, 2026', read: '3 min', kind: 'Data Study',
     title: 'Does Washington State really have a lot of restaurants?',
     dek: 'Washington has the 13th-most restaurants in America. Per capita, it’s exactly the median — 25th of 50. Oregon, with half the population, has more dining seats per resident than we do.',
-    href: 'blog/washington-restaurants-per-capita.html', shape: 'bars' },
+    href: 'blog/washington-restaurants-per-capita.html', shape: 'line' },
   { n: '047', date: 'May 26, 2026', read: '3 min', kind: 'Data Study',
     title: 'Global child obesity passed underweight in 2025. The Pacific called it in 2000.',
     dek: 'UNICEF says 2025 was the year obesity overtook underweight worldwide among kids. Niue crossed that line a generation ago. The “first time ever” chart is a 25-year supply-chain story averaging out into one number.',
@@ -501,11 +505,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Schools spent tens of millions to ban phones. The only number that moved was phone use.','blog/phone-ban-column-of-zeroes.html'],
               ['Does Washington State really have a lot of restaurants?','blog/washington-restaurants-per-capita.html'],
               ['Global child obesity passed underweight in 2025. The Pacific called it in 2000.','blog/obesity-passed-underweight-pacific-2000.html'],
               ['Your power bill is the lagging indicator. PJM’s capacity auction is the leading one.','blog/power-bill-lagging-pjm-leading.html'],
               ['Midtown Manhattan is at 2.9% vacancy. The pandemic office story flipped — and brokers can’t agree on Austin.','blog/midtown-29-and-the-broker-spread.html'],
-              ['80% of American students use AI for schoolwork. The evidence base is 20 papers.','blog/stanford-ai-evidence-base-20-papers.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
