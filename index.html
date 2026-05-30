@@ -222,10 +222,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '051', date: 'May 30, 2026', read: '4 min', kind: 'Data Study',
+    title: 'The bed net stopped working in 2014. Ghana retired it in 2026.',
+    dek: 'Ghana announced the first national phase-out of standard pyrethroid-only mosquito nets last month. The biological signal that the nets had stopped killing mosquitoes was visible in the field data more than a decade earlier.',
+    href: 'blog/bed-net-stopped-working-2014.html', shape: 'bars' },
   { n: '050', date: 'May 29, 2026', read: '3 min', kind: 'Data Study',
     title: 'WHO got 1 in 6 from 104 countries. The story is the half that didn’t file.',
     dek: 'WHO drew its “1 in 6” resistance headline from 23 million infections in 104 countries. About half the membership sent no data. The map of where resistance looks worst is mostly the map of where it gets measured.',
-    href: 'blog/amr-glass-half-that-filed.html', shape: 'bars' },
+    href: 'blog/amr-glass-half-that-filed.html', shape: 'line' },
   { n: '049', date: 'May 27, 2026', read: '3 min', kind: 'Data Study',
     title: 'Schools spent tens of millions to ban phones. The only number that moved was phone use.',
     dek: 'The biggest U.S. study of school phone bans landed last month. The thing the policy was buying — test scores, attention, bullying — did not move. Phone use during third period did.',
@@ -509,11 +513,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The bed net stopped working in 2014. Ghana retired it in 2026.','blog/bed-net-stopped-working-2014.html'],
               ['WHO got 1 in 6 from 104 countries. The story is the half that didn’t file.','blog/amr-glass-half-that-filed.html'],
               ['Schools spent tens of millions to ban phones. The only number that moved was phone use.','blog/phone-ban-column-of-zeroes.html'],
               ['Does Washington State really have a lot of restaurants?','blog/washington-restaurants-per-capita.html'],
               ['Global child obesity passed underweight in 2025. The Pacific called it in 2000.','blog/obesity-passed-underweight-pacific-2000.html'],
-              ['Your power bill is the lagging indicator. PJM’s capacity auction is the leading one.','blog/power-bill-lagging-pjm-leading.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
