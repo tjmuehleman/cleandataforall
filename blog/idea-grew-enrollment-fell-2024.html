@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Total enrollment fell. IDEA grew 3.8%. The funding formula moved zero. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  #root{ position: relative; z-index: 2; }
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+const POST = {
+  kind:    'Data Study',
+  number:  '052',
+  date:    'May 31, 2026',
+  readTime: '4 min',
+  title:   'Total enrollment fell. IDEA grew 3.8%. The funding formula moved zero.',
+  dek:     'Public-school enrollment dipped 0.3% in 2024–25. IDEA-eligible enrollment crossed eight million and added 301,991 students in twelve months. Autism alone was 40% of the increase. The federal funding share stayed at 10.9%.',
+  byline:  'T.J. Müehleman',
+};
+
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>&larr; All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>&#8470; {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Total+public-school+enrollment%5Cn%28NCES%2C+2023-24+%5Cu2192+2024-25%29%22%2C%22IDEA-eligible+enrollment%5Cn%28OSEP%2C+2023+%5Cu2192+2024%29%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Year-over-year+change+%28%25%29%22%2C%22data%22%3A%5B-0.3%2C3.8%5D%2C%22backgroundColor%22%3A%5B%22%235a5a5a%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Two+enrollment+lines+moved+opposite+directions+in+one+school+year%22%2C%22fontSize%22%3A15%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A24%7D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%2C%22min%22%3A-1%2C%22max%22%3A4.5%2C%22stepSize%22%3A1%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Year-over-year+change+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Two-bar chart comparing public-school enrollment change of negative 0.3 percent against IDEA enrollment growth of positive 3.8 percent in the same school year" style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+        Sources: <a href="https://www.k12dive.com/news/public-school-enrollment-dips-slightly-2024-25-federal-data/809136/">K-12 Dive on NCES, 2024&ndash;25 enrollment</a>; <a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">CEC analysis of OSEP IDEA Section 618 Part B child count</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>&mdash; {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Two federal education data releases landed within a few weeks of each other this spring. Almost nobody plotted them on the same axis.
+        </P>
+
+        <P>
+          <a href="https://www.k12dive.com/news/public-school-enrollment-dips-slightly-2024-25-federal-data/809136/">Public-school enrollment in the U.S. fell 0.3% in 2024&ndash;25</a> &mdash; the fifth straight year of decline. In the same window, <a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">IDEA-eligible enrollment grew 3.8%, adding 301,991 students ages 3&ndash;21</a> and pushing the total past eight million for the first time. Two trendlines moved in opposite directions inside one school year.
+        </P>
+
+        <P>
+          I run a data company. The thing I keep staring at is what happens to a per-pupil funding formula when one of those lines isn&rsquo;t doing the same arithmetic as the other.
+        </P>
+
+        <H2>The shape of the split</H2>
+
+        <P>
+          The exact number is <a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">8,194,424 students</a> served under IDEA Part B in 2024. <a href="https://www.k12dive.com/news/these-3-charts-show-how-special-education-enrollment-keeps-growing-IDEA-autism/812897/">Total growth since 2019 is 12.6%</a> &mdash; the steepest five-year jump on record. Three categories did most of the work: <a href="https://www.k12dive.com/news/these-3-charts-show-how-special-education-enrollment-keeps-growing-IDEA-autism/812897/">autism, developmental delay, and multiple disabilities</a>. Autism alone <a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">accounted for 40% of the 2024 increase</a>.
+        </P>
+
+        <P>
+          The piece worth saying out loud about the data system: the <a href="https://sites.ed.gov/idea/osep-data-products">OSEP Section 618 child count</a> runs on an annual clock, publishes as a static table, and is one of the few federal education series the NCES restructuring did not gut. For now, we will still have this number next year. Which is more than you can say for the <a href="https://hechingerreport.org/proof-points-condition-of-education/">Condition of Education</a>, the federal scoreboard that missed its statutory June 1 deadline for the first time in the Department of Education&rsquo;s history.
+        </P>
+
+        <H2>The funding gap</H2>
+
+        <Fig caption={<>The IDEA statute promised the federal government would cover 40% of the per-pupil cost of educating a student with a disability. Source: <a href="https://www.nea.org/resource-library/individual-disabilities-education-act-idea-funding-gaps-school-district">NEA &mdash; IDEA Funding Gaps by School District (2024&ndash;25)</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%221975+IDEA+statute+promise%22%2C%22FY2025+actual+federal+share%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Federal+share+of+IDEA+per-pupil+cost+%28%25%29%22%2C%22data%22%3A%5B40%2C10.9%5D%2C%22backgroundColor%22%3A%5B%22%23bbb%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+federal+IDEA+cost-share+promise+vs.+what+is+actually+paid%22%2C%22fontSize%22%3A14%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A14%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A8%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A24%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%2C%22min%22%3A0%2C%22max%22%3A45%2C%22stepSize%22%3A10%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Federal+share+of+per-pupil+IDEA+cost+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=380&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart comparing the 40 percent federal IDEA cost-share promised in 1975 against the 10.9 percent actually paid in fiscal year 2025" style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <P>
+          The IDEA statute was written in 1975. <a href="https://www.brookings.edu/articles/more-money-is-not-enough-the-case-for-reconsidering-federal-special-education-funding-formulas/">Congress promised the federal government would pick up 40% of the additional per-pupil cost of educating a student with a disability</a>. The actual federal share in FY25 is <a href="https://www.nea.org/resource-library/individual-disabilities-education-act-idea-funding-gaps-school-district">10.9%</a> &mdash; about a quarter of the original promise. The cumulative shortfall against the 40% benchmark, by NEA&rsquo;s math, is <a href="https://www.nea.org/resource-library/individual-disabilities-education-act-idea-funding-gaps-school-district">\$38.66 billion in 2024&ndash;25 alone</a>. The FY26 spending deal that just passed <a href="https://www.naesp.org/blog/congress-rejects-deep-cuts-safeguards-key-k-12-funding-in-fy26-deal/">added \$20 million to IDEA Part B</a> against that gap.
+        </P>
+
+        <P>
+          The state-level math is worse than the national line implies. <a href="https://www.brookings.edu/articles/more-money-is-not-enough-the-case-for-reconsidering-federal-special-education-funding-formulas/">Wyoming gets about \$2,826 in federal IDEA dollars per eligible child; Nevada gets \$1,384</a>. The per-state floor that was built so no state got too little has quietly become the formula&rsquo;s biggest feature.
+        </P>
+
+        <H2>The staffing line</H2>
+
+        <P>
+          There&rsquo;s a third number worth putting on the same axis. In the <a href="https://nces.ed.gov/whatsnew/press_releases/10_17_2024.asp">NCES School Pulse survey for 2024&ndash;25</a>, 74% of public elementary schools and 74% of middle schools reported difficulty filling a special-education teaching vacancy with a fully certified teacher &mdash; <a href="https://nces.ed.gov/whatsnew/press_releases/10_17_2024.asp">the highest-vacancy teaching position in the country</a>. Hawaii pays a <a href="https://www.npr.org/2022/04/21/1092343446/special-education-teachers-hawaii">\$10,000 differential for sped teachers</a>; the state&rsquo;s own analysis found it <a href="https://www.npr.org/2022/04/21/1092343446/special-education-teachers-hawaii">cut sped vacancies by 32%</a>. Most states do not differentiate sped pay at all.
+        </P>
+
+        <Callout label="The receipt">
+          8,194,424 IDEA-eligible students in 2024. +301,991 over 2023. Autism accounted for 40% of the year&rsquo;s growth. Federal share of the per-pupil cost: 10.9%, against a statutory promise of 40%. Sources: <a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">CEC on OSEP Section 618</a>; <a href="https://www.nea.org/resource-library/individual-disabilities-education-act-idea-funding-gaps-school-district">NEA</a>.
+        </Callout>
+
+        <P>
+          So: three lines, three different fiscal years of attention. Total enrollment is down. IDEA enrollment is up at the steepest rate in a decade. The federal cost share is flat. The staffing line was already short before the +3.8% landed on top of it.
+        </P>
+
+        <Divider />
+
+        <P>
+          The 2024 child-count release reset the denominator. The 2025 release will do it again. The federal share that was supposed to chase those students lands on a different graph, on a different fiscal-year calendar, in a different chamber of Congress.
+        </P>
+
+        <P>
+          That graph isn&rsquo;t moving either.
+        </P>
+
+        <P>
+          <em>&mdash; TJ</em>
+        </P>
+
+        <H3>Sources</H3>
+        <UL items={[
+          <><a href="https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served">CEC &mdash; Analysis of 2024 IDEA Data Shows Increase in Students Served</a> &mdash; 8,194,424 IDEA-eligible students in 2024 (+301,991, +3.8%); autism accounted for 40% of the 2024 increase.</>,
+          <><a href="https://www.k12dive.com/news/these-3-charts-show-how-special-education-enrollment-keeps-growing-IDEA-autism/812897/">K-12 Dive &mdash; Special education enrollment keeps growing. These 3 graphics show how.</a> &mdash; 12.6% growth 2019&ndash;2024; categories driving growth are autism, developmental delay, and multiple disabilities.</>,
+          <><a href="https://www.k12dive.com/news/public-school-enrollment-dips-slightly-2024-25-federal-data/809136/">K-12 Dive &mdash; Public school enrollment dips slightly 2024&ndash;25 (federal data)</a> &mdash; total public-school enrollment down 0.3% in 2024&ndash;25.</>,
+          <><a href="https://sites.ed.gov/idea/osep-data-products">U.S. Department of Education &mdash; OSEP IDEA Section 618 Data Products</a> &mdash; the underlying Part B child-count dataset.</>,
+          <><a href="https://www.nea.org/resource-library/individual-disabilities-education-act-idea-funding-gaps-school-district">NEA &mdash; IDEA Funding Gaps by School District (2024&ndash;25)</a> &mdash; federal share 10.9%; \$38.66 billion shortfall.</>,
+          <><a href="https://www.brookings.edu/articles/more-money-is-not-enough-the-case-for-reconsidering-federal-special-education-funding-formulas/">Brookings &mdash; More money is not enough: federal special-education funding formulas</a> &mdash; 40% statutory promise; Wyoming \$2,826 vs Nevada \$1,384 per eligible child.</>,
+          <><a href="https://www.naesp.org/blog/congress-rejects-deep-cuts-safeguards-key-k-12-funding-in-fy26-deal/">NAESP &mdash; Congress Rejects Deep Cuts, Safeguards Key K-12 Funding in FY26</a> &mdash; \$20M increase to IDEA Part B in the FY26 deal.</>,
+          <><a href="https://nces.ed.gov/whatsnew/press_releases/10_17_2024.asp">NCES &mdash; Most U.S. public elementary and secondary schools faced hiring challenges (Oct 2024)</a> &mdash; 74% of elementary, 74% of middle schools had difficulty filling a special-education vacancy with a certified teacher for 2024&ndash;25.</>,
+          <><a href="https://www.npr.org/2022/04/21/1092343446/special-education-teachers-hawaii">NPR &mdash; Hawaii has a \$10,000 fix for its special education teacher shortage</a> &mdash; \$10K sped differential; cut vacancies by 32%.</>,
+          <><a href="https://hechingerreport.org/proof-points-condition-of-education/">Hechinger Report &mdash; Education Department misses key deadline for delivering statistics report</a> &mdash; first missed Condition of Education deadline in department history.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>&copy; 2013&ndash;2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> &middot; All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
