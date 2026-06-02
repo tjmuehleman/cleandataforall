@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '054', date: 'June 2, 2026', read: '4 min', kind: 'Data Study',
+    title: 'The mosquitoes are doing 0.12 percent of the climate-malaria math',
+    dek: 'A Nature paper from January projects 123 million additional malaria cases in Africa by 2050. The mosquito-range channel everyone has been modeling for two decades accounts for 0.12 percent of the rise. The other 79 percent is what happens when a cyclone takes the clinic offline.',
+    href: 'blog/mosquitoes-0-12-percent-of-the-math.html', shape: 'line' },
   { n: '053', date: 'June 1, 2026', read: '4 min', kind: 'Data Study',
     title: 'USDA named the bee killer in June. The FAQ from the same investigation said hold on.',
     dek: 'Commercial beekeepers lost 62% of their colonies between June 2024 and March 2025 — the worst run ever recorded. USDA pinned the cause on three viruses and miticide-resistant mites. A Project Apis m. FAQ from the same group walked the causal claim back the next paragraph.',
@@ -521,11 +525,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The mosquitoes are doing 0.12 percent of the climate-malaria math','blog/mosquitoes-0-12-percent-of-the-math.html'],
               ['USDA named the bee killer in June. The FAQ from the same investigation said hold on.','blog/usda-bee-killer-faq-disagreed.html'],
               ['Total enrollment fell. IDEA grew 3.8%. The funding formula moved zero.','blog/idea-grew-enrollment-fell-2024.html'],
               ['The bed net stopped working in 2014. Ghana retired it in 2026.','blog/bed-net-stopped-working-2014.html'],
               ['WHO got 1 in 6 from 104 countries. The story is the half that didn’t file.','blog/amr-glass-half-that-filed.html'],
-              ['Schools spent tens of millions to ban phones. The only number that moved was phone use.','blog/phone-ban-column-of-zeroes.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
