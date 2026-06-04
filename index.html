@@ -222,10 +222,14 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '056', date: 'June 4, 2026', read: '4 min', kind: 'Data Study',
+    title: 'America finally has enough school counselors. For the seniors.',
+    dek: 'ASCA’s 2024-25 ratio update landed last fall with a single-line headline that traveled — for the first time since 1965, U.S. high schools cleared the 250:1 standard. The same press release listed three other numbers that didn’t make the headline.',
+    href: 'blog/america-finally-enough-counselors-seniors.html', shape: 'bars' },
   { n: '055', date: 'June 3, 2026', read: '4 min', kind: 'Data Study',
     title: 'The recovery is U-shaped. The American median district is on the bottom.',
     dek: 'The new Harvard-Stanford-Dartmouth Education Scorecard sorted 35 million kids by lunch-subsidy share. The recovery curve grew a hole in the middle 30–70%. Averaged into one line, it would have looked like progress.',
-    href: 'blog/recovery-u-shape-middle-district.html', shape: 'bars' },
+    href: 'blog/recovery-u-shape-middle-district.html', shape: 'line' },
   { n: '054', date: 'June 2, 2026', read: '4 min', kind: 'Data Study',
     title: 'The mosquitoes are doing 0.12 percent of the climate-malaria math',
     dek: 'A Nature paper from January projects 123 million additional malaria cases in Africa by 2050. The mosquito-range channel everyone has been modeling for two decades accounts for 0.12 percent of the rise. The other 79 percent is what happens when a cyclone takes the clinic offline.',
@@ -529,11 +533,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['America finally has enough school counselors. For the seniors.','blog/america-finally-enough-counselors-seniors.html'],
               ['The recovery is U-shaped. The American median district is on the bottom.','blog/recovery-u-shape-middle-district.html'],
               ['The mosquitoes are doing 0.12 percent of the climate-malaria math','blog/mosquitoes-0-12-percent-of-the-math.html'],
               ['USDA named the bee killer in June. The FAQ from the same investigation said hold on.','blog/usda-bee-killer-faq-disagreed.html'],
               ['Total enrollment fell. IDEA grew 3.8%. The funding formula moved zero.','blog/idea-grew-enrollment-fell-2024.html'],
-              ['The bed net stopped working in 2014. Ghana retired it in 2026.','blog/bed-net-stopped-working-2014.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
