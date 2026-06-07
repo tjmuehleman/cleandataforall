@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '057', date: 'June 7, 2026', read: '5 min', kind: 'Data Study',
+    title: 'The number that ends US measles elimination isn’t 1,983.',
+    dek: 'PAHO reviews US measles-elimination status in November. The 1,983 cases through May 28 are loud. The criterion the review actually runs on is a calendar — and it’s been ticking since January 20, 2025.',
+    href: 'blog/measles-1983-isnt-the-number.html', shape: 'pulse' },
   { n: '056', date: 'June 4, 2026', read: '4 min', kind: 'Data Study',
     title: 'America finally has enough school counselors. For the seniors.',
     dek: 'ASCA’s 2024-25 ratio update landed last fall with a single-line headline that traveled — for the first time since 1965, U.S. high schools cleared the 250:1 standard. The same press release listed three other numbers that didn’t make the headline.',
@@ -533,11 +537,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The number that ends US measles elimination isn’t 1,983.','blog/measles-1983-isnt-the-number.html'],
               ['America finally has enough school counselors. For the seniors.','blog/america-finally-enough-counselors-seniors.html'],
               ['The recovery is U-shaped. The American median district is on the bottom.','blog/recovery-u-shape-middle-district.html'],
               ['The mosquitoes are doing 0.12 percent of the climate-malaria math','blog/mosquitoes-0-12-percent-of-the-math.html'],
               ['USDA named the bee killer in June. The FAQ from the same investigation said hold on.','blog/usda-bee-killer-faq-disagreed.html'],
-              ['Total enrollment fell. IDEA grew 3.8%. The funding formula moved zero.','blog/idea-grew-enrollment-fell-2024.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
