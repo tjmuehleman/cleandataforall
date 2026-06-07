@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The number that ends US measles elimination isn&rsquo;t 1,983. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+const POST = {
+  kind:    'Data Study',
+  number:  '057',
+  date:    'June 7, 2026',
+  readTime: '5 min',
+  title:   'The number that ends US measles elimination isn’t 1,983.',
+  dek:     'PAHO reviews US measles-elimination status in November. The 1,983 cases through May 28 are loud. The criterion the review actually runs on is a calendar — and it’s been ticking since January 20, 2025.',
+  byline:  'T.J. Müehleman',
+};
+
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>&larr; All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>&#8470; {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>&middot;</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222019%22%2C%222020%22%2C%222021%22%2C%222022%22%2C%222023%22%2C%222024%22%2C%222025%22%2C%222026+YTD%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Confirmed+measles+cases+%28US%29%22%2C%22data%22%3A%5B1274%2C13%2C49%2C121%2C59%2C285%2C2288%2C1983%5D%2C%22backgroundColor%22%3A%5B%22%235a5a5a%22%2C%22%23bbb%22%2C%22%23bbb%22%2C%22%23bbb%22%2C%22%23bbb%22%2C%22%235a5a5a%22%2C%22%23141210%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22US+measles+cases%2C+2019-2026+%28YTD+through+May+28%29%22%2C%22fontSize%22%3A16%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A14%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A8%2C%22bottom%22%3A14%2C%22left%22%3A12%2C%22right%22%3A12%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Confirmed+cases%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=460&bkg=transparent&devicePixelRatio=2" alt="Bar chart of US confirmed measles cases by year from 2019 to 2026 year-to-date: 1,274 in 2019, then double-digit totals from 2020 through 2023, 285 in 2024, 2,288 in 2025, and 1,983 by May 28, 2026" style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+        Source: <a href="https://www.cdc.gov/measles/data-research/index.html">CDC &mdash; Measles Cases and Outbreaks</a>. 2026 figure is YTD through May 28; 2020&ndash;2023 totals from the same dashboard.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>&mdash; {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          <a href="https://www.cdc.gov/measles/data-research/index.html">1,983 confirmed measles cases through May 28</a>. Forty jurisdictions reporting. <a href="https://abcnews.com/Health/us-measles-cases-surpass-2000-2nd-year-row/story?id=133618006">92% of patients unvaccinated or unknown status</a>. The worst year for measles since the early 1990s, and we&rsquo;re not halfway through it.
+        </P>
+
+        <P>
+          <a href="https://www.paho.org/en/news/2-3-2026-update-review-measles-elimination-status">PAHO&rsquo;s Regional Verification Commission reviews US measles-elimination status in November</a>. The 1,983 is the loud number. It is also not the number the review actually runs on.
+        </P>
+
+        <H2>The criterion is a calendar.</H2>
+
+        <P>
+          Elimination, under <a href="https://www.kff.org/other-health/measles-elimination-status-what-it-is-and-how-the-u-s-could-lose-it/">WHO/PAHO rules</a>, means a country has gone twelve months without endemic transmission from a single chain. The outbreak that anchors this conversation <a href="https://www.paho.org/en/news/2-3-2026-update-review-measles-elimination-status">started in Gaines County, Texas, on January 20, 2025</a>. Twelve months from there is January 2026. The Verification Commission was supposed to meet that April. <a href="https://us.cnn.com/2026/03/02/health/us-measles-elimination-status-paho-meeting-delay">It moved the meeting to November</a>.
+        </P>
+
+        <P>
+          That delay is the only reason the certification is still on the books. The criterion has already failed.
+        </P>
+
+        <P>
+          The 1,983 doesn&rsquo;t enter into it. It could be 5,000 or 500 in November and the question PAHO is answering is the same one: is the chain that started in January 2025 still in the data? The answer is yes &mdash; <a href="https://www.cdc.gov/measles/data-research/index.html">93% of 2026&rsquo;s cases are outbreak-associated</a>, and 1,330 of them trace to outbreaks that began in 2025.
+        </P>
+
+        <P>
+          (<a href="https://www.kff.org/other-health/measles-elimination-status-what-it-is-and-how-the-u-s-could-lose-it/">PAHO retired Canada&rsquo;s elimination status in November 2025</a> on the same criterion. The chain was the operative number then too.)
+        </P>
+
+        <H2>The 92.5% national MMR average hides where the cases are.</H2>
+
+        <P>
+          <a href="https://www.aha.org/news/headline/2025-08-04-cdc-data-finds-kindergarten-vaccination-rates-declined-during-2024-25-school-year">US kindergarten MMR coverage in the 2024&ndash;25 school year was 92.5%</a>. <a href="https://www.cdc.gov/mmwr/volumes/70/wr/mm7003a2.htm">Down from 95.2% in 2019&ndash;20</a>. The national average has been under the 95% herd-immunity floor for <a href="https://www.kff.org/medicaid/kindergarten-routine-vaccination-rates-continue-to-decline/">five years running</a>.
+        </P>
+
+        <Fig caption={<>Sources: <a href="https://www.cidrap.umn.edu/childhood-vaccines/us-childhood-vaccination-rates-continue-fall-cdc-data-show">CDC SchoolVaxView 2024&ndash;25 (national + Idaho + Connecticut)</a> and <a href="https://www.texastribune.org/2026/03/17/texas-measles-hudspeth-county-health-department/">Texas DSHS / Texas Tribune (Gaines County)</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Connecticut+%28best+state%29%22%2C%22US+national+average%22%2C%22Idaho+%28worst+state%29%22%2C%22Gaines+County%2C+TX%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222024-25+kindergarten+MMR+coverage+%28%25%29%22%2C%22data%22%3A%5B98.2%2C92.5%2C78.5%2C77.0%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%233a3a3a%22%2C%22%23141210%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+92.5%25+national+MMR+average+hides+the+cluster+below+80%25%22%2C%22fontSize%22%3A15%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A14%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A8%2C%22bottom%22%3A14%2C%22left%22%3A12%2C%22right%22%3A28%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A100%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+of+kindergartners+with+2-dose+MMR%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%2C%22annotation%22%3A%7B%22annotations%22%3A%5B%7B%22type%22%3A%22line%22%2C%22mode%22%3A%22vertical%22%2C%22scaleID%22%3A%22x%22%2C%22value%22%3A95%2C%22borderColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A2%2C%22borderDash%22%3A%5B6%2C4%5D%2C%22label%22%3A%7B%22enabled%22%3Atrue%2C%22content%22%3A%2295%25+herd-immunity+threshold%22%2C%22position%22%3A%22top%22%2C%22backgroundColor%22%3A%22rgba%28244%2C239%2C230%2C0.95%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontStyle%22%3A%22bold%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=420&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of 2024-25 kindergarten MMR coverage: Connecticut 98.2%, US national average 92.5%, Idaho 78.5%, and Gaines County Texas at 77%, with the 95% herd-immunity threshold shown as a dashed line" style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <P>
+          State range: <a href="https://www.newsweek.com/states-highest-lowest-kindergarten-vaccine-rates-2107551">Idaho 78.5% to Connecticut 98.2%</a>. Only ten states are above 95%. The county where the outbreak that started the chain originated &mdash; <a href="https://www.texastribune.org/2025/03/04/west-texas-measles-outbreak-mennonite-seminole/">Gaines County, Texas &mdash; was at 77%</a>.
+        </P>
+
+        <P>
+          One number does the work of three different countries. The national average is the wrong unit for a disease that spreads in two-county clusters while 3,000 other counties stay above the line.
+        </P>
+
+        <H2>&ldquo;Unvaccinated or unknown&rdquo; is two categories.</H2>
+
+        <P>
+          CDC reports that <a href="https://abcnews.com/Health/us-measles-cases-surpass-2000-2nd-year-row/story?id=133618006">92% of 2026 patients are &ldquo;unvaccinated or unknown status.&rdquo;</a> It&rsquo;s the headline stat in every recap. It is also two different problems.
+        </P>
+
+        <P>
+          &ldquo;Unvaccinated&rdquo; is a coverage problem. &ldquo;Unknown&rdquo; is a data-quality problem &mdash; a person showed up with measles and nobody recorded whether they were ever vaccinated. The two categories live in the same bucket because the clinical answer (assume worst, treat as unvaccinated) is the same. The policy lever isn&rsquo;t.
+        </P>
+
+        <P>
+          When 92% spans both, the public-health intervention either is or isn&rsquo;t sized to the right share of the population, depending which one you mean. CDC keeps the split in its line-list. The dashboard collapses it. The dashboard is what travels.
+        </P>
+
+        <H2>The cases sit in clusters, not in the country.</H2>
+
+        <P>
+          Among Texas&rsquo;s 2026 cases, <a href="https://www.texastribune.org/2026/04/02/texas-measles-hudspeth-el-paso-federal-detention-immigration/">the largest single concentration is the West Texas Detention Facility</a> in Hudspeth County &mdash; a federal facility operated by LaSalle Corrections under a US Marshals Service contract, not by ICE &mdash; with <a href="https://www.texastribune.org/2026/03/17/texas-measles-hudspeth-county-health-department/">at least 108 confirmed cases by mid-March</a> and <a href="https://www.texastribune.org/2026/04/02/texas-measles-hudspeth-el-paso-federal-detention-immigration/">135 by early April</a>.
+        </P>
+
+        <P>
+          <a href="https://elpasomatters.org/2026/05/03/el-paso-texas-measles-outbreak-ice-camp-east-montana-west-texas-detention/">El Paso Matters reported that the facility didn&rsquo;t fully share case data with the county health department for weeks</a>, and at least four El Paso residents who worked there became infected and seeded community transmission. The number on the CDC dashboard caught up after the reporting did.
+        </P>
+
+        <P>
+          That isn&rsquo;t a special pleading. It&rsquo;s a structural feature of the dataset. When a sizable share of an outbreak comes from one closed facility with intermittent reporting, the national line graph is doing different work than people think it is.
+        </P>
+
+        <Callout label="The receipt">
+          <a href="https://www.cdc.gov/measles/data-research/index.html">1,983 cases through May 28, 2026.</a> 93% outbreak-associated. <a href="https://abcnews.com/Health/us-measles-cases-surpass-2000-2nd-year-row/story?id=133618006">92% unvaccinated or unknown.</a> <a href="https://www.aha.org/news/headline/2025-08-04-cdc-data-finds-kindergarten-vaccination-rates-declined-during-2024-25-school-year">National kindergarten MMR: 92.5%.</a> Idaho 78.5%. Gaines County 77%. <a href="https://www.texastribune.org/2026/04/02/texas-measles-hudspeth-el-paso-federal-detention-immigration/">135 of Texas&rsquo;s cases in one West Texas detention facility.</a> <a href="https://www.paho.org/en/news/2-3-2026-update-review-measles-elimination-status">PAHO reviews November 2026.</a>
+        </Callout>
+
+        <Divider />
+
+        <P>
+          The November review is going to retire US measles elimination on a twelve-month calendar nobody made loud, on a national average that hides where the cases are, on a column called &ldquo;unvaccinated or unknown&rdquo; that hides what the data is actually missing.
+        </P>
+
+        <P>
+          The 1,983 is the receipt, not the cause.
+        </P>
+
+        <P>
+          <em>&mdash; TJ</em>
+        </P>
+
+        <H3>Sources</H3>
+        <UL items={[
+          <><a href="https://www.cdc.gov/measles/data-research/index.html">CDC &mdash; Measles Cases and Outbreaks</a> &mdash; the 1,983 YTD figure (May 28, 2026), the 40 jurisdictions, the 93% outbreak-associated share, and the annual case counts back to 2019.</>,
+          <><a href="https://www.paho.org/en/news/2-3-2026-update-review-measles-elimination-status">PAHO &mdash; Update on the review of measles elimination status</a> &mdash; the November 2026 review date, the January 20, 2025 outbreak start, and the delayed-from-April scheduling.</>,
+          <><a href="https://us.cnn.com/2026/03/02/health/us-measles-elimination-status-paho-meeting-delay">CNN &mdash; Meeting to determine US measles elimination status pushed back to November</a> &mdash; the original April meeting date.</>,
+          <><a href="https://www.kff.org/other-health/measles-elimination-status-what-it-is-and-how-the-u-s-could-lose-it/">KFF &mdash; Measles Elimination Status: What It Is and How the U.S. Could Lose It</a> &mdash; the twelve-month single-chain criterion; Canada&rsquo;s November 2025 retirement.</>,
+          <><a href="https://abcnews.com/Health/us-measles-cases-surpass-2000-2nd-year-row/story?id=133618006">ABC News &mdash; US measles cases surpass 2,000 for the 2nd year in a row</a> &mdash; the 92% unvaccinated/unknown share and the 4%/4% one-dose / two-dose breakdown.</>,
+          <><a href="https://www.aha.org/news/headline/2025-08-04-cdc-data-finds-kindergarten-vaccination-rates-declined-during-2024-25-school-year">AHA &mdash; CDC data finds kindergarten vaccination rates declined during 2024-25 school year</a> &mdash; the 92.5% national figure.</>,
+          <><a href="https://www.cdc.gov/mmwr/volumes/70/wr/mm7003a2.htm">CDC MMWR &mdash; Vaccination Coverage Among Kindergartners, 2019&ndash;20</a> &mdash; the 95.2% baseline.</>,
+          <><a href="https://www.newsweek.com/states-highest-lowest-kindergarten-vaccine-rates-2107551">Newsweek &mdash; States with the highest and lowest kindergarten vaccine rates</a> &mdash; Idaho at 78.5%, Connecticut at 98.2%.</>,
+          <><a href="https://www.texastribune.org/2025/03/04/west-texas-measles-outbreak-mennonite-seminole/">Texas Tribune &mdash; West Texas measles outbreak (Gaines County)</a> &mdash; the 77% kindergarten MMR coverage in Gaines County.</>,
+          <><a href="https://www.texastribune.org/2026/04/02/texas-measles-hudspeth-el-paso-federal-detention-immigration/">Texas Tribune &mdash; Most of Texas&rsquo;s 175 measles cases are in federal detention centers</a> &mdash; the 135-case West Texas Detention Facility count and the LaSalle / US Marshals Service operating relationship.</>,
+          <><a href="https://www.texastribune.org/2026/03/17/texas-measles-hudspeth-county-health-department/">Texas Tribune &mdash; 147 measles cases reported in Texas so far this year</a> &mdash; the 108-case mid-March count at the same facility.</>,
+          <><a href="https://elpasomatters.org/2026/05/03/el-paso-texas-measles-outbreak-ice-camp-east-montana-west-texas-detention/">El Paso Matters &mdash; How measles reporting gaps by ICE, hospital delayed El Paso&rsquo;s response</a> &mdash; the detention-facility reporting gap and the four-worker community-transmission seed.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>&copy; 2013&ndash;2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> &middot; All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
