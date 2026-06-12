@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Every other disease curve bent the right way. Malaria went backwards. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '059',
+  date:    'June 12, 2026',
+  readTime: '3 min',
+  title:   'Every other disease curve bent the right way. Malaria went backwards.',
+  dek:     'WHO’s new health report logged one disease going the wrong way: malaria, up 8.5% since 2015. The southern Africa spike is real-time. The global death toll is mostly modeled — off a system that sees a third of the world’s deaths.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'40px 0', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, textAlign:'center' }}>
+        <img
+          src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Malaria+incidence+%28since+2015%29%22%2C%22NTD+interventions+needed+%282010-24%29%22%2C%22HIV+new+infections+%282010-24%29%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B8.5%2C-36%2C-40%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23bbb%22%2C%22%23777%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Change+in+disease+burden%2C+World+Health+Statistics+2026%22%2C%22fontSize%22%3A15%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A24%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%2C%22min%22%3A-50%2C%22max%22%3A20%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+change%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+          alt="Horizontal bar chart of change in disease burden in World Health Statistics 2026. Malaria incidence up 8.5% since 2015; need for neglected tropical disease interventions down 36% from 2010 to 2024; new HIV infections down 40% from 2010 to 2024."
+          style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+        />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, maxWidth:760, margin:'12px auto 0' }}>
+          Source: <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">WHO &mdash; <em>Global health gains face threat of reversal</em> (World Health Statistics 2026, May 13, 2026)</a>. Malaria incidence is change since 2015; HIV new infections and NTD intervention need are change 2010&ndash;2024.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          WHO published <em>World Health Statistics 2026</em> on May 13. I read these reports the way some people read box scores &mdash; scanning for the one line that doesn&rsquo;t fit.
+        </P>
+
+        <P>
+          This year it&rsquo;s malaria. Global incidence is{' '}
+          <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">up 8.5% since 2015</a>. Everything else in the report bends the right way: new HIV infections{' '}
+          <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">down 40% since 2010</a>, the number of people needing treatment for neglected tropical diseases <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">down 36%</a>, tobacco and alcohol both falling. Malaria is the exception. The one curve pointed the wrong way.
+        </P>
+
+        <P>
+          The 2024 count: <a href="https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025">282 million cases and 610,000 deaths</a>. Ninety-five percent of the deaths in the African Region; 75% of those among children under five. The year before it was{' '}
+          <a href="https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2024">263 million cases and 597,000 deaths</a>. The line is moving, and it&rsquo;s moving up.
+        </P>
+
+        <H2>Where it&rsquo;s moving fastest</H2>
+
+        <P>
+          Southern Africa. And the numbers there aren&rsquo;t annual estimates &mdash; they&rsquo;re weekly, district-level counts from{' '}
+          <a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">Africa CDC&rsquo;s surveillance feed</a>.
+        </P>
+
+        <P>
+          Zimbabwe, through epidemiological week 23 of 2025:{' '}
+          <a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">111,998 cases and 310 deaths</a>, against 29,031 cases and 49 deaths in the same window of 2024. Nearly four times the cases, six times the deaths. Botswana &mdash; a country that was on the elimination shortlist a decade ago &mdash; went from{' '}
+          <a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">218 cases and zero deaths to 2,223 cases and 11 deaths</a>. Namibia logged{' '}
+          <a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">89,959 cases and 146 deaths since November 2024</a>, across 37 of its 121 districts.
+        </P>
+
+        <Fig caption={<>Source: <a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">Africa CDC &mdash; <em>Malaria Surge in Southern Africa</em></a> (July 2025), epidemiological weeks 1&ndash;23. Plotted on a log scale so both countries are legible. Zimbabwe rose ~3.9&times; (49 to 310 deaths); Botswana ~10.2&times; (0 to 11 deaths).</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Zimbabwe%22%2C%22Botswana%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222024+%28epi+weeks+1-23%29%22%2C%22data%22%3A%5B29031%2C218%5D%2C%22backgroundColor%22%3A%22%23bbb%22%2C%22borderWidth%22%3A0%7D%2C%7B%22label%22%3A%222025+%28epi+weeks+1-23%29%22%2C%22data%22%3A%5B111998%2C2223%5D%2C%22backgroundColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Malaria+cases%2C+same+window+of+the+year%3A+2024+vs+2025%22%2C%22fontSize%22%3A15%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22position%22%3A%22bottom%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A24%7D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22type%22%3A%22logarithmic%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%2C%22min%22%3A100%2C%22max%22%3A200000%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Confirmed+cases+%28log+scale%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+            alt="Grouped bar chart on a log scale of malaria cases in Zimbabwe and Botswana, epidemiological weeks 1 to 23. Zimbabwe: 29,031 in 2024 versus 111,998 in 2025. Botswana: 218 in 2024 versus 2,223 in 2025."
+            style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+          />
+        </Fig>
+
+        <H2>Two clocks</H2>
+
+        <P>
+          I run a data company. The part that gets me here isn&rsquo;t the case count. It&rsquo;s a line buried two-thirds of the way down the same WHO report.
+        </P>
+
+        <BQ cite="WHO, World Health Statistics 2026">
+          As of end 2025, only 18% of countries were reporting mortality data to WHO within one year, and nearly one third have never reported cause-of-death data.
+        </BQ>
+
+        <P>
+          Of an estimated <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">61 million deaths globally in 2023, only about a third were reported with a cause</a>, and only about a fifth had ICD-coded data. So when WHO says 610,000 people died of malaria last year, that number is mostly modeled &mdash; built from the slice of the world that reports and stretched across the slice that doesn&rsquo;t. The 8.5% reversal is real. It&rsquo;s also a measurement taken through a keyhole.
+        </P>
+
+        <P>
+          That&rsquo;s what makes the southern Africa numbers different. The Africa CDC counts are weekly and granular because someone is counting in near-real-time. The global figure is an annual estimate that lands a year and a half late and gets quietly revised every cycle. Two systems, two clocks &mdash; and the loud headline runs on the slow one.
+        </P>
+
+        <H2>And the tools are degrading too</H2>
+
+        <P>
+          Then there&rsquo;s the part underneath the count. Artemisinin partial resistance &mdash; resistance to the drug the entire treatment strategy is built on &mdash; is now{' '}
+          <a href="https://www.who.int/news-room/questions-and-answers/item/artemisinin-resistance">confirmed in four African countries: Eritrea, Rwanda, Uganda, and Tanzania</a>, with{' '}
+          <a href="https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025">suspected resistance in four more</a> (Ethiopia, Namibia, Sudan, Zambia). The thing you treat malaria with is starting to not work, in the same neighborhood where the case count is climbing.
+        </P>
+
+        <Callout label="The shape of it">
+          One disease curve in the whole report is pointed the wrong way (+8.5% since 2015). It&rsquo;s accelerating fastest in countries that were supposed to be eliminating it. And the frontline drug is failing in four countries, suspected in four more.
+        </Callout>
+
+        <Divider />
+
+        <P>
+          So here&rsquo;s the picture from the data side. The case count went up. It&rsquo;s climbing fastest where the disease was nearly gone. The drug is failing where it&rsquo;s spreading. And we&rsquo;re watching all of it through a reporting system that, by its own admission, can see about a third of the world&rsquo;s deaths within a useful window.
+        </P>
+
+        <P>
+          The malaria number went up. The bigger problem is how hard it&rsquo;s become to see the number at all.
+        </P>
+
+        <P>
+          <em>&mdash; TJ</em>
+        </P>
+
+        <Divider />
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">WHO &mdash; <em>Global health gains face threat of reversal</em></a> (World Health Statistics 2026 news release, May 13, 2026) &mdash; malaria incidence +8.5% since 2015; HIV new infections &minus;40% and NTD intervention need &minus;36% (2010&ndash;2024); 61 million deaths in 2023 with ~1/3 reported by cause and ~1/5 ICD-coded; 18% of countries reporting mortality within one year as of end 2025.</>,
+          <><a href="https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025">WHO &mdash; <em>World Malaria Report 2025</em></a> &mdash; 282 million cases and 610,000 deaths in 2024; 94% of cases and 95% of deaths in the African Region; 75% of regional deaths among children under five; artemisinin partial resistance suspected in Ethiopia, Namibia, Sudan, and Zambia.</>,
+          <><a href="https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2024">WHO &mdash; <em>World Malaria Report 2024</em></a> &mdash; 263 million cases and 597,000 deaths in 2023.</>,
+          <><a href="https://africacdc.org/news-item/malaria-surge-in-southern-africa/">Africa CDC &mdash; <em>Malaria Surge in Southern Africa</em></a> (July 2025) &mdash; Zimbabwe 111,998 cases / 310 deaths through epi week 23 of 2025 vs 29,031 / 49 in 2024; Botswana 2,223 / 11 vs 218 / 0; Namibia 89,959 cases / 146 deaths since November 2024 across 37 of 121 districts.</>,
+          <><a href="https://www.who.int/news-room/questions-and-answers/item/artemisinin-resistance">WHO &mdash; <em>Malaria: Artemisinin partial resistance</em></a> &mdash; partial resistance confirmed in Eritrea, Rwanda, Uganda, and Tanzania.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
