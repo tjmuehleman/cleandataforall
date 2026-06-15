@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '061', date: 'June 15, 2026', read: '3 min', kind: 'Data Study',
+    title: 'The malaria vaccine worked. We measured that better than we measure malaria.',
+    dek: 'WHO’s four-year evaluation found the malaria vaccine averts 1 in 8 child deaths — a measured number. The 438,000 child deaths it’s shrinking are mostly modeled, off a system that registers a cause for one death in three.',
+    href: 'blog/malaria-vaccine-counted-not-modeled.html', shape: 'pulse' },
   { n: '060', date: 'June 15, 2026', read: '3 min', kind: 'Data Study',
     title: 'The world’s leading cause of disability was measured by 102 countries out of 194',
     dek: 'WHO’s first global report on neurology calls brain disorders the world’s leading cause of disability — more than 3 billion people. It’s built on data from barely half its member states. The gap is the story.',
@@ -549,11 +553,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The malaria vaccine worked. We measured that better than we measure malaria.','blog/malaria-vaccine-counted-not-modeled.html'],
               ['The world’s leading cause of disability was measured by 102 countries out of 194','blog/neurology-report-102-of-194.html'],
               ['Every other disease curve bent the right way. Malaria went backwards.','blog/every-other-curve-malaria-went-backwards.html'],
               ['Only 6% of kids fully recovered — and the next scorecard changed the question','blog/six-percent-recovered-baseline-moved.html'],
               ['The number that ends US measles elimination isn’t 1,983.','blog/measles-1983-isnt-the-number.html'],
-              ['America finally has enough school counselors. For the seniors.','blog/america-finally-enough-counselors-seniors.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
