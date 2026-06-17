@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The COVID toll just tripled. Nobody died twice. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '062',
+  date:    'June 17, 2026',
+  readTime: '4 min',
+  title:   'The COVID toll just tripled. Nobody died twice.',
+  dek:     'WHO now puts the 2020–23 pandemic toll at 22 million — more than triple the 7 million officially reported. The deaths didn’t change. What changed is how much of the world’s death ledger we can actually read.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'40px 0', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, textAlign:'center' }}>
+        <img
+          src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Officially+reported+to+WHO%22%2C%22WHO+excess-death+estimate%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Deaths%2C+2020-23+%28millions%29%22%2C%22data%22%3A%5B7.1%2C22.1%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22COVID-19+deaths%2C+2020-23%3A+reported+vs.+WHO+excess+estimate+%28millions%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A14%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A20%7D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A25%2C%22stepSize%22%3A5%2C%22fontSize%22%3A11%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Deaths+%28millions%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=420&bkg=transparent&devicePixelRatio=2"
+          alt="Bar chart comparing COVID-19 deaths for 2020 to 2023: about 7.1 million officially reported to WHO versus a 22.1 million excess-death estimate."
+          style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+        />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, maxWidth:760, margin:'12px auto 0' }}>
+          Source: <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">WHO &mdash; <em>Global health gains face threat of reversal</em></a> (World Health Statistics 2026, May 13, 2026), which puts excess deaths at 22.1M for 2020&ndash;23, and the <a href="https://data.who.int/dashboards/covid19/deaths">WHO COVID-19 dashboard</a> (~7.1M cumulative reported deaths). The ~15M gap is the difference (22.1 &minus; ~7.1) &mdash; deaths that happened but were never recorded as COVID, or never recorded at all.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          In May, the COVID-19 death toll tripled. Nobody died in the revision &mdash; the dying was done years ago. WHO&rsquo;s <em>World Health Statistics 2026</em> simply put the 2020&ndash;23 toll at <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">22.1 million excess deaths</a>, more than three times the <a href="https://data.who.int/dashboards/covid19/deaths">roughly 7 million</a> reported through the agency&rsquo;s own dashboard. Same pandemic. Same graves. A bigger number, because we finally did the arithmetic on the part we couldn&rsquo;t see.
+        </P>
+
+        <P>
+          I run a data company, so the figure that stops me isn&rsquo;t the 22 million. It&rsquo;s the gap between 22 and 7 &mdash; about 15 million deaths that happened and were never logged as anything. That&rsquo;s not really a COVID story. It&rsquo;s a ledger story, and the ledger is missing most of its rows.
+        </P>
+
+        <H2>Two deaths in three never get a cause</H2>
+
+        <P>
+          Of an estimated <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">61 million deaths globally in 2023, only about one-third were registered with a cause of death</a>, and only about one-fifth had meaningful ICD-coded data. The other two-thirds get filled in by models &mdash; careful, peer-reviewed, defensible models, but models. <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">Just one-third of countries meet WHO&rsquo;s standard for high-quality mortality data; about half have low, very-low, or no data at all.</a>
+        </P>
+
+        <P>
+          And what does come in is slow. As of the end of 2025, <a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">only 18% of countries were getting their mortality data to WHO within a year, and nearly a third have never reported cause-of-death data at all.</a> So when a headline says 61 million people died last year, most of that sentence is an estimate built to fill a silence.
+        </P>
+
+        <H2>The map of what we can see is a map of who&rsquo;s rich</H2>
+
+        <P>
+          The gaps aren&rsquo;t scattered randomly. By WHO&rsquo;s own assessment, the share of deaths that get registered runs <a href="https://www.who.int/news-room/fact-sheets/detail/civil-registration-and-vital-statistics">98% in the European Region, 91% in the Americas, 82% in the Western Pacific &mdash; and 10% in the African Region.</a> Nearly <a href="https://www.who.int/news-room/fact-sheets/detail/civil-registration-and-vital-statistics">40% of the world&rsquo;s deaths go unregistered entirely</a>, and in low-income countries only 8% of the deaths that do get reported carry a documented cause.
+        </P>
+
+        <Fig caption={<>Source: <a href="https://www.who.int/news-room/fact-sheets/detail/civil-registration-and-vital-statistics">WHO &mdash; <em>Civil registration and vital statistics</em></a> (SCORE assessment, 164 countries). Share of deaths registered by region: African Region 10%, Eastern Mediterranean 55%, South-East Asia 61%, Western Pacific 82%, Americas 91%, European Region 98%.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22African+Region%22%2C%22Eastern+Mediterranean%22%2C%22South-East+Asia%22%2C%22Western+Pacific%22%2C%22Region+of+the+Americas%22%2C%22European+Region%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22%25+of+deaths+registered%22%2C%22data%22%3A%5B10%2C55%2C61%2C82%2C91%2C98%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23777%22%2C%22%23777%22%2C%22%235a5a5a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Share+of+deaths+that+get+registered%2C+by+WHO+region%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A30%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A100%2C%22stepSize%22%3A20%2C%22fontSize%22%3A11%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+of+deaths+registered%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=460&bkg=transparent&devicePixelRatio=2"
+            alt="Horizontal bar chart of the share of deaths registered by WHO region: African Region 10 percent, Eastern Mediterranean 55, South-East Asia 61, Western Pacific 82, Americas 91, European Region 98."
+            style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+          />
+        </Fig>
+
+        <P>
+          Read that as a data person and it&rsquo;s the whole story in one line: the places carrying the heaviest health burdens are the places we can see the least. Which means our cleanest-looking global numbers are blurriest exactly where the stakes are highest. The COVID revision wasn&rsquo;t a surprise. It was the predictable result of estimating a pandemic on a measurement system that misses two deaths in three.
+        </P>
+
+        <H2>We had a plan. The clock ran out.</H2>
+
+        <P>
+          None of this is news to anyone inside the field, and there was a fix on the books. The World Bank and WHO ran a <a href="https://www.worldbank.org/en/topic/health/publication/global-civil-registration-vital-statistics-scaling-up-investment">Global CRVS Scaling-Up Investment Plan, a ten-year push from 2015 to 2024</a> aimed at universal registration of births, deaths, and causes of death &mdash; with legal proof of identity for everyone &mdash; by 2030. The decade is up. Roughly <a href="https://www.who.int/news-room/fact-sheets/detail/civil-registration-and-vital-statistics">40% of deaths still aren&rsquo;t registered</a>. The plan to fix the ledger expired before the ledger did.
+        </P>
+
+        <Callout label="The shape of it">
+          Of ~61 million deaths worldwide in 2023, about one-third were registered with a cause of death and only about one-fifth had ICD-coded data. The rest is modeled. The 22 million COVID figure isn&rsquo;t WHO being alarmist &mdash; it&rsquo;s WHO being honest about how little of the world it can actually see.
+        </Callout>
+
+        <Divider />
+
+        <P>
+          Here&rsquo;s the uncomfortable part from the data side. Every time the estimate gets better, the official count looks worse by comparison &mdash; not because more people died, but because we got more honest about how many we&rsquo;d missed. A revision that triples a death toll feels like a scandal. It&rsquo;s actually the system working: a blurry number being replaced by a slightly-less-blurry one.
+        </P>
+
+        <P>
+          The scary number was never 22 million. It&rsquo;s the two-thirds of the world&rsquo;s deaths we still can&rsquo;t name &mdash; the rows that stay blank until the next pandemic forces us to estimate our way across them again.
+        </P>
+
+        <P>
+          <em>&mdash; TJ</em>
+        </P>
+
+        <Divider />
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href="https://www.who.int/news/item/13-05-2026-global-health-gains-face-threat-of-reversal">WHO &mdash; <em>Global health gains face threat of reversal</em></a> (World Health Statistics 2026, May 13, 2026) &mdash; 22.1 million excess deaths linked to COVID-19 in 2020&ndash;23, more than three times the officially reported toll; of ~61 million deaths in 2023, only about one-third registered with a cause of death and about one-fifth with ICD-coded data; one-third of countries meet WHO standards for high-quality mortality data, about half have low/very-low/no data; as of end 2025, only 18% of countries report mortality within a year and nearly a third have never reported cause-of-death data.</>,
+          <><a href="https://data.who.int/dashboards/covid19/deaths">WHO COVID-19 dashboard &mdash; reported deaths</a> &mdash; roughly 7.1 million cumulative COVID-19 deaths reported to WHO by member states.</>,
+          <><a href="https://www.who.int/news-room/fact-sheets/detail/civil-registration-and-vital-statistics">WHO &mdash; <em>Civil registration and vital statistics</em> fact sheet</a> &mdash; nearly 40% of the world&rsquo;s deaths are unregistered; only 8% of reported deaths in low-income countries have a documented cause; registered deaths range from 98% (Europe) and 91% (Americas) to 10% (African Region) per the SCORE assessment of 164 countries.</>,
+          <><a href="https://www.worldbank.org/en/topic/health/publication/global-civil-registration-vital-statistics-scaling-up-investment">World Bank &amp; WHO &mdash; <em>Global Civil Registration and Vital Statistics Scaling-Up Investment Plan 2015&ndash;2024</em></a> &mdash; a ten-year plan toward universal civil registration of births, deaths, and causes of death, and legal identity for all, by 2030.</>,
+          <><a href="https://www.who.int/publications/i/item/9789240122482">WHO &mdash; <em>World Health Statistics 2026</em></a> (full report).</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
