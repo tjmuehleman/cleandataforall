@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '063', date: 'June 18, 2026', read: '3 min', kind: 'Data Study',
+    title: 'The virus is the predictable part',
+    dek: 'A Lancet HIV model puts the cost of the global HIV funding cuts at 4.4 to 10.8 million new infections by 2030. The range is that wide because the hardest variable to forecast isn’t the virus — it’s the budget.',
+    href: 'blog/the-virus-is-the-predictable-part.html', shape: 'line' },
   { n: '062', date: 'June 17, 2026', read: '4 min', kind: 'Data Study',
     title: 'The COVID toll just tripled. Nobody died twice.',
     dek: 'WHO now puts the 2020–23 pandemic toll at 22 million — more than triple the 7 million officially reported. The deaths didn’t change. What changed is how much of the world’s death ledger we can actually read.',
@@ -557,11 +561,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The virus is the predictable part','blog/the-virus-is-the-predictable-part.html'],
               ['The COVID toll just tripled. Nobody died twice.','blog/covid-toll-tripled-nobody-died-twice.html'],
               ['The malaria vaccine worked. We measured that better than we measure malaria.','blog/malaria-vaccine-counted-not-modeled.html'],
               ['The world’s leading cause of disability was measured by 102 countries out of 194','blog/neurology-report-102-of-194.html'],
               ['Every other disease curve bent the right way. Malaria went backwards.','blog/every-other-curve-malaria-went-backwards.html'],
-              ['Only 6% of kids fully recovered — and the next scorecard changed the question','blog/six-percent-recovered-baseline-moved.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
