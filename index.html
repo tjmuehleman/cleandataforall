@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '064', date: 'June 19, 2026', read: '4 min', kind: 'Data Study',
+    title: 'No state improved 8th-grade math. The average calls it flat.',
+    dek: 'On the 2024 Nation’s Report Card, no state’s 8th graders scored higher in math than before the pandemic. Forty-nine fell; Tennessee held even. The “flat” national average hides a top that recovered and a bottom still falling.',
+    href: 'blog/no-state-improved-eighth-grade-math.html', shape: 'bars' },
   { n: '063', date: 'June 18, 2026', read: '3 min', kind: 'Data Study',
     title: 'The virus is the predictable part',
     dek: 'A Lancet HIV model puts the cost of the global HIV funding cuts at 4.4 to 10.8 million new infections by 2030. The range is that wide because the hardest variable to forecast isn’t the virus — it’s the budget.',
@@ -561,11 +565,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['No state improved 8th-grade math. The average calls it flat.','blog/no-state-improved-eighth-grade-math.html'],
               ['The virus is the predictable part','blog/the-virus-is-the-predictable-part.html'],
               ['The COVID toll just tripled. Nobody died twice.','blog/covid-toll-tripled-nobody-died-twice.html'],
               ['The malaria vaccine worked. We measured that better than we measure malaria.','blog/malaria-vaccine-counted-not-modeled.html'],
               ['The world’s leading cause of disability was measured by 102 countries out of 194','blog/neurology-report-102-of-194.html'],
-              ['Every other disease curve bent the right way. Malaria went backwards.','blog/every-other-curve-malaria-went-backwards.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
