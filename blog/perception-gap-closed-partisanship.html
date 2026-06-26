@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The crime perception gap closed. The data didn&rsquo;t close it. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA ====================
+const POST = {
+  kind:    'Analysis',
+  number:  '069',
+  date:    'June 26, 2026',
+  readTime: '4 min',
+  title:   'The crime perception gap closed. The data didn’t close it.',
+  dek:     'For a decade Americans believed crime was rising while it fell — the perception gap. In October 2025 it narrowed to a 2018 low. The thing that moved wasn’t the crime rate. It was which party holds the White House.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22All+adults%22%2C%22Republicans%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222024%22%2C%22data%22%3A%5B64%2C90%5D%2C%22backgroundColor%22%3A%22%235a5a5a%22%7D%2C%7B%22label%22%3A%222025%22%2C%22data%22%3A%5B49%2C54%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Atrue%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22text%22%3A%5B%22Whether+crime+is+rising+depends+on+who+holds+the+White+House%22%2C%22%25+saying+there+is+more+crime+in+the+U.S.+than+a+year+ago%22%5D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22min%22%3A0%2C%22max%22%3A100%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Grouped bar chart of the share saying there is more crime in the U.S. than a year ago, 2024 versus 2025. All adults fell from 64 percent to 49 percent. Republicans fell from 90 percent to about 54 percent." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+        Share saying there is more crime in the U.S. than a year ago. All-adult and Republican readings for 2024 are from <a href="https://news.gallup.com/poll/652763/smaller-majorities-say-crime-serious-increasing.aspx">Gallup&rsquo;s 2024 Crime poll</a>; the 2025 all-adult figure (49%) is from <a href="https://news.gallup.com/poll/697124/crime-seen-less-serious-second-straight-year.aspx">Gallup&rsquo;s 2025 Crime poll</a>. The 2025 Republican figure of 54% is the 90% 2024 reading minus the 36-point drop Gallup reports for that group (90 − 36 = 54).
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          For about a decade, the most reliable fact about American crime data was that nobody believed it. The FBI would log a decline. Gallup would ask people, and a clear majority would say crime was getting worse. In 2024, <a href="https://news.gallup.com/poll/652763/smaller-majorities-say-crime-serious-increasing.aspx">64% of Americans told Gallup there was more crime in the U.S. than a year earlier</a>. The rate had been falling for most of that stretch. The belief went the other way. People gave it a name &mdash; the perception gap &mdash; and treated it as the whole story.
+        </P>
+
+        <P>
+          It just closed. In <a href="https://news.gallup.com/poll/697124/crime-seen-less-serious-second-straight-year.aspx">Gallup&rsquo;s October 2025 poll, only 49% said crime was rising &mdash; down 15 points in a year, the lowest reading since at least 2018</a>. And the timing looks immaculate: in May 2026 the FBI&rsquo;s preliminary 2025 numbers showed <a href="https://www.fbi.gov/news/press-releases/fbi-releases-historic-early-look-at-annual-crime-data">violent crime down 9.3% and murder down 18.1%, which the Bureau called the single largest decrease in violent crime and murder since 1937</a>. Reality fell. Perception finally followed. Clean story.
+        </P>
+
+        <P>
+          Except it isn&rsquo;t, and this is where I get off. I run a data company, so I do the annoying thing and break the number down.
+        </P>
+
+        <Fig caption={<>FBI preliminary estimates for 2025, based on data from more than 17,000 agencies covering about 96% of the population. The Bureau called the murder decline the largest one-year drop since 1937. Source: <a href="https://www.fbi.gov/news/press-releases/fbi-releases-historic-early-look-at-annual-crime-data">FBI, First Look: 2025 Crime Data</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Robbery%22%2C%22Murder%22%2C%22Property+crime%22%2C%22Violent+crime%22%2C%22Rape%22%2C%22Agg.+assault%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B18.5%2C18.1%2C12.4%2C9.3%2C7.6%2C7.2%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22text%22%3A%5B%22The+2025+crime+drop%2C+by+category%22%2C%22Estimated+%25+decline%2C+2024+to+2025+%28FBI+preliminary%29%22%5D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22min%22%3A0%2C%22max%22%3A20%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+decline%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of estimated 2025 crime declines: robbery down 18.5 percent, murder down 18.1 percent, property crime down 12.4 percent, violent crime down 9.3 percent, rape down 7.6 percent, aggravated assault down 7.2 percent" style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <H2>The number that actually moved</H2>
+
+        <P>
+          Split that 64-to-49 by party and the tidy story falls apart. The overall 15-point drop is almost entirely one group changing its mind. <a href="https://news.gallup.com/poll/697124/crime-seen-less-serious-second-straight-year.aspx">Gallup reports a 36-point drop since 2024 in the share of Republicans who think crime is rising</a> &mdash; from <a href="https://news.gallup.com/poll/652763/smaller-majorities-say-crime-serious-increasing.aspx">90% in 2024</a> to about 54% now. Democrats went the other way: <a href="https://news.gallup.com/poll/697124/crime-seen-less-serious-second-straight-year.aspx">more of them said crime was rising in 2025 than the year before</a>.
+        </P>
+
+        <P>
+          Same FBI report. Same falling murder line. Two groups looking at one reality and walking in opposite directions over twelve months. The thing that changed between the two polls wasn&rsquo;t a statistic. It was the occupant of the White House.
+        </P>
+
+        <H2>A mood ring, not a measurement</H2>
+
+        <P>
+          Gallup has watched this for years and says it plainly: when your party holds the presidency, you report less crime; when the other party holds it, you report more. <a href="https://news.gallup.com/poll/652763/smaller-majorities-say-crime-serious-increasing.aspx">The 61-point gap between Republicans and Democrats in 2024 was the largest in a trend going back to 1989</a>. 2025 just ran the same tape backward, with the parties trading sides.
+        </P>
+
+        <P>
+          That&rsquo;s the part that matters to me. When a number swings 36 points in a year, lines up with an election instead of the thing it&rsquo;s nominally about, and points in different directions for different teams &mdash; it has quietly stopped measuring what its label says. &ldquo;Do you think crime is rising&rdquo; reads like a crime statistic. It behaves like a party-ID statistic wearing a crime costume.
+        </P>
+
+        <Callout label="The tell">
+          The crime rate fell in 2023, 2024, and 2025. Republican belief that crime was rising sat near 90% through 2024 and collapsed to roughly 54% in 2025. The variable that tracks the belief isn&rsquo;t the homicide count. It&rsquo;s whose party is in power.
+        </Callout>
+
+        <P>
+          This isn&rsquo;t a knock on the public for being dumb. It&rsquo;s a measurement problem, and a familiar one. We line up the perception number next to the FBI number, treat them as two readings of the same world, and call the space between them a literacy failure waiting to be fixed. But they aren&rsquo;t reading the same world. One counts bodies and break-ins. The other counts how people feel about who&rsquo;s in charge, with crime as the prompt.
+        </P>
+
+        <P>
+          And that means the gap didn&rsquo;t close because anyone got better informed. It closed because a different set of partisans happened to be answering the prompt. Wait two years, swap the party in office, and it reopens &mdash; with the other half of the country supplying the pessimism this time. The crime rate is free to keep falling the whole way through.
+        </P>
+
+        <Divider />
+
+        <P>
+          The FBI got its data out in May, four months earlier than last year, the cleanest pipeline it has ever run. It won&rsquo;t get the credit for the mood shift, and it doesn&rsquo;t deserve the blame for the old gap either. The number that moved was never theirs to move.
+        </P>
+
+        <P><em>&mdash; TJ</em></P>
+
+        <Divider />
+
+        <P><strong>Sources</strong></P>
+
+        <UL items={[
+          <><a href="https://www.fbi.gov/news/press-releases/fbi-releases-historic-early-look-at-annual-crime-data">FBI &mdash; Releases Historic Early Look at Annual Crime Data (First Look: 2025), May 13, 2026</a></>,
+          <><a href="https://news.gallup.com/poll/697124/crime-seen-less-serious-second-straight-year.aspx">Gallup &mdash; Crime in U.S. Seen as Less Serious for Second Straight Year, Oct. 30, 2025 (49%; 15-point drop; 36-point Republican drop)</a></>,
+          <><a href="https://news.gallup.com/poll/652763/smaller-majorities-say-crime-serious-increasing.aspx">Gallup &mdash; Smaller Majorities Say Crime in U.S. Is Serious, Increasing, Oct. 29, 2024 (64% overall; 90% Republicans; 61-point partisan gap)</a></>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
