@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>Overdose deaths are falling fast. We counted 2024 three different ways. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '072',
+  date:    'June 30, 2026',
+  readTime: '3 min',
+  title:   'Overdose deaths are falling fast. We counted 2024 three different ways.',
+  dek:     'Three CDC documents give three different counts of how many Americans died from an overdose in 2024. The decline is real and historic. The exact number is a provisional estimate that hasn’t finished moving — so say “about.”',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222014%22%2C%222015%22%2C%222016%22%2C%222017%22%2C%222018%22%2C%222019%22%2C%222020%22%2C%222021%22%2C%222022%22%2C%222023%22%2C%222024%22%2C%222025%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Overdose+deaths%22%2C%22data%22%3A%5B47055%2C52404%2C63632%2C70237%2C67367%2C70630%2C91799%2C106699%2C107941%2C105007%2C79384%2C69973%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%235a5a5a%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22U.S.+drug+overdose+deaths+per+year%2C+2014%5Cu20132025%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Deaths%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart of U.S. drug overdose deaths per year from 2014 to 2025. Deaths rise from about 47,000 in 2014 to a peak near 108,000 in 2022, then fall sharply to about 105,000 in 2023, 79,000 in 2024, and a provisional 69,973 in 2025." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+        Annual U.S. drug overdose deaths. 2014–2024 are final NVSS counts; 2025 (lighter bar) is a provisional count and will be revised. Sources: <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">CDC NCHS Data Brief 549</a> (2014–2024) and <a href="https://www.cdc.gov/nchs/pressroom/releases/20260513.html">CDC NCHS, May 2026</a> (2025).
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Three different government documents will tell you how many Americans
+          died from a drug overdose in 2024. They do not agree.
+        </P>
+
+        <P>
+          CDC’s final mortality file puts it at <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">79,384</a>.
+          The provisional count CDC published in May 2025 said <a href="https://www.cdc.gov/nchs/pressroom/releases/20250514.html">80,391</a>.
+          The provisional count CDC published a year later, in May 2026, said <a href="https://www.cdc.gov/nchs/pressroom/releases/20260513.html">81,313</a>.
+          Same agency. Same year of deaths. Almost 2,000 people between the highest
+          answer and the lowest.
+        </P>
+
+        <P>
+          Before I get data-nerdy about that, the headline — because this is the
+          rare post here with good news buried in it. The decline is real, and it’s
+          the best trend line in American public health right now. Overdose deaths fell
+          from a provisional <a href="https://www.cdc.gov/nchs/pressroom/releases/20250514.html">110,037 in 2023</a> to
+          a provisional <a href="https://www.cdc.gov/nchs/pressroom/releases/20260513.html">69,973 in 2025</a> — a third
+          straight year down, pulling the count back to roughly its 2019 level (about
+          <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">70,630</a> that year).
+          That’s on the order of 40,000 fewer deaths a year. I’m not here to dampen
+          that. I’m here about the word <em>provisional</em>.
+        </P>
+
+        <H2>The number is an estimate that hasn’t finished moving</H2>
+
+        <P>
+          Every overdose figure you’ve seen for 2025 is a 12-month-ending count that
+          CDC publishes every month, with a “predicted” component bolted on to patch
+          the fact that death certificates arrive late and toxicology takes time
+          (<a href="https://www.cdc.gov/nchs/nvss/vsrr/drug-overdose-data.htm">that’s the VSRR series</a>).
+          It is, by design, a draft. And you don’t have to take my word that it’ll move.
+          Watch what already happened to 2024: reported at 80,391, then revised up to 81,313,
+          then finalized at 79,384 — with the final number landing <em>lower</em> than both
+          provisional ones.
+        </P>
+
+        <P>
+          That’s not CDC getting it wrong. That’s the system working the way it’s built —
+          late certificates, jurisdiction-by-jurisdiction toxicology, a “predicted” patch that
+          runs a little hot and then settles. Even with all of that,
+          <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm"> 96% of 2024’s overdose deaths</a> named
+          the specific drug involved. The number isn’t sloppy. It’s unfinished.
+        </P>
+
+        <figure style={{ margin:'2.5em auto', maxWidth:900, textAlign:'center' }}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Final+NVSS+%28Jan+2026%29%22%2C%22Provisional+%28May+2025%29%22%2C%22Provisional+%28May+2026%29%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222024+overdose+deaths%22%2C%22data%22%3A%5B79384%2C80391%2C81313%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%235a5a5a%22%2C%22%23bbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+same+year%2C+counted+three+times%3A+2024+overdose+deaths%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A75000%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Reported+deaths%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=360&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart showing 2024 U.S. overdose deaths counted three ways: final NVSS 79,384, provisional as of May 2025 80,391, provisional as of May 2026 81,313." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+          <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+            The same year of deaths, as counted by three CDC products. Spread between high and low: 1,929. Sources: <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">NCHS Data Brief 549</a>, <a href="https://www.cdc.gov/nchs/pressroom/releases/20250514.html">NCHS May 2025</a>, <a href="https://www.cdc.gov/nchs/pressroom/releases/20260513.html">NCHS May 2026</a>.
+          </figcaption>
+        </figure>
+
+        <H2>The part that matters only shows up in the final data</H2>
+
+        <P>
+          Here’s the catch with a provisional count: it’s a single national number. It
+          can’t tell you <em>who</em>. For that you need the final file, and the final file
+          has the real story. From 2023 to 2024 the overdose death rate fell for every
+          racial and ethnic group CDC tracks — but it fell hardest for Black Americans,
+          <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">down 30.9%</a>, from
+          48.9 to 33.8 deaths per 100,000. That begins to close a gap fentanyl had just
+          pried open.
+        </P>
+
+        <figure style={{ margin:'2.5em auto', maxWidth:900, textAlign:'center' }}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Amer.+Indian%2FAK+Native%22%2C%22Black%22%2C%22White%22%2C%22Native+Haw.%2FPac.+Isl.%22%2C%22Hispanic%22%2C%22Asian%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222023%22%2C%22data%22%3A%5B65.0%2C48.9%2C33.1%2C26.2%2C22.8%2C5.1%5D%2C%22backgroundColor%22%3A%22%23bbb%22%7D%2C%7B%22label%22%3A%222024%22%2C%22data%22%3A%5B51.6%2C33.8%2C24.7%2C20.5%2C17.0%2C4.4%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Atrue%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Overdose+death+rate+by+race%2Fethnicity%2C+2023+%5Cu2192+2024%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Age-adjusted+deaths+per+100%2C000%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=460&bkg=transparent&devicePixelRatio=2" alt="Grouped horizontal bar chart of age-adjusted overdose death rates per 100,000 by race and ethnicity in 2023 versus 2024. American Indian and Alaska Native 65.0 to 51.6. Black 48.9 to 33.8. White 33.1 to 24.7. Native Hawaiian or Pacific Islander 26.2 to 20.5. Hispanic 22.8 to 17.0. Asian 5.1 to 4.4." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+          <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+            Age-adjusted overdose death rate by race and Hispanic origin, 2023 → 2024. Source: <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">CDC NCHS Data Brief 549</a>.
+          </figcaption>
+        </figure>
+
+        <P>
+          And then the line that should bug you. The group with the highest overdose
+          rate — American Indian and Alaska Native people, 65.0 falling to 51.6 — is also
+          the group whose deaths get undercounted the most. CDC’s own footnote: race
+          misclassification on death certificates understates the AIAN rate by
+          <a href="https://www.cdc.gov/nchs/products/databriefs/db549.htm">about 34%</a>.
+          So the worst number on the chart is also the most understated one on the chart.
+          We’re measuring the frontier of this crisis with a ruler we already know is short.
+        </P>
+
+        <Divider />
+
+        <P>
+          The good news survives all of it. Roughly 40,000 fewer Americans died in 2025
+          than two years earlier, and that’s true whether 2024’s real total was 79,384 or
+          81,313. “About 40,000” is the honest way to say it. Anyone who quotes you the
+          exact figure, to the person, is reading a draft and calling it a fact.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
