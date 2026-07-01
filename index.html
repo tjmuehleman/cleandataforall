@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '073', date: 'July 1, 2026', read: '3 min', kind: 'Data Study',
+    title: 'The same drug fails three times as often in South-East Asia as in Europe. The average hides the rest.',
+    dek: 'WHO says antibiotic resistance runs about three times higher in South-East Asia than in Europe. But that regional gap is a median — and a median hides the spread, the drug failing worst in the ‘safe’ region, and half the planet that never sent data.',
+    href: 'blog/resistance-3x-gap-what-the-median-hides.html', shape: 'scatter' },
   { n: '072', date: 'June 30, 2026', read: '3 min', kind: 'Data Study',
     title: 'Overdose deaths are falling fast. We counted 2024 three different ways.',
     dek: 'Three CDC documents give three different counts of how many Americans died from an overdose in 2024. The decline is real and historic. The exact number is a provisional estimate that hasn’t finished moving — so say “about.”',
@@ -597,11 +601,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The same drug fails three times as often in South-East Asia as in Europe. The average hides the rest.','blog/resistance-3x-gap-what-the-median-hides.html'],
               ['Overdose deaths are falling fast. We counted 2024 three different ways.','blog/overdose-deaths-2024-counted-three-ways.html'],
               ['The birth rate hit a record low. Half the table went up.','blog/birth-rate-record-low-half-the-table.html'],
               ['The student-loan crisis didn’t spike. The reporting clock just restarted.','blog/student-loan-default-reporting-clock.html'],
               ['The crime perception gap closed. The data didn’t close it.','blog/perception-gap-closed-partisanship.html'],
-              ['We count malaria with a test the parasite learned to dodge','blog/malaria-rapid-test-going-blind.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
