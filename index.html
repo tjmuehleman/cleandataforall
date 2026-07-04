@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '076', date: 'July 4, 2026', read: '3 min', kind: 'Analysis',
+    title: 'The voucher didn’t change. The intake form did.',
+    dek: 'Arizona’s universal voucher mostly went to families already in private school. Texas’ first awards mostly went to public-school kids. Same policy, opposite data — and the difference is the eligibility filter, not the politics.',
+    href: 'blog/voucher-didnt-change-intake-form-did.html', shape: 'overlap' },
   { n: '075', date: 'July 3, 2026', read: '3 min', kind: 'Analysis',
     title: 'The pediatric HIV gap is a counting problem',
     dek: 'New HIV infections in children fell 62% since 2010 — a real win. But only 55% of kids with HIV are on treatment, against 78% of adults. The gap isn’t about drugs. It’s about who we manage to count.',
@@ -609,11 +613,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['The voucher didn’t change. The intake form did.','blog/voucher-didnt-change-intake-form-did.html'],
               ['The pediatric HIV gap is a counting problem','blog/pediatric-hiv-gap-counting-problem.html'],
               ['Half the world’s unvaccinated babies live where we count worst','blog/half-unvaccinated-babies-count-worst.html'],
               ['The same drug fails three times as often in South-East Asia as in Europe. The average hides the rest.','blog/resistance-3x-gap-what-the-median-hides.html'],
               ['Overdose deaths are falling fast. We counted 2024 three different ways.','blog/overdose-deaths-2024-counted-three-ways.html'],
-              ['The birth rate hit a record low. Half the table went up.','blog/birth-rate-record-low-half-the-table.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
