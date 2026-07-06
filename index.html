@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '078', date: 'July 6, 2026', read: '4 min', kind: 'Analysis',
+    title: 'Measles jumped 43-fold. The lab network that counts it is funded at 15%.',
+    dek: 'In the first three weeks of 2026, seven countries in the Americas confirmed 1,031 measles cases — 43 times the year before. The global lab network that confirmed them secured just 15% of its 2026 budget.',
+    href: 'blog/measles-jumped-43-fold-counted-at-15.html', shape: 'pulse' },
   { n: '077', date: 'July 5, 2026', read: '4 min', kind: 'Analysis',
     title: 'The century low is an estimate. The funding cut isn’t.',
     dek: 'U.S. cities just logged the largest one-year homicide drop on record. But “safest in a century” is still a projection built on a 35-city sample — and the federal grants that would explain the drop were terminated the same year.',
@@ -617,11 +621,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Measles jumped 43-fold. The lab network that counts it is funded at 15%.','blog/measles-jumped-43-fold-counted-at-15.html'],
               ['The century low is an estimate. The funding cut isn’t.','blog/century-low-estimate-funding-cut-isnt.html'],
               ['The voucher didn’t change. The intake form did.','blog/voucher-didnt-change-intake-form-did.html'],
               ['The pediatric HIV gap is a counting problem','blog/pediatric-hiv-gap-counting-problem.html'],
               ['Half the world’s unvaccinated babies live where we count worst','blog/half-unvaccinated-babies-count-worst.html'],
-              ['The same drug fails three times as often in South-East Asia as in Europe. The average hides the rest.','blog/resistance-3x-gap-what-the-median-hides.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
