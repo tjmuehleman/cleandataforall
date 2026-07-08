@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Cholera cases rose 15%. Deaths rose 90%. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Analysis',
+  number:  '080',
+  date:    'July 8, 2026',
+  readTime: '3 min',
+  title:   'Cholera cases rose 15%. Deaths rose 90%.',
+  dek:     'A curable disease killed 7,598 people in 2025 — nearly double 2023 — while reported cases rose just 15%. When deaths outrun cases like that, the story isn’t the bug. It’s the case-fatality rate, and who treatment reached in time.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222023%22%2C%222024%22%2C%222025%22%5D%2C%22datasets%22%3A%5B%7B%22type%22%3A%22bar%22%2C%22label%22%3A%22Reported+cholera+deaths%22%2C%22yAxisID%22%3A%22deaths%22%2C%22data%22%3A%5B4007%2C6000%2C7598%5D%2C%22backgroundColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A0%2C%22order%22%3A2%7D%2C%7B%22type%22%3A%22line%22%2C%22label%22%3A%22Case-fatality+rate+%28%25%29%22%2C%22yAxisID%22%3A%22cfr%22%2C%22data%22%3A%5B0.75%2C1.07%2C1.24%5D%2C%22borderColor%22%3A%22%235a5a5a%22%2C%22backgroundColor%22%3A%22%235a5a5a%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A3%2C%22pointRadius%22%3A4%2C%22pointBackgroundColor%22%3A%22%235a5a5a%22%2C%22order%22%3A1%7D%2C%7B%22type%22%3A%22line%22%2C%22label%22%3A%22WHO+target%3A+below+1%25%22%2C%22yAxisID%22%3A%22cfr%22%2C%22data%22%3A%5B1.0%2C1.0%2C1.0%5D%2C%22borderColor%22%3A%22%23bbb%22%2C%22backgroundColor%22%3A%22%23bbb%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A2%2C%22borderDash%22%3A%5B6%2C4%5D%2C%22pointRadius%22%3A0%2C%22order%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22position%22%3A%22bottom%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Cholera+deaths+are+rising+faster+than+cases+%282023-2025%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%2C%22fontStyle%22%3A%22bold%22%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22deaths%22%2C%22position%22%3A%22left%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A8000%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Reported+deaths%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%2C%7B%22id%22%3A%22cfr%22%2C%22position%22%3A%22right%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A2%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Case-fatality+rate+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22drawOnChartArea%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Combination chart, 2023 to 2025. Bars show reported cholera deaths rising from 4,007 in 2023 to more than 6,000 in 2024 to 7,598 in 2025. A line shows the case-fatality rate climbing from 0.75 percent to 1.07 to 1.24, crossing above the WHO target of 1 percent." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10 }}>
+        Sources: WHO Global situation report for cholera, 2024 (2023: 535,321 cases / 4,007 deaths; 2024: +5% cases, +50% deaths, “more than 6,000” deaths) and WHO Multi-country cholera epidemiological update #33 (2025: 614,828 cases / 7,598 deaths). Case-fatality rate = deaths ÷ reported cases; 2024 uses WHO’s stated +5% case growth (≈562,000) and 6,000 deaths.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          In 2023, cholera killed <a href="https://www.who.int/news/item/12-09-2025-cholera-kills-more-people-for-second-consecutive-year-while-prevention-and-treatment-available">4,007 people</a>. In 2025 it killed <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--33--27-january-2026">7,598</a>. That’s the body count nearly doubling in two years — for a disease we’ve known how to treat since before the moon landing. Clean water and a packet of oral rehydration salts. Pennies.
+        </P>
+
+        <P>
+          The reflex read is “the outbreak got bigger.” It did, a little. Reported cases went from <a href="https://www.who.int/news/item/12-09-2025-cholera-kills-more-people-for-second-consecutive-year-while-prevention-and-treatment-available">535,321</a> to <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--33--27-january-2026">614,828</a> — up about 15%. But deaths climbed six times faster. When the death count outruns the case count like that, one number does the explaining. And it isn’t the case count.
+        </P>
+
+        <H2>The ratio is the tell</H2>
+
+        <P>
+          Case-fatality rate is just deaths divided by cases: of everyone who got sick, what share died. For cholera, WHO treats <a href="https://www.who.int/news-room/fact-sheets/detail/cholera">1% as the line</a> — with prompt rehydration you should be able to keep it under there. In 2023 the world was under it, around 0.75%. By 2025 it was 1.24%. The curve on the chart above that crosses the dotted line and keeps going? That’s the whole story.
+        </P>
+
+        <P>
+          A rising fatality rate for a curable disease is not the pathogen getting meaner. It’s a measurement of who reached treatment in time, and who didn’t. WHO’s own 2024 numbers say a <a href="https://www.who.int/news/item/12-09-2025-cholera-kills-more-people-for-second-consecutive-year-while-prevention-and-treatment-available">quarter of cholera deaths</a> happened in the community — outside any health facility. People dying before they were ever a patient in a ledger somewhere.
+        </P>
+
+        <H2>Fewer places are even counting</H2>
+
+        <P>
+          Here’s the part that gets me as a data guy. The number of countries reporting cholera to WHO went 45 in 2023, up to <a href="https://www.who.int/news/item/12-09-2025-cholera-kills-more-people-for-second-consecutive-year-while-prevention-and-treatment-available">60 in 2024</a>, then <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--33--27-january-2026">33 in the 2025 tally</a>. I won’t pretend those three counts use identical rules — the annual global report and the multi-country situation reports scope things a bit differently. But the direction is uncomfortable. Deaths are climbing while the reporting footprint isn’t.
+        </P>
+
+        <P>
+          And the deaths are concentrating. In 2025 the African region alone logged <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--33--27-january-2026">5,315 of the 7,598 deaths</a>. Sudan is the case study nobody wants: a fresh outbreak in West Kordofan has killed at least <a href="https://www.africanews.com/2026/07/02/who-says-120-dead-in-sudans-latest-cholera-outbreak/">120 people since May 2026</a> — its third wave in three years, erupting two months after the country declared the previous one over. That previous wave infected more than 124,400 people and killed over 3,500. In DR Congo, the first quarter of 2026 alone brought <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--35--27-march-2026">522 deaths</a>.
+        </P>
+
+        <Fig caption={<>Source: WHO Multi-country cholera epidemiological update #33. Reported deaths by WHO region, full-year 2025. The African and Eastern Mediterranean regions account for 7,482 of the 7,598 total.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22African+Region%22%2C%22Eastern+Mediterranean%22%2C%22Americas%22%2C%22Western+Pacific%22%2C%22South-East+Asia%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Cholera+deaths%2C+2025%22%2C%22data%22%3A%5B5315%2C2167%2C78%2C27%2C11%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%233a3a3a%22%2C%22%23777%22%2C%22%23bbb%22%2C%22%23bbb%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Where+cholera+killed+in+2025%3A+7%2C598+deaths%2C+one+region%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%2C%22fontStyle%22%3A%22bold%22%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A6000%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Reported+deaths%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of reported cholera deaths by WHO region in 2025. African Region 5,315, Eastern Mediterranean 2,167, Americas 78, Western Pacific 27, South-East Asia 11." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <H2>Supply went up. That’s not the constraint.</H2>
+
+        <P>
+          There’s a genuinely good number in here. Global supply of oral cholera vaccine <a href="https://www.who.int/news/item/04-02-2026-preventive-cholera-vaccination-resumes-as-global-supply-reaches-critical-milestone">doubled</a> — from 35 million doses in 2022 to nearly 70 million in 2025 — enough that in February 2026 WHO restarted preventive campaigns for the first time in over three years, starting with Mozambique.
+        </P>
+
+        <Callout label="The distinction that matters">
+          A rising case-fatality rate is not a supply problem you can solve from a warehouse. Doses that exist don’t help the kid in a war zone the truck can’t reach. When the thing that’s climbing is the share of the sick who die, the binding constraint isn’t how much you have — it’s whether it arrives.
+        </Callout>
+
+        <P>
+          Which is why the CFR is the number I’d put on the dashboard, not the case count. Cases tell you how loud the outbreak is. The fatality rate tells you whether the system underneath it still works. Sudan can declare an outbreak over in March and be burying people from the next one by May — the doses can be sitting in a depot the whole time.
+        </P>
+
+        <Divider />
+
+        <P>
+          Cholera is the disease we solved and never finished delivering. The case count tells you how many people got sick. The death rate tells you how many we reached. Right now both are pointed the wrong way — and only one of them is a mystery.
+        </P>
+
+        <P><em>— TJ</em></P>
+
+        <H2>Sources</H2>
+        <UL items={[
+          <span>WHO, <a href="https://www.who.int/news/item/12-09-2025-cholera-kills-more-people-for-second-consecutive-year-while-prevention-and-treatment-available">Cholera kills more people for second consecutive year</a> (12 Sept 2025) — 2024 cases +5% and deaths +50% over 2023; “more than 6,000” deaths; 60 countries; a quarter of deaths outside health facilities; Africa CFR 1.4%→1.9%.</span>,
+          <span>WHO, <a href="https://www.who.int/publications/i/item/who-wer10036-347-364">Global situation report for cholera, 2024</a> — 2023: 535,321 cases and 4,007 deaths from 45 countries.</span>,
+          <span>WHO, <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--33--27-january-2026">Multi-country cholera epidemiological update #33</a> (27 Jan 2026) — full-year 2025: 614,828 cases and 7,598 deaths across 33 countries; African region 5,315 deaths, Eastern Mediterranean 2,167.</span>,
+          <span>WHO, <a href="https://www.who.int/publications/m/item/multi-country-outbreak-of-cholera--epidemiological-update--35--27-march-2026">Multi-country cholera epidemiological update #35</a> (27 Mar 2026) — DR Congo: 522 deaths, 1 Jan–29 Mar 2026.</span>,
+          <span>WHO, <a href="https://www.who.int/news/item/04-02-2026-preventive-cholera-vaccination-resumes-as-global-supply-reaches-critical-milestone">Preventive cholera vaccination resumes</a> (4 Feb 2026) — OCV supply from 35M (2022) to ~70M (2025); Mozambique first to restart preventive campaigns.</span>,
+          <span>WHO, <a href="https://www.who.int/news-room/fact-sheets/detail/cholera">Cholera fact sheet</a> — with early and proper treatment the case-fatality rate should stay below 1%.</span>,
+          <span>Africanews / WHO, <a href="https://www.africanews.com/2026/07/02/who-says-120-dead-in-sudans-latest-cholera-outbreak/">120 dead in Sudan’s latest cholera outbreak</a> (2 Jul 2026) — West Kordofan: 120+ deaths, 1,102 suspected cases since May 2026; prior wave 124,400+ cases and 3,500+ deaths.</span>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
