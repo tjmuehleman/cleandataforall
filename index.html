@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '081', date: 'July 9, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Air pollution didn’t start attacking the brain in 2023. The data did.',
+    dek: 'Air pollution killed 7.9 million people in 2023 — and for the first time the toll includes 600,000 dementia deaths. That number didn’t appear because the air changed. It appeared because someone added a row.',
+    href: 'blog/air-pollution-brain-not-lungs.html', shape: 'bars' },
   { n: '080', date: 'July 8, 2026', read: '3 min', kind: 'Analysis',
     title: 'Cholera cases rose 15%. Deaths rose 90%.',
     dek: 'A curable disease killed 7,598 people in 2025 — nearly double 2023 — while reported cases rose just 15%. When deaths outrun cases like that, the story isn’t the bug. It’s the case-fatality rate, and who treatment reached in time.',
@@ -629,11 +633,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+              ['Air pollution didn’t start attacking the brain in 2023. The data did.','blog/air-pollution-brain-not-lungs.html'],
               ['Cholera cases rose 15%. Deaths rose 90%.','blog/cholera-cases-rose-deaths-rose-faster.html'],
               ['The birth-dearth panic is mostly a public-health win','blog/birth-dearth-panic-mostly-a-win.html'],
               ['Measles jumped 43-fold. The lab network that counts it is funded at 15%.','blog/measles-jumped-43-fold-counted-at-15.html'],
               ['The century low is an estimate. The funding cut isn’t.','blog/century-low-estimate-funding-cut-isnt.html'],
-              ['The voucher didn’t change. The intake form did.','blog/voucher-didnt-change-intake-form-did.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
