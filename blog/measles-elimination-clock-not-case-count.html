@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The Americas lost measles-free status on a clock, not a case count — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== POST DATA ====================
+const POST = {
+  kind:    'Analysis',
+  number:  '085',
+  date:    'July 13, 2026',
+  readTime: '3 min',
+  title:   'The Americas lost measles-free status on a clock, not a case count',
+  dek:     'In November 2025 the region lost measles-free status — not on a case count, but on a 12-month clock. By early 2026 the country that tripped it had gone quiet while two others ran up the tab.',
+  byline:  'T.J. Müehleman',
+};
+// ===================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900 }}>
+      <img
+        src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Mexico%22%2C%22Guatemala%22%2C%22United+States%22%2C%22Canada%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222025+%28full+year%29%22%2C%22data%22%3A%5B6152%2C1%2C2144%2C5425%5D%2C%22backgroundColor%22%3A%22%23bbb%22%7D%2C%7B%22label%22%3A%222026+%28through+week+12%29%22%2C%22data%22%3A%5B8315%2C3687%2C1664%2C733%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Measles+cases+in+the+Americas%2C+by+country%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Confirmed+cases%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+        alt="Grouped bar chart of confirmed measles cases in the Americas by country. Mexico: 6,152 in 2025, 8,315 in the first 12 weeks of 2026. Guatemala: 1 in 2025, 3,687 in 2026. United States: 2,144 in 2025, 1,664 in 2026. Canada: 5,425 in 2025, 733 in 2026."
+        style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10 }}>
+        Canada drove the 2025 outbreak that cost the region its status; by early 2026 its case count had collapsed while Mexico and Guatemala surged. 2026 figures cover epidemiological weeks 1–12. Source: <a href="https://www.paho.org/sites/default/files/2026/04/pahomeaslessitrep1engupdated_0.pdf" style={{ color:'inherit' }}>PAHO Measles Situation Report #1, 14 April 2026</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          On November 10, 2025, the Region of the Americas lost its measles-free status. Not because of a spike. Because of a <a href="https://www.paho.org/en/news/10-11-2025-paho-calls-regional-action-americas-lose-measles-elimination-status">clock</a>.
+        </P>
+
+        <P>
+          PAHO&rsquo;s re-verification commission met in Mexico City and concluded that endemic transmission had been reestablished in Canada, where the virus had circulated <a href="https://www.paho.org/en/news/10-11-2025-paho-calls-regional-action-americas-lose-measles-elimination-status">uninterrupted for at least 12 months</a>. That 12-month mark is the whole ballgame. Elimination isn&rsquo;t a case-count threshold you drop below. It&rsquo;s a stopwatch. Let one chain of transmission run past a year, and the region &mdash; the first in the world to eliminate measles <em>twice</em> &mdash; loses the certification for the entire hemisphere.
+        </P>
+
+        <P>
+          So there are really two clocks running on this outbreak, and they don&rsquo;t agree. One is the stopwatch: how long has a single chain stayed alive. The other is the odometer: how many cases have rolled up. The status flipped on the stopwatch. Almost everything you read about measles counts the odometer. Watch what happens when you put them side by side.
+        </P>
+
+        <H2>The country that lost it had already turned the corner</H2>
+
+        <P>
+          Canada&rsquo;s outbreak started in New Brunswick in October 2024 and drove more than <a href="https://www.paho.org/en/news/10-11-2025-paho-calls-regional-action-americas-lose-measles-elimination-status">5,000 cases</a>. That&rsquo;s what tripped the stopwatch. But by the time the certificate came off the wall, the fire was mostly out. In the first 12 weeks of 2026, Canada reported <a href="https://www.paho.org/sites/default/files/2026/04/pahomeaslessitrep1engupdated_0.pdf">733 confirmed cases</a> &mdash; down from 5,425 across all of 2025. The country that cost the Americas its status is the one going quiet.
+        </P>
+
+        <P>
+          Meanwhile the odometer is spinning somewhere else entirely. Mexico logged <a href="https://www.paho.org/sites/default/files/2026/04/pahomeaslessitrep1engupdated_0.pdf">8,315 cases</a> in those same 12 weeks. Guatemala went from a single case in all of 2025 to 3,687. Both of them still hold their elimination status. The map that lost its measles-free label and the map of where measles actually is have quietly stopped being the same map.
+        </P>
+
+        <H2>&ldquo;On pace to match last year&rdquo; is doing a lot of hiding</H2>
+
+        <P>
+          Here&rsquo;s the odometer number people keep repeating: between epidemiological weeks 1 and 12 of 2026, the Americas reported <a href="https://www.paho.org/sites/default/files/2026/04/pahomeaslessitrep1engupdated_0.pdf">14,465 confirmed cases</a> &mdash; within 38 of the <em>entire</em> 2025 total of 14,503. Read that fast and you&rsquo;d file it under &ldquo;bad, but roughly last year&rsquo;s bad.&rdquo;
+        </P>
+
+        <Callout label="Read the denominator">
+          14,465 cases is not a year. It&rsquo;s a quarter. The Americas matched a full 2025 in the first 12 weeks of 2026 &mdash; roughly four times the 2025 pace, hiding inside a year-to-date number that happens to look like a tie.
+        </Callout>
+
+        <P>
+          That&rsquo;s the trap in every accumulation stat: a running total compared against a finished one isn&rsquo;t a comparison, it&rsquo;s a category error. The 2025 line stopped moving in December. The 2026 line has nine months left to run.
+        </P>
+
+        <H2>Why the odometer keeps climbing</H2>
+
+        <P>
+          The plumbing reason is coverage, and it&rsquo;s not close. Herd immunity for measles needs about 95% of people to have had both doses. In 2024, global first-dose coverage was <a href="https://www.who.int/news/item/15-07-2025-global-childhood-vaccination-coverage-holds-steady-yet-over-14-million-infants-remain-unvaccinated-who-unicef">84%</a> and second-dose coverage was 76% &mdash; nineteen points under the floor. PAHO&rsquo;s own read of the current outbreak: roughly <a href="https://www.paho.org/sites/default/files/2026/04/pahomeaslessitrep1engupdated_0.pdf">two-thirds of confirmed cases</a> have no record of measles vaccination.
+        </P>
+
+        <Fig caption={<>Global coverage in 2024: 84% for the first dose, 76% for the second, against the 95% needed for herd immunity &mdash; a 19-point gap on the second dose. Source: <a href="https://www.who.int/news/item/15-07-2025-global-childhood-vaccination-coverage-holds-steady-yet-over-14-million-infants-remain-unvaccinated-who-unicef">WHO/UNICEF, July 15, 2025</a>.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22First+dose+%28MCV1%29%22%2C%22Second+dose+%28MCV2%29%22%2C%22Herd-immunity+floor%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Global+coverage%2C+2024+%28%25%29%22%2C%22data%22%3A%5B84%2C76%2C95%5D%2C%22backgroundColor%22%3A%5B%22%235a5a5a%22%2C%22%23141210%22%2C%22%23bbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Global+measles+vaccine+coverage+vs+the+95%25+floor%2C+2024%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%2C%22max%22%3A100%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Coverage+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+            alt="Bar chart of global measles vaccine coverage in 2024: first dose 84%, second dose 76%, against a herd-immunity floor of 95%."
+            style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <Divider />
+
+        <P>
+          None of this means the elimination status is fake. It&rsquo;s a real, useful, hard-won piece of bookkeeping. But that&rsquo;s exactly what it is: a record of what a committee could verify about the previous 12 months, not a live readout of where the risk is today. Canada tripped the stopwatch on its way down. Mexico and Guatemala are running up the odometer with their status intact.
+        </P>
+
+        <P>
+          The status comes back the same way it left &mdash; <a href="https://www.paho.org/en/news/10-11-2025-paho-calls-regional-action-americas-lose-measles-elimination-status">12 straight clean months</a>, and the certificate goes back on the wall. Twelve months from when, is the one thing neither clock can tell you.
+        </P>
+
+        <P style={{ fontStyle:'italic', color:'var(--muted)' }}>&mdash; TJ</P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
