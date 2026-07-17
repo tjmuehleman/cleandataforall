@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '088', date: 'July 17, 2026', read: '3 min', kind: 'Analysis',
+    title: 'The US loses measles elimination the day the outbreaks are ruled one chain',
+    dek: 'There is no case count that forfeits elimination — not 2,288, not 2,260. What forfeits it is a ruling: are the 2025–26 outbreaks one genomically linked chain past 12 months, or a pile of separate imports?',
+    href: 'blog/measles-elimination-one-chain-or-many.html', shape: 'scatter' },
   { n: '087', date: 'July 16, 2026', read: '3 min', kind: 'Analysis',
     title: 'The cleanest measles data we have is a stack of school exemption forms',
     dek: 'The 2024–25 kindergarten exemption rate hit a record 3.6% and MMR coverage slipped to 92.5%, below the herd-immunity line. Then measles came back — and the paperwork had called it a year early.',
@@ -657,11 +661,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {            [
+              ['The US loses measles elimination the day the outbreaks are ruled one chain','blog/measles-elimination-one-chain-or-many.html'],
               ['The cleanest measles data we have is a stack of school exemption forms','blog/cleanest-measles-data-exemption-forms.html'],
               ['Most of the world’s measles is an estimate. Ours is a count.','blog/measles-estimate-vs-count.html'],
               ['The Americas lost measles-free status on a clock, not a case count','blog/measles-elimination-clock-not-case-count.html'],
               ['The good counselor number came in the month the money ran out','blog/counselor-ratio-money-ran-out.html'],
-              ['The numbers that fell are the ones we only have to count once','blog/numbers-that-fell-count-once.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
