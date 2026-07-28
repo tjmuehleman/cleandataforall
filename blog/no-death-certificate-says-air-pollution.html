@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>No death certificate says air pollution — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== POST DATA ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '097',
+  date:    'July 28, 2026',
+  readTime: '3 min',
+  title:   'No death certificate says air pollution',
+  dek:     'The State of Global Air says dirty air killed 7.9 million people in 2023, including 625,000 from dementia. But no death certificate says air pollution. Every one of those deaths is computed — a fraction, not a body someone counted.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900, textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Lower-middle+income%22%2C%22Upper-middle+income%22%2C%22High+income%22%2C%22Low+income%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Deaths+%28millions%29%22%2C%22data%22%3A%5B3.7%2C2.9%2C0.657%2C0.642%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%233a3a3a%22%2C%22%235a5a5a%22%2C%22%23777%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Air-pollution+deaths+in+2023%2C+by+country+income+group%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Deaths%2C+millions%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of air-pollution deaths in 2023 by country income group: 3.7 million in lower-middle-income countries, 2.9 million upper-middle, 657,000 high-income, 642,000 low-income." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'left' }}>
+        The 7.9 million air-pollution deaths of 2023, split by World Bank income group: 3.7M lower-middle, 2.9M upper-middle, 657K high-income, 642K low-income. Source: <a href="https://healthpolicy-watch.news/air-pollution-related-dementia-kills-over-625000-people-a-year/">State of Global Air 2025, via Health Policy Watch</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Read the State of Global Air 2025 report and you land on a very confident number.
+          Air pollution killed{' '}
+          <a href="https://www.stateofglobalair.org/news-events/2025/new-state-global-air-2025-report-shows-nearly-nine-ten-global-air-pollution-deaths">7.9 million people in 2023</a>,
+          the report says &mdash; the leading environmental risk factor for death on the
+          planet. And this year, for the first time, the toll includes{' '}
+          <a href="https://www.stateofglobalair.org/news-events/2025/new-state-global-air-2025-report-shows-nearly-nine-ten-global-air-pollution-deaths">more than 625,000 deaths from dementia</a>.
+        </P>
+
+        <P>
+          Here&rsquo;s the thing nobody says at the top of the press release. No death
+          certificate anywhere on Earth says &ldquo;air pollution.&rdquo;
+        </P>
+
+        <P>
+          Not one of those 7.9 million people has a cause of death that reads PM2.5. They
+          died of heart disease, stroke, COPD, diabetes, dementia &mdash; the boring, named
+          killers that fit on the form.{' '}
+          <a href="https://www.stateofglobalair.org/news-events/2025/new-state-global-air-2025-report-shows-nearly-nine-ten-global-air-pollution-deaths">Eighty-six percent of them, 6.8 million, from noncommunicable disease</a>.
+          Air pollution isn&rsquo;t on the certificate. It&rsquo;s a thing you add afterward,
+          in a model.
+        </P>
+
+        <H2>The number is a fraction, not a headcount</H2>
+
+        <P>
+          What the report is actually reporting is an <em>attributable</em> death. You take
+          the deaths that got counted &mdash; the ones on certificates, in registries, with
+          a disease and a date &mdash; and you multiply by a fraction: the share you&rsquo;d
+          expect to vanish if everyone breathed cleaner air. That fraction comes from a
+          relative risk, which comes from a stack of epidemiology studies, which come from
+          cohorts in a handful of countries. Multiply, sum, publish. Out comes 625,000.
+        </P>
+
+        <P>
+          For dementia, the fraction is{' '}
+          <a href="https://healthpolicy-watch.news/air-pollution-related-dementia-kills-over-625000-people-a-year/">about 28%</a>.
+          So the report isn&rsquo;t saying 625,000 people were killed by air the way 625,000
+          people are killed by a bus. It&rsquo;s saying: of all the dementia deaths in 2023,
+          roughly 28 in every 100 wouldn&rsquo;t have happened in a cleaner-air world that
+          doesn&rsquo;t exist. That&rsquo;s a real number. A defensible, useful, hard-won
+          number. It is not a body count. Those are two different data objects, and they get
+          printed in the same font.
+        </P>
+
+        <Fig caption={<>Dementia deaths in 2023, split by the attributable fraction: 28% assigned to air pollution (about 625,000 deaths), 72% the residual (100% &minus; 28%). Source: <a href="https://healthpolicy-watch.news/air-pollution-related-dementia-kills-over-625000-people-a-year/">State of Global Air 2025 / IHME GBD 2023, via Health Policy Watch</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Dementia+deaths%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Attributed+to+air+pollution+%2828%25%29%22%2C%22data%22%3A%5B28%5D%2C%22backgroundColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A0%7D%2C%7B%22label%22%3A%22Not+attributed+%2872%25%29%22%2C%22data%22%3A%5B72%5D%2C%22backgroundColor%22%3A%22%23bbb%22%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Share+of+dementia+deaths+attributed+to+air+pollution%2C+2023%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22stacked%22%3Atrue%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A100%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+of+dementia+deaths%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22stacked%22%3Atrue%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Stacked horizontal bar showing 28% of dementia deaths attributed to air pollution and 72% not attributed." style={{ width:'100%', height:'auto', display:'block', border:'1px solid var(--rule)' }} />
+        </Fig>
+
+        <Callout label="Key figure">
+          Air pollution is tied to <strong>28%</strong> of dementia deaths &mdash; about{' '}
+          <strong>625,000 deaths</strong> and{' '}
+          <a href="https://www.stateofglobalair.org/news-events/2025/new-state-global-air-2025-report-shows-nearly-nine-ten-global-air-pollution-deaths">nearly 12 million healthy years of life lost</a>{' '}
+          in 2023. Attributed, not counted.
+        </Callout>
+
+        <H2>And the confidence doesn&rsquo;t fade where the counting gets worse</H2>
+
+        <P>
+          Here&rsquo;s where the data guy in me gets twitchy. The 7.9 million deaths{' '}
+          <a href="https://healthpolicy-watch.news/air-pollution-related-dementia-kills-over-625000-people-a-year/">break out by income group</a>:
+          3.7 million in lower-middle-income countries, 2.9 million in upper-middle, 657,000
+          in high-income, 642,000 in low-income. Look at the hero chart again. Look at where
+          the mass sits.
+        </P>
+
+        <P>
+          The biggest tolls land in exactly the places with the thinnest vital registration
+          &mdash; the countries least likely to have a doctor sign a cause-of-death line at
+          all. High-income countries, where nearly every death gets a certificate, are the
+          smallest slice on the page. Which means most of that 7.9 million isn&rsquo;t built
+          on death certificates. It&rsquo;s built on models of what the certificates would
+          have said, layered on models of who was exposed to what, layered on the
+          attributable fractions from the top. Models most of the way down. And the total
+          still comes out to three significant figures.
+        </P>
+
+        <P>
+          I run a data company. I spend my days reminding people that a modeled estimate and
+          a counted thing are not the same animal, even when they wear the same number. This
+          is that, at planetary scale, with 7.9 million lives as the line item.
+        </P>
+
+        <Divider />
+
+        <P>
+          None of this is a knock on the report. Attributable-burden estimates are how you
+          make an invisible risk factor legible. You can&rsquo;t regulate what you refuse to
+          count, and &ldquo;roughly zero, because it&rsquo;s not on the certificate&rdquo; is
+          a much worse answer than 28%. I&rsquo;ll take the model every time.
+        </P>
+
+        <P>
+          But say which number you&rsquo;re holding. A counted death is a fact with a date
+          and a name. An attributable death is a hypothesis with an error bar. The report
+          itself knows the difference &mdash; it&rsquo;s all over the methods. The headline
+          almost never does.
+        </P>
+
+        <P>
+          7.9 million is the best estimate we have. It is also, to the last digit, an
+          estimate.
+        </P>
+
+        <P><em>&mdash; TJ</em></P>
+
+        <H2>Sources</H2>
+        <UL items={[
+          <a href="https://www.stateofglobalair.org/news-events/2025/new-state-global-air-2025-report-shows-nearly-nine-ten-global-air-pollution-deaths">State of Global Air 2025 — press release (7.9M deaths, 6.8M / 86% NCDs, 625K dementia deaths, ~12M healthy years lost, 95% of over-60 deaths NCDs)</a>,
+          <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025">State of Global Air 2025 — full report and data</a>,
+          <a href="https://healthpolicy-watch.news/air-pollution-related-dementia-kills-over-625000-people-a-year/">Health Policy Watch — 28% dementia attributable fraction and the income-group death breakdown, citing SoGA 2025</a>,
+          <a href="https://www.healthdata.org/research-analysis/library/state-global-air-2025">Institute for Health Metrics and Evaluation — State of Global Air 2025 (GBD 2023 methods)</a>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
