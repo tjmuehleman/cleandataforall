@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '099', date: 'July 30, 2026', read: '3 min', kind: 'Analysis',
+    title: 'Women hit the tobacco target five years early. The average buried it.',
+    dek: 'The global smoking rate fell to one in five adults — but that single number blends two populations on different clocks. Women cleared the 2025 target in 2020. Men won’t until 2031.',
+    href: 'blog/women-hit-tobacco-target-average-buried.html', shape: 'line' },
   { n: '098', date: 'July 29, 2026', read: '4 min', kind: 'Data Study',
     title: 'A disease we eliminated came back 32-fold. The 32 is the least interesting part.',
     dek: 'The Americas eliminated measles in 2016. In 2025 the region logged 14,767 cases — 32 times the year before. That multiple is the number everyone quotes. It’s also the one carrying the least information.',
@@ -701,11 +705,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {            [
+              ['Women hit the tobacco target five years early. The average buried it.','blog/women-hit-tobacco-target-average-buried.html'],
               ['A disease we eliminated came back 32-fold. The 32 is the least interesting part.','blog/32-fold-least-interesting-part.html'],
               ['No death certificate says air pollution','blog/no-death-certificate-says-air-pollution.html'],
               ['We’re already paying for data centers that haven’t been built yet','blog/paying-for-data-centers-not-built-yet.html'],
               ['The murder rate turned in 2022. Most people didn’t believe it until 2025.','blog/murder-turned-2022-belief-2025.html'],
-              ['The voucher ‘escape hatch’ rests on one field states barely collect','blog/voucher-escape-hatch-one-field.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
