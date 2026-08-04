@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>96,000 is the smallest number in this story &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '105',
+  date:    'August 4, 2026',
+  readTime: '4 min',
+  title:   '96,000 is the smallest number in this story',
+  dek:     'CBO says 96,000 kids a month lose free school meals when SNAP shrinks. That’s the direct hit. The bigger one runs through a percentage measured once a year, on April 1, that decides whether whole schools eat free.',
+  byline:  'T.J. Müehleman',
+};
+
+const HERO_CHART = 'https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Texas%22%2C%22Arizona%22%2C%22California%22%2C%22Louisiana%22%2C%22Massachusetts%22%2C%22Pennsylvania%22%2C%22Ohio%22%2C%22Michigan%22%2C%22Alabama%22%2C%22New+Jersey%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B317.3%2C182.1%2C156.4%2C82.1%2C61.6%2C59.8%2C50.5%2C41.2%2C23.3%2C21.8%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%23777%22%2C%22%23777%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Afalse%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22beginAtZero%22%3Atrue%2C%22max%22%3A350%2C%22stepSize%22%3A50%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Fewer+children+on+SNAP+since+July+2025+%28thousands%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2';
+const VAR_CHART  = 'https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Arizona%22%2C%22Louisiana%22%2C%22Massachusetts%22%2C%22Texas%22%2C%22Kansas%22%2C%22Maine%22%2C%22California%22%2C%22Ohio%22%2C%22Pennsylvania%22%2C%22Arkansas%22%2C%22Michigan%22%2C%22South+Dakota%22%2C%22Vermont%22%2C%22Alabama%22%2C%22New+Jersey%22%2C%22Maryland%22%2C%22Missouri%22%2C%22New+Mexico%22%2C%22New+Hampshire%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B49%2C23%2C18%2C18%2C13%2C10%2C9%2C9%2C9%2C8%2C8%2C8%2C8%2C7%2C7%2C6%2C6%2C6%2C4%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%235a5a5a%22%2C%22%23777%22%2C%22%23777%22%2C%22%23777%22%2C%22%23777%22%2C%22%23777%22%2C%22%23777%22%2C%22%23bbb%22%2C%22%23bbb%22%2C%22%23bbb%22%2C%22%23bbb%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Afalse%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22beginAtZero%22%3Atrue%2C%22max%22%3A50%2C%22stepSize%22%3A10%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+decline+in+children+receiving+SNAP%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=600&bkg=transparent&devicePixelRatio=2';
+
+const S_CBPP_NUM  = 'https://www.cbpp.org/research/food-assistance/by-the-numbers-harmful-republican-megabill-takes-food-assistance-away-from';
+const S_CBPP_TRK  = 'https://www.cbpp.org/research/food-assistance/snap-tracker-people-are-losing-food-assistance-as-the-harmful-2025';
+const S_CBO_SNAP  = 'https://www.cbo.gov/system/files/2025-08/61367-SNAP.pdf';
+const S_FEDREG    = 'https://www.federalregister.gov/documents/2023/09/26/2023-20294/child-nutrition-programs-community-eligibility-provision-increasing-options-for-schools';
+const S_CFR_ISP   = 'https://www.ecfr.gov/current/title-7/section-245.9#p-245.9(f)(3)(i)';
+const S_CFR_MULT  = 'https://www.ecfr.gov/current/title-7/section-245.9#p-245.9(f)(4)(vi)';
+const S_FRAC_RPT  = 'https://frac.org/cep-report-2026';
+const S_FRAC_NEWS = 'https://frac.org/news/cepreportjul2026';
+const S_FRAC_PDF  = 'https://frac.org/wp-content/uploads/CEP-Report-2026.pdf';
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900 }}>
+      <img src={HERO_CHART} alt="Bar chart of fewer children receiving SNAP since July 2025 in the ten largest reporting states: Texas 317,316; Arizona 182,058; California 156,440; Louisiana 82,064; Massachusetts 61,647; Pennsylvania 59,750; Ohio 50,477; Michigan 41,174; Alabama 23,324; New Jersey 21,815." style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'center' }}>
+        The input to the school-meal eligibility machine, moving. Ten largest declines among the 19 states that publish child-level SNAP counts; latest month ranges March–June 2026. Ohio counts children as under 22 living with a parent. Source: <a href={S_CBPP_TRK} target="_blank" rel="noopener" style={{ color:'inherit' }}>CBPP SNAP Tracker, July 21, 2026</a>, from USDA and state agency data.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Here’s a mechanism almost nobody outside a school nutrition office knows exists. If your household gets SNAP, your kid is automatically certified for free school meals. No application, no income form, no phone call. A data match does it, quietly, in a state system, and the family never sees it happen.
+        </P>
+
+        <P>
+          So when Congress cut SNAP by <a href={S_CBO_SNAP} target="_blank" rel="noopener">nearly $187 billion through 2034</a> in the law enacted July 4, 2025, some kids lost lunch as a side effect of losing groceries. CBO priced that side effect: <a href={S_CBPP_NUM} target="_blank" rel="noopener">96,000 children in an average month</a> losing free school meals and Summer EBT because the automatic eligibility went away with the benefit. It’s a good number. Specific, auditable, not an advocacy projection.
+        </P>
+
+        <P>
+          It’s also the smallest number in this story.
+        </P>
+
+        <H2>The number that actually decides who eats</H2>
+
+        <P>
+          That same data match does a second job, and the second job is the big one. Under the Community Eligibility Provision, a school — or a group of schools, or an entire district — that hits <a href={S_FEDREG} target="_blank" rel="noopener">25% “identified students”</a> can stop collecting meal applications altogether and feed every kid free. Identified students are the ones certified without a form, mostly through SNAP. Cross the line and everybody eats. Fall under it and the cafeteria goes back to applications, tiers, and unpaid meal debt.
+        </P>
+
+        <P>
+          Here’s the part that makes me twitchy. That percentage — the ISP — is measured <a href={S_CFR_ISP} target="_blank" rel="noopener">as of April 1 of the school year before you implement</a>, per 7 CFR 245.9(f)(3)(i). One date, once a year. Then it gets <a href={S_CFR_MULT} target="_blank" rel="noopener">multiplied by 1.6</a> to set the share of meals reimbursed at the federal free rate. Everything above that comes back at the much lower paid rate, and the district covers the difference out of non-federal money or stops participating.
+        </P>
+
+        <P>
+          A one-day count, run through a fixed multiplier, decides whether a building can afford to feed children. Snapshot in, budget out. I build systems like this for a living and that design would keep me up at night.
+        </P>
+
+        <H2>Then the input moved</H2>
+
+        <P>
+          SNAP participation is down <a href={S_CBPP_TRK} target="_blank" rel="noopener">more than 4.5 million people, about 11%</a>, between the law’s July 2025 enactment and April 2026. Down in every state except Alaska. Down 10% or more in 23 states. Unemployment sat flat at roughly 4% the whole stretch, which is the tell — this isn’t need receding, it’s the machinery. In the 19 states that publish child-level counts, <a href={S_CBPP_TRK} target="_blank" rel="noopener">1,069,158 fewer children</a> are on SNAP. CBPP puts the national figure at more than 1.5 million.
+        </P>
+
+        <P>
+          The last time the rolls moved like this was 1997 — <a href={S_CBPP_TRK} target="_blank" rel="noopener">11%, 2.7 million people, in nine months</a>, after the 1996 cuts. That’s the comparison class. Not a normal year with a bad quarter.
+        </P>
+
+        <H2>A national average is the wrong tool here</H2>
+
+        <Fig caption={<>Nineteen states, nineteen different years. Percent decline in children receiving SNAP, July 2025 to each state’s latest reported month (March–June 2026). Arizona’s decline is larger than any other state’s, so the 19-state total is not a national estimate. Source: <a href={S_CBPP_TRK} target="_blank" rel="noopener" style={{ color:'inherit' }}>CBPP SNAP Tracker</a>, CBPP calculations of state agency data as of July 20, 2026.</>}>
+          <img src={VAR_CHART} alt="Bar chart of percent decline in children receiving SNAP by state, July 2025 to latest month: Arizona 49%, Louisiana 23%, Massachusetts 18%, Texas 18%, Kansas 13%, Maine 10%, California 9%, Ohio 9%, Pennsylvania 9%, Arkansas 8%, Michigan 8%, South Dakota 8%, Vermont 8%, Alabama 7%, New Jersey 7%, Maryland 6%, Missouri 6%, New Mexico 6%, New Hampshire 4%." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <P>
+          Arizona is down 49% on children. New Hampshire is down 4. Averaging those tells you nothing useful, because CEP isn’t an average — it’s a threshold, crossed or not crossed, building by building. A district sitting at 27% ISP and a district sitting at 61% are having completely different years, and only one of them is about to reprint meal applications. The dispersion is the finding. The mean is noise.
+        </P>
+
+        <H2>The record was stale when it printed</H2>
+
+        <P>
+          Meanwhile the official scoreboard says everything is great. FRAC’s July report counts a <a href={S_FRAC_RPT} target="_blank" rel="noopener">record 55,362 schools</a> serving free breakfast and lunch to all students through CEP in 2025–2026, <a href={S_FRAC_RPT} target="_blank" rel="noopener">27.6 million children</a>, <a href={S_FRAC_RPT} target="_blank" rel="noopener">74.9% of eligible schools</a> participating. Record year.
+        </P>
+
+        <P>
+          That record ran on eligibility determined by the April 2025 snapshot. Three months before the law passed.
+        </P>
+
+        <P>
+          FRAC says the quiet part out loud, to their credit. Growth was <a href={S_FRAC_RPT} target="_blank" rel="noopener">1,128 schools, 2.1%</a> — the lowest rate in the program’s history — and <a href={S_FRAC_RPT} target="_blank" rel="noopener">17 states plus DC lost CEP schools</a> outright. The record and the reversal are in the same document.
+        </P>
+
+        <Callout label="Two numbers, one report">
+          55,362 schools on CEP, an all-time high. 2.1% growth, an all-time low. Both from <a href={S_FRAC_PDF} target="_blank" rel="noopener">FRAC’s 2026 CEP report</a>, both computed on a base that has since fallen 11%.
+        </Callout>
+
+        <P>
+          One more thing, because I can’t leave it alone. FRAC’s <a href={S_FRAC_NEWS} target="_blank" rel="noopener">press release</a> says 386,019 more children attended a CEP school this year. FRAC’s <a href={S_FRAC_RPT} target="_blank" rel="noopener">own report page</a> says 368,019, a 1.4% increase. Somebody transposed two digits, and eighteen thousand children exist or don’t depending on which page you landed on. This isn’t a knock on FRAC — it happens in every shop, including mine, and they publish more usable school-meals data than anyone. It’s just a reminder that the number you’re arguing about was typed by a person having a Tuesday.
+        </P>
+
+        <Divider />
+
+        <P>
+          The April 1, 2026 snapshot already happened. It’s sitting in state direct-certification systems right now, matched and counted, quietly deciding which schools serve free breakfast next year. The number that decides who eats already exists. We don’t get to read it until next summer.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
