@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '110', date: 'August 9, 2026', read: '4 min', kind: 'Data Study',
+    title: 'School spending hit a record. So did the bill for teachers who already left.',
+    dek: 'Hoover’s new U.S. School Pension Atlas links pension disclosures to district budgets for the first time — and it shows 71 cents of every pension dollar districts spent in 2020 serviced debt for teachers who’d already left the classroom.',
+    href: 'blog/record-spending-record-pension-debt.html', shape: 'scatter' },
   { n: '109', date: 'August 8, 2026', read: '4 min', kind: 'Data Study',
     title: 'The school phone-ban study that checked its own homework',
     dek: 'The biggest study yet on school cellphone bans found the phone-use collapse was real — because it checked a teacher survey against GPS pings, and pre-registered its hypotheses before running the numbers.',
@@ -746,11 +750,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {            [
+              ['School spending hit a record. So did the bill for teachers who already left.','blog/record-spending-record-pension-debt.html'],
               ['The school phone-ban study that checked its own homework','blog/phone-ban-study-checked-its-homework.html'],
               ['The teacher-shortage count gets a new number every year. The equity number behind it hasn’t moved since 2016.','blog/teacher-shortage-count-new-equity-stale.html'],
               ['Iowa cut chronic absenteeism more than any state. The number its law runs on was never collected.','blog/iowa-absenteeism-number-never-collected.html'],
               ['The teenagers in the 2025 data took the test in 2024','blog/teenagers-2025-data-tested-in-2024.html'],
-              ['96,000 is the smallest number in this story','blog/96000-smallest-number-in-this-story.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
