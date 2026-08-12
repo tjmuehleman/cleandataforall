@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '113', date: 'August 12, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Forty-nine states passed a reading law. Only four can show it worked.',
+    dek: '49 states have dyslexia laws and 118 laws invoke the science of reading — but a peer-reviewed study of 47 states found only 4 posted real reading gains, and Georgia’s own average hides a 48-point gap.',
+    href: 'blog/forty-nine-states-four-worked.html', shape: 'pulse' },
   { n: '112', date: 'August 11, 2026', read: '4 min', kind: 'Data Study',
     title: 'Congress didn’t touch the school lunch rule. It didn’t need to.',
     dek: 'A 2025 proposal to strip free lunch from 12 million kids died in reconciliation. The 25% threshold never moved. Then SNAP cuts shrank the population standing under it anyway — and a Washington district is the receipt.',
@@ -758,11 +762,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {            [
+              ['Forty-nine states passed a reading law. Only four can show it worked.','blog/forty-nine-states-four-worked.html'],
               ['Congress didn’t touch the school lunch rule. It didn’t need to.','blog/school-lunch-threshold-never-moved.html'],
               ['Texas took over Houston ISD to fix it. The data says it’s driving families to the exit.','blog/houston-isd-takeover-enrollment-drop.html'],
               ['School spending hit a record. So did the bill for teachers who already left.','blog/record-spending-record-pension-debt.html'],
               ['The school phone-ban study that checked its own homework','blog/phone-ban-study-checked-its-homework.html'],
-              ['The teacher-shortage count gets a new number every year. The equity number behind it hasn’t moved since 2016.','blog/teacher-shortage-count-new-equity-stale.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
