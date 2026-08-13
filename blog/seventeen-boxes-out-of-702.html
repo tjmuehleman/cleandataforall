@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="../favicon.ico" />
+<title>America has graded its schools since 1870. This year it filled in 17 boxes out of 702. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+const POST = {
+  kind:    'Data Study',
+  number:  '114',
+  date:    'August 13, 2026',
+  readTime: '3 min',
+  title:   'America has graded its schools since 1870. This year it filled in 17 boxes out of 702.',
+  dek:     'The 2026 Condition of Education updated 17 of 702 tracked indicators after cuts gutted NCES — and nobody agrees on how many contracts got cancelled: 89 by DOGE, 90 by the agency, 169 by researchers.',
+  byline:  'T.J. Müehleman',
+};
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 0 56px', textAlign:'center' }}>
+      <img
+        src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Updated+in+2026+release%22%2C%22Not+updated+%28carried+forward%29%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B17%2C685%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23bbbbbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22702+tracked+education+indicators%2C+17+updated+in+2026%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x1%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Number+of+indicators%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y1%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+        alt="Horizontal bar chart showing 17 of 702 federal education indicators updated in the 2026 release, versus 685 not updated"
+        style={{ maxWidth:900, width:'100%', display:'block', margin:'0 auto' }}
+      />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10 }}>
+        Indicators updated in the 2026 Condition of Education release, out of 702 tracked. Source: <a href="https://ies.ed.gov/sites/default/files/nces/document/2026/05/NCES%202026144.pdf" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor' }}>NCES 2026-144</a>, per <a href="https://www.edweek.org/policy-politics/feds-issue-a-slimmed-down-data-release-on-u-s-schools/2026/05" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor' }}>Education Week</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Since 1870, the federal government has collected statistics on the condition and progress of American education (<a href="https://nces.ed.gov/fastfacts/display.asp?id=932" target="_blank" rel="noopener">NCES</a>). That&rsquo;s 156 years of counting enrollment, spending, graduation, teachers and their salaries &mdash; the whole instrument panel everyone quietly assumes just exists. This year&rsquo;s edition of the Condition of Education, released May 28, updated 17 of the 702 indicators the Education Department&rsquo;s statistics wing is supposed to track (<a href="https://ies.ed.gov/sites/default/files/nces/document/2026/05/NCES%202026144.pdf" target="_blank" rel="noopener">NCES 2026-144</a>; confirmed by <a href="https://www.edweek.org/policy-politics/feds-issue-a-slimmed-down-data-release-on-u-s-schools/2026/05" target="_blank" rel="noopener">Education Week</a>).
+        </P>
+
+        <P>
+          Read that again. Seventeen. Out of seven hundred and two.
+        </P>
+
+        <P>
+          I run a data company. We build the systems that turn messy field reporting into numbers people actually trust, and the thing that gets me about this story isn&rsquo;t the politics &mdash; it&rsquo;s the plumbing. Every chart anyone has ever shared about American schools, per-pupil spending, chronic absenteeism, graduation rates, traces back to a small number of federal collections nobody thinks about until they stop.
+        </P>
+
+        <H2>Here&rsquo;s what stopped</H2>
+
+        <P>
+          The National Center for Education Statistics went from something like 100 staff to 3 last year, after DOGE cuts. It&rsquo;s crawled back to about 11 as of this February (<a href="https://www.luminafoundation.org/news-and-views/after-the-buzz-cut-rebuilding-the-nations-education-data-agency/" target="_blank" rel="noopener">Lumina Foundation</a>). The Institute of Education Sciences, the parent shop that runs NCES, lost about 90% of its staff in the same wave (Education Week).
+        </P>
+
+        <P>
+          And here&rsquo;s the part that should bother anyone who works with data for a living: nobody agrees on how many contracts got cancelled. DOGE posted on X that it had terminated 89 Education Department contracts worth $881 million. A department spokesperson later told ProPublica the number was 90. The American Educational Research Association counted 169 &mdash; nearly double &mdash; because it was tracking IES contracts specifically, including ones tied to NCES itself (<a href="https://www.chalkbeat.org/2025/02/11/elon-musk-and-doge-cancel-education-department-research-contracts/" target="_blank" rel="noopener">Chalkbeat</a>). Three different people looked at the same stack of terminated paperwork and got three different totals. That&rsquo;s not a rounding error. That&rsquo;s a sign nobody kept a master list of the list-keepers.
+        </P>
+
+        <P>
+          The American Statistical Association has been trying to build that master list ever since. Its tracker of the 56 NCES data collections finds 11 fully active and 8 gathering limited data; 26 others have been halted outright, with the remaining 11 either unknown or one-time studies that had already wrapped &mdash; 56 minus 11 minus 8 minus 26 (<a href="https://www.amstat.org/policy-and-advocacy/nces-study-and-project-tracker/" target="_blank" rel="noopener">ASA NCES Study and Project Tracker</a>, via Education Week). That&rsquo;s not a chart I built for effect. That&rsquo;s the whole inventory, and more than half of it is dark.
+        </P>
+
+        <Fig caption={<>Status of the 56 NCES data collections tracked by the American Statistical Association, as reported May 2026. 56 &minus; 11 &minus; 8 &minus; 26 = 11 unknown or completed. Source: <a href="https://www.amstat.org/policy-and-advocacy/nces-study-and-project-tracker/" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor' }}>ASA NCES Study and Project Tracker</a>, via <a href="https://www.edweek.org/policy-politics/feds-issue-a-slimmed-down-data-release-on-u-s-schools/2026/05" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor' }}>Education Week</a>.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Halted%22%2C%22Fully+active%22%2C%22Limited+data%22%2C%22Unknown+%2F+one-time%2C+completed%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B26%2C11%2C8%2C11%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%235a5a5a%22%2C%22%23777777%22%2C%22%23bbbbbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Status+of+the+56+NCES+data+collections+tracked+by+ASA%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x1%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Number+of+collections%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y1%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+            alt="Horizontal bar chart showing 26 of 56 NCES data collections halted, 11 fully active, 8 gathering limited data, and 11 unknown or one-time completed"
+            style={{ maxWidth:900, width:'100%', display:'block', margin:'0 auto' }}
+          />
+        </Fig>
+
+        <H2>A pulse, not a fix</H2>
+
+        <P>
+          Some of this is coming back. IES has started re-advertising vacant positions (Education Week). A Senate committee &mdash; Murkowski and Collins crossing over with Kaine and other Democrats &mdash; advanced a bill on July 30 to block much of the department&rsquo;s dismantling (<a href="https://www.edweek.org/policy-politics/senate-panel-advances-bill-to-block-much-of-trump-admin-s-ed-dept-dismantling/2026/07" target="_blank" rel="noopener">Education Week</a>). Neither of those things is a fix. They&rsquo;re a pulse.
+        </P>
+
+        <P>
+          And the newest wrinkle isn&rsquo;t even about missing numbers &mdash; it&rsquo;s about what the numbers are allowed to mean once they show up. The department told Chalkbeat in early July that the long-delayed Civil Rights Data Collection &mdash; discipline, suspensions, AP access, bullying &mdash; would land &ldquo;later this summer&rdquo; (<a href="https://www.chalkbeat.org/2026/07/10/department-of-education-says-civil-rights-and-discipline-data-coming-soon/" target="_blank" rel="noopener">Chalkbeat</a>). Two weeks after that promise, the department also changed what counts as evidence of discrimination: raw demographic gaps in discipline or AP enrollment can no longer, on their own, trigger a civil rights investigation (<a href="https://www.chalkbeat.org/2026/07/23/department-of-education-limits-civil-rights-investigations/" target="_blank" rel="noopener">Chalkbeat</a>). So even once the data shows up, the department has already decided in advance that the gaps it shows won&rsquo;t count as proof of anything.
+        </P>
+
+        <Divider />
+
+        <P>
+          That&rsquo;s the real story here. Not a policy fight over vouchers or curriculum. A country that has counted its own schools every year for 156 years just lost track of its instrument panel &mdash; and can&rsquo;t yet agree, even internally, on how many pieces it dropped.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
