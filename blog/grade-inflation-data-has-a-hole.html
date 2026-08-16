@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>The grade inflation data has a hole in it — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '117',
+  date:    'August 16, 2026',
+  readTime: '4 min',
+  title:   'The grade inflation data has a hole in it',
+  dek:     'Three numbers anchor the grade inflation argument. One rests on a field a third of students stopped filling in, one is a per-teacher figure being read per-student, and one moved because a state moved it.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'32px 0', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, maxWidth:900, marginLeft:'auto', marginRight:'auto' }}>
+        <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Class+of+2017%22%2C%22Class+of+2022%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Share+of+the+ACT-tested+graduating+class+with+no+GPA+on+file%22%2C%22data%22%3A%5B19.0%2C37.5%5D%2C%22backgroundColor%22%3A%5B%22%23bbb%22%2C%22%23141210%22%5D%2C%22borderColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A1%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%5B%22Grades+are+the+most-cited+number+in+American+schooling.%22%2C%22In+five+years%2C+a+third+of+them+stopped+getting+reported.%22%5D%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22display%22%3Afalse%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A14%7D%2C%22barPercentage%22%3A0.55%7D%5D%2C%22yAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22beginAtZero%22%3Atrue%2C%22max%22%3A40%2C%22stepSize%22%3A5%2C%22fontSize%22%3A13%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+of+class+with+no+high+school+GPA+reported%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart: share of the ACT-tested graduating class with no high school GPA on file rose from 19.0% in 2017 to 37.5% in 2022." style={{ width:'100%', height:'auto', display:'block' }} />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12 }}>
+          Source: ACT Research Report 2025-11, Table 1. One southern state with statewide ACT school-day testing.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Somewhere in a southern state, 37.5% of the high school class of 2022 did not write down their GPA.
+        </P>
+
+        <P>
+          That is the part of the grade inflation story nobody is arguing about, because nobody noticed it.
+          Last November ACT published a careful report on whether grade inflation wrecks the predictive power
+          of a transcript. Good paper. The finding traveled. What got skipped is
+          {' '}<a href="https://www.act.org/content/dam/act/unsecured/documents/R2432-The-Implications-of-Grade-Inflation-2025-11.pdf" target="_blank" rel="noopener">Table 1</a>,
+          where the author notes that the share of the graduating class with no high school GPA on file went
+          from 19.0% in 2017 to 37.5% in 2022.
+        </P>
+
+        <P>
+          High school GPA, in this dataset, is self-reported. Kids type it into a form when they register for
+          the ACT. And over five years, more than a third of them stopped typing.
+        </P>
+
+        <H2>The denominator moved and nobody announced it</H2>
+
+        <P>
+          Across those same graduating classes, mean GPA went from 3.17 to 3.37 while the ACT composite went
+          from 19.18 to 18.39. Grades up, scores down &mdash; the divergence everybody writes about. Except the
+          grades half of that sentence now rests on a field a third of the class left blank, and the blankness
+          is not random. Sanchez had to put a term in the model just for it, and the interaction between cohort
+          year and change-in-missing came back at p = 0.003.
+        </P>
+
+        <P>
+          I run a data company. This is the most familiar failure mode I know. Not a wrong number. A number
+          whose denominator quietly changed shape while everyone kept quoting the numerator.
+        </P>
+
+        <Callout label="What I dropped">
+          Nearly every version of this story opens with &ldquo;half of all seniors now graduate with an A average,
+          up from 39% in 1990.&rdquo; I went looking. The 39% traces to 1998, not 1990, and I could not tie the pair
+          to a primary source I would link to. So it is not in here.
+        </Callout>
+
+        <H2>The scary number is a different number</H2>
+
+        <P>
+          Second one. In March, NBER published
+          {' '}<a href="https://www.nber.org/papers/w34952" target="_blank" rel="noopener">Easy A&rsquo;s, Less Pay</a>{' '}
+          &mdash; Denning, Nesbit, Pope and Warnick &mdash; the first real causal look at what lenient grading does
+          to kids downstream. The headline figure is $213,872, and it has been everywhere since.
+        </P>
+
+        <P>
+          Here is the abstract, verbatim: a teacher with one standard deviation higher average grade inflation
+          reduces the present discounted value of lifetime earnings of <em>their students</em> by $213,872{' '}
+          <em>per year</em>.
+        </P>
+
+        <P>
+          Plural. Per year of teaching. That is a full course load &mdash; 90 to 100 kids, per
+          {' '}<a href="https://hechingerreport.org/proof-points-grade-inflation-lower-pay/" target="_blank" rel="noopener">Hechinger&rsquo;s writeup</a>.
+          Run it per student and the picture is $56 less one year after high school and $145 less six years out.
+          Both numbers are true. One is a headline and the other is what happened to your kid. (The paper is a
+          working paper, not peer-reviewed yet.)
+        </P>
+
+        <H2>Something real is still in there</H2>
+
+        <P>
+          Strip out the reporting problem and the distribution still moved. Adjusted for ACT score, the
+          25th-percentile GPA in that state went from 2.90 in 2017 to 3.11 in 2022. The bottom quarter crossed a B.
+        </P>
+
+        <Fig caption={<>Source: ACT Research Report 2025-11, Figure A1. GPA adjusted for student ACT Composite, school average ACT Composite, and change in the share of students not reporting a GPA.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%2225th+percentile%22%2C%2275th+percentile%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Class+of+2017%22%2C%22data%22%3A%5B2.9%2C3.41%5D%2C%22backgroundColor%22%3A%22%23bbb%22%2C%22borderColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A1%7D%2C%7B%22label%22%3A%22Class+of+2022%22%2C%22data%22%3A%5B3.11%2C3.61%5D%2C%22backgroundColor%22%3A%22%23141210%22%2C%22borderColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A1%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+bottom+quarter+crossed+a+B+in+five+years%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22position%22%3A%22bottom%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%2C%22boxWidth%22%3A14%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22display%22%3Afalse%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A2.5%2C%22max%22%3A4.0%2C%22stepSize%22%3A0.25%2C%22fontSize%22%3A12%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Adjusted+high+school+GPA%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Grouped bar chart: adjusted 25th-percentile GPA rose from 2.90 to 3.11 and 75th-percentile GPA rose from 3.41 to 3.61 between 2017 and 2022." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <P>
+          And the inflation runs hotter at the low-GPA schools, not the fancy ones &mdash; the negative correlation
+          is sitting right there in Figure A3. Which is the cruel part. The transcript stops working as a warning
+          light exactly where somebody needed the warning. Meanwhile the credential keeps setting records:
+          Florida just posted
+          {' '}<a href="https://www.fldoe.org/newsroom/latest-news/florida-sets-highest-graduation-rate-in-states-history-at-92-2-.stml" target="_blank" rel="noopener">92.2%</a>,
+          the highest graduation rate in state history, up 2.5 points in a year.
+        </P>
+
+        <H2>And the test is drifting too</H2>
+
+        <P>
+          You would think the fix is easy. Ignore the grades, look at the test. Then New York released
+          preliminary scores on August 5 and third-grade reading proficiency in the city
+          {' '}<a href="https://www.chalkbeat.org/newyork/2026/08/13/new-york-reading-test-score-swings-raise-questions-with-experts/" target="_blank" rel="noopener">fell 14 points after rising 13</a>{' '}
+          the year before. The co-chair of the state&rsquo;s own technical advisory committee told Chalkbeat there
+          &ldquo;may have been an issue last year that we missed.&rdquo;
+        </P>
+
+        <Divider />
+
+        <P>
+          Three instruments. One with a coverage hole, one with a unit-of-analysis problem, one with a cut score
+          somebody moved.
+        </P>
+
+        <P>
+          I do not think grades are fake. I think we are having a very loud argument about what American kids
+          know, using three files nobody has audited. Fix the files first.
+        </P>
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <>Edgar I. Sanchez, <a href="https://www.act.org/content/dam/act/unsecured/documents/R2432-The-Implications-of-Grade-Inflation-2025-11.pdf" target="_blank" rel="noopener">The Implications of Grade Inflation</a>, ACT Research Report 2025-11 (November 2025) &mdash; Table 1, Table A1, Figures A1 and A3.</>,
+          <>Denning, Nesbit, Pope &amp; Warnick, <a href="https://www.nber.org/papers/w34952" target="_blank" rel="noopener">Easy A&rsquo;s, Less Pay: The Long-Term Effects of Grade Inflation</a>, NBER Working Paper 34952 (March 2026).</>,
+          <>Jill Barshay, <a href="https://hechingerreport.org/proof-points-grade-inflation-lower-pay/" target="_blank" rel="noopener">Easy A&rsquo;s, lower pay: Grade inflation&rsquo;s hidden damage</a>, The Hechinger Report.</>,
+          <>Florida Department of Education, <a href="https://www.fldoe.org/newsroom/latest-news/florida-sets-highest-graduation-rate-in-states-history-at-92-2-.stml" target="_blank" rel="noopener">Florida Sets Highest Graduation Rate in State&rsquo;s History at 92.2%</a>.</>,
+          <>Barnum &amp; Zimmerman, <a href="https://www.chalkbeat.org/newyork/2026/08/13/new-york-reading-test-score-swings-raise-questions-with-experts/" target="_blank" rel="noopener">NYC&rsquo;s unexplained test score swings prompt experts to question reading results</a>, Chalkbeat New York, August 13, 2026.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
