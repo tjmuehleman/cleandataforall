@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>The most careful reader of school district data works at Moody&rsquo;s — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '122',
+  date:    'August 21, 2026',
+  readTime: '4 min',
+  title:   'The most careful reader of school district data works at Moody’s',
+  dek:     'A Kentucky district borrowed $95 million to pay its bills after its own financial statements turned out to be wrong. A rating agency found the error — and K-12 is now the biggest source of downgrades in the muni market.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'32px 0 28px', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, maxWidth:900, marginLeft:'auto', marginRight:'auto' }}>
+        <img
+          src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Washington%22%2C%22California%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Downgrades%22%2C%22data%22%3A%5B24%2C9%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%2C%7B%22label%22%3A%22Upgrades%22%2C%22data%22%3A%5B0%2C19%5D%2C%22backgroundColor%22%3A%22%23bbb%22%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%5B%22Moody%27s+K-12+rating+actions%2C+trailing+12+months%22%2C%22Washington%3A+24+down%2C+0+up.+California%3A+19+up%2C+9+down.%22%5D%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22position%22%3A%22bottom%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22boxWidth%22%3A14%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22max%22%3A26%2C%22stepSize%22%3A4%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Number+of+rating+actions%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%2C%22fontStyle%22%3A%22bold%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+          alt="Moody's K-12 rating actions over the trailing 12 months: Washington recorded 24 downgrades and zero upgrades, while California recorded 19 upgrades against 9 downgrades."
+          style={{ width:'100%', height:'auto', display:'block' }}
+        />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12 }}>
+          Moody&rsquo;s K-12 rating actions, trailing 12 months. Source: Moody&rsquo;s analyst James Kelely, via <a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener" style={{ color:'inherit' }}>The Bond Buyer, May 1, 2026</a>. Both states cover the same window.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          In July, Fayette County Public Schools borrowed <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">$95 million</a> to make payroll.
+        </P>
+
+        <P>
+          Not for a building. Not for a bus fleet. Just to cover expenses until fall property taxes landed &mdash; the <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">first time</a> the Lexington district had ever done cash-flow borrowing like that.
+        </P>
+
+        <P>
+          The reason wasn&rsquo;t a bad year. It was a bad ledger.
+        </P>
+
+        <P>
+          On August 12, Moody&rsquo;s cut the district&rsquo;s issuer and general obligation ratings to <a href="https://www.bondbuyer.com/news/fayette-county-school-district-kentucky-downgraded-to-baa1" target="_blank" rel="noopener">Baa1 from A3</a> &mdash; the <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">third downgrade</a> in a single year &mdash; and the stated cause wasn&rsquo;t enrollment or labor costs or the end of pandemic money. It was <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">&ldquo;inaccurate financial reporting, including inflated fund balance levels and overstated revenue projections.&rdquo;</a> Historical errors in local property tax records overstated revenue by <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">$12 million</a>, which by itself erases the <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">$11 million contingency</a> the district had written into its tentative 2027 budget. Moody&rsquo;s now projects the available general fund balance lands somewhere <a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">between negative $10 million and negative $17 million</a> for fiscal 2026.
+        </P>
+
+        <P>
+          Read that again. The reserves weren&rsquo;t spent. They were never there.
+        </P>
+
+        <P>
+          And here&rsquo;s the part that should bother anyone who works with public data: a team of bond analysts found it. Not the district&rsquo;s finance office. Not the state. Not an auditor on a normal cycle. Analysts whose actual job is pricing risk for investors ended up doing the most careful read of a Kentucky school district&rsquo;s own numbers.
+        </P>
+
+        <H2>Schools are now the biggest downgrade story in munis</H2>
+
+        <P>
+          K-12 districts accounted for <a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener">70&#37; of all of Fitch&rsquo;s downgrades and negative outlook revisions</a> over the trailing 12 months. Around <a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener">11&#37; of school district ratings</a> carry a negative outlook, against 6&#37; of all local government ratings. And roughly <a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener">60&#37; of US districts</a> sit in Fitch&rsquo;s two lowest budgetary-flexibility buckets, mostly because they can&rsquo;t raise revenue meaningfully without asking voters first.
+        </P>
+
+        <P>
+          But the national number hides the interesting part. Same rating agency, same twelve months, same analyst quoted in the same article: Washington&rsquo;s K-12 sector took <strong>24 downgrades and zero upgrades</strong>. California took <strong>19 upgrades against 9 downgrades</strong> (chart at the top). That&rsquo;s not a trend line. That&rsquo;s a couple thousand separate ledgers being read one at a time, and the aggregate is almost meaningless.
+        </P>
+
+        <Fig caption={<>Source: Fitch analysts, via <a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener">The Bond Buyer, May 1, 2026</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22K-12+school+districts%22%2C%22All+local+governments%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Share+of+Fitch+ratings+on+negative+outlook%22%2C%22data%22%3A%5B11%2C6%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23777%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%5B%22Schools+carry+nearly+twice+the+negative-outlook+rate%22%2C%22Share+of+Fitch+ratings+on+negative+outlook%2C+2026%22%5D%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%2C%22fontStyle%22%3A%22bold%22%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22max%22%3A12%2C%22stepSize%22%3A2%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+of+rated+credits%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%2C%22fontStyle%22%3A%22bold%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=400&bkg=transparent&devicePixelRatio=2" alt="Share of Fitch ratings on negative outlook in 2026: K-12 school districts 11 percent, all local governments 6 percent." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <H2>Three ways a district&rsquo;s numbers fail</H2>
+
+        <P>
+          The 2026 downgrades sort into three buckets, and none of them are really about demographics.
+        </P>
+
+        <P>
+          <strong>The numbers were wrong.</strong> Fayette County. Inflated balances, overstated revenue, a $12 million property tax error nobody surfaced until a rating committee did.
+        </P>
+
+        <P>
+          <strong>The numbers exist and don&rsquo;t mean anything.</strong> Moody&rsquo;s cut LAUSD&rsquo;s issuer rating to <a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">A1 from Aa3</a> in July and Fitch cut its issuer default rating to <a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">A from AA-minus</a>, days after the Los Angeles County Office of Education said the district meets the statutory criteria for a <a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">&ldquo;lack of going concern&rdquo; designation</a>. LAUSD has a fiscal stabilization plan. It identifies about <a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">$3.6 billion in budgetary solutions</a> through 2029. Fitch&rsquo;s objection is that it <a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">&ldquo;lacks implementation detail&rdquo;</a> &mdash; which is analyst for <em>the plan balances on the page and nowhere else.</em>
+        </P>
+
+        <P>
+          <strong>The numbers were published and ignored.</strong> Fitch cut Dallas ISD to <a href="https://www.bondbuyer.com/news/fitch-cuts-dallas-school-rating-ahead-of-big-bond-election" target="_blank" rel="noopener">AA from AA-plus</a> in March, explicitly flagging that the district&rsquo;s long-term liability metric could get worse <a href="https://www.bondbuyer.com/news/fitch-cuts-dallas-school-rating-ahead-of-big-bond-election" target="_blank" rel="noopener">if voters approved the May bond</a>. In May, voters approved <a href="https://www.bondbuyer.com/news/dallas-school-system-wins-historic-6-24-billion-bond-election" target="_blank" rel="noopener">$6.24 billion</a>, 3 to 1. Largest school bond in Texas history.
+        </P>
+
+        <Callout label="The distinction that matters">
+          Falling enrollment is demography. It&rsquo;s nobody&rsquo;s fault and everybody&rsquo;s problem. A fund balance that was never there is something else. That&rsquo;s a data problem, and data problems have owners.
+        </Callout>
+
+        <Divider />
+
+        <P>
+          The rating agencies aren&rsquo;t smarter than school districts. They just read the filings.
+        </P>
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href="https://www.bondbuyer.com/news/school-fiscal-challenges-are-pressuring-bond-ratings" target="_blank" rel="noopener">The Bond Buyer &mdash; School fiscal challenges are pressuring bond ratings (May 1, 2026)</a> &mdash; Fitch 70&#37; figure, 11&#37; vs 6&#37; negative outlook, 60&#37; budgetary flexibility, Washington 24&ndash;0 and California 19&ndash;9 Moody&rsquo;s counts</>,
+          <><a href="https://www.wkyt.com/2026/08/13/wall-street-slashes-fayette-county-schools-credit-rating-warns-17m-deficit-over-inaccurate-reporting/" target="_blank" rel="noopener">WKYT &mdash; Wall Street slashes Fayette County Schools&rsquo; credit rating (Aug 13, 2026)</a> &mdash; Baa1 from A3, third downgrade, $12M revenue overstatement, $11M contingency, $95M notes, FY2026 deficit range</>,
+          <><a href="https://www.bondbuyer.com/news/fayette-county-school-district-kentucky-downgraded-to-baa1" target="_blank" rel="noopener">The Bond Buyer &mdash; Kentucky&rsquo;s Fayette County School District gets another Moody&rsquo;s downgrade</a></>,
+          <><a href="https://www.bondbuyer.com/news/lausds-ratings-take-a-hit-amid-fiscal-woes" target="_blank" rel="noopener">The Bond Buyer &mdash; LAUSD&rsquo;s ratings take a hit amid fiscal woes (July 22, 2026)</a></>,
+          <><a href="https://www.bondbuyer.com/news/fitch-cuts-dallas-school-rating-ahead-of-big-bond-election" target="_blank" rel="noopener">The Bond Buyer &mdash; Fitch cuts Dallas school rating ahead of big bond election</a></>,
+          <><a href="https://www.bondbuyer.com/news/dallas-school-system-wins-historic-6-24-billion-bond-election" target="_blank" rel="noopener">The Bond Buyer &mdash; Dallas school system wins historic $6.24 billion bond election</a></>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
