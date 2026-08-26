@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The exemption rate covers 50 states. The vaccination rate covers 49. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '127',
+  date:    'August 26, 2026',
+  readTime: '4 min',
+  title:   'The exemption rate covers 50 states. The vaccination rate covers 49.',
+  dek:     'CDC posted record kindergarten vaccine exemptions on August 17. The exemption number and the coverage number on that same page are averages over two different rosters of states — and the roster changes every year.',
+  byline:  'T.J. Müehleman',
+};
+
+const HERO_CHART = 'https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222019-20%22%2C%222020-21%22%2C%222021-22%22%2C%222022-23%22%2C%222023-24%22%2C%222024-25%22%2C%222025-26%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Jurisdictions+reporting+MMR+coverage%22%2C%22data%22%3A%5B48%2C48%2C50%2C50%2C50%2C49%2C49%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%2C%7B%22label%22%3A%22Jurisdictions+reporting+exemptions%22%2C%22data%22%3A%5B49%2C49%2C50%2C50%2C50%2C49%2C50%5D%2C%22backgroundColor%22%3A%22%238a8a8a%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+denominator+moves+-+and+the+two+series+disagree+in+3+of+7+years%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22min%22%3A45%2C%22max%22%3A51%2C%22stepSize%22%3A1%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22States+%2B+DC+that+filed+%2851+possible%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2';
+const CHART_EXEMPT = 'https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Any+exemption%22%2C%22Non-medical%22%2C%22Medical%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222019-20%22%2C%22data%22%3A%5B2.5%2C2.2%2C0.3%5D%2C%22backgroundColor%22%3A%22%238a8a8a%22%7D%2C%7B%22label%22%3A%222025-26%22%2C%22data%22%3A%5B4.2%2C4.0%2C0.2%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22All+of+the+increase+is+in+the+non-medical+box%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22min%22%3A0%2C%22max%22%3A5%2C%22stepSize%22%3A1%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+of+US+kindergartners%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2';
+
+const S_CDC   = 'https://www.cdc.gov/schoolvaxview/data/index.html';
+const S_KFF   = 'https://www.kff.org/medicaid/kindergarten-routine-vaccination-rates-continue-to-decline/';
+const S_ABC   = 'https://abcnews.com/Health/exemption-rate-routine-childhood-vaccines-us-kindergartners-hits/story?id=135716718';
+const S_USAF  = 'https://usafacts.org/articles/more-kids-are-getting-vaccine-exemptions-heres-where/';
+const S_CIDRAP= 'https://www.cidrap.umn.edu/childhood-vaccines/us-kindergarten-vaccine-exemptions-jumped-last-school-year-cdc-reports';
+const S_DATA  = 'https://data.cdc.gov/Vaccinations/Vaccination-Coverage-and-Exemptions-among-Kinderga/ijqb-a7ye/about_data';
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 auto 56px', maxWidth:900 }}>
+      <img src={HERO_CHART} alt="Grouped bar chart of how many states plus DC filed kindergarten data each year. MMR coverage: 48, 48, 50, 50, 50, 49, 49 from 2019-20 through 2025-26. Exemptions: 49, 49, 50, 50, 50, 49, 50." style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, textAlign:'center' }}>
+        Fifty-one jurisdictions could file. Almost never do all of them. The two headline series on the same CDC page run on different rosters in 2019&ndash;20, 2020&ndash;21 and 2025&ndash;26. Counts as footnoted by <a href={S_KFF} target="_blank" rel="noopener" style={{ color:'inherit' }}>KFF</a> from <a href={S_CDC} target="_blank" rel="noopener" style={{ color:'inherit' }}>CDC SchoolVaxView</a>.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          CDC posted the 2025&ndash;26 kindergarten numbers on August 17. Two headlines fell out of it.
+          Exemptions from one or more vaccines hit{' '}
+          <a href={S_CDC} target="_blank" rel="noopener">4.2%, a record, up from 3.6%</a>. MMR coverage
+          fell to{' '}
+          <a href={S_CDC} target="_blank" rel="noopener">92.4%</a>, under the 95% everybody treats as the
+          floor. Both numbers are on the same page. Both are correct.
+        </P>
+
+        <P>
+          They are also not describing the same country.
+        </P>
+
+        <H2>Who actually filed</H2>
+
+        <P>
+          KFF put the reporting counts in the footnotes of its charts, which I appreciate more than I
+          probably should.{' '}
+          <a href={S_KFF} target="_blank" rel="noopener">Forty-nine states reported MMR coverage for 2025&ndash;26. Fifty reported exemptions.</a>{' '}
+          Kansas and Montana didn&rsquo;t file coverage. Montana didn&rsquo;t file exemptions.
+        </P>
+
+        <P>
+          Do the arithmetic. Fifty states plus DC is 51 possible filers. Knock out Kansas and Montana and
+          you land on 49 &mdash; the coverage roster. Knock out Montana alone and you land on 50 &mdash;
+          the exemption roster. It reconciles exactly, which is how you know it isn&rsquo;t a rounding
+          artifact. The two headline percentages on that page are averages over different maps.
+        </P>
+
+        <P>
+          And the roster moves. 48 jurisdictions filed MMR in 2019&ndash;20 and again in 2020&ndash;21. 50
+          filed from 2021&ndash;22 through 2023&ndash;24. 49 in each of the last two years. The exemption
+          series ran 49, 49, 50, 50, 50, 49, 50. Seven years, and the two series disagree on the
+          denominator in three of them.
+        </P>
+
+        <P>
+          So the sentence everybody wrote this week &mdash; MMR coverage fell from 95% before the pandemic
+          to 92.4% now &mdash; compares an average of 48 states to an average of 49 states, and not the
+          same 48 or the same 49. The decline is real. I&rsquo;m not arguing the direction. CDC says
+          coverage{' '}
+          <a href={S_CDC} target="_blank" rel="noopener">decreased in more than half of states</a> and KFF
+          counts{' '}
+          <a href={S_KFF} target="_blank" rel="noopener">39 states now under 95%, with 18 under 90%</a>.
+          But the precision in that 2.6-point drop is borrowed.
+        </P>
+
+        <H2>The field with no &ldquo;why&rdquo; in it</H2>
+
+        <P>
+          Here&rsquo;s the other thing. ABC asked the obvious question &mdash; are exemptions up because
+          more parents object, or because the nonmedical box is the fastest way to get a kid through the
+          door in September? The answer was{' '}
+          <a href={S_ABC} target="_blank" rel="noopener">it&rsquo;s unclear, and Cleveland&rsquo;s health director thinks it&rsquo;s both</a>.
+        </P>
+
+        <P>
+          That isn&rsquo;t a dodge. It&rsquo;s a schema problem. The exemption form records that a parent
+          claimed one. It does not record why, and it can&rsquo;t, because nobody built a field for it. A
+          philosophical objection and a family that lost its pediatrician during COVID and can&rsquo;t get
+          an appointment before the enrollment deadline land in the same column. Then the column gets
+          reported as sentiment.
+        </P>
+
+        <Callout label="Two counts, same release">
+          About <a href={S_CDC} target="_blank" rel="noopener">155,000 kindergartners</a> had an exemption
+          from one or more vaccines in 2025&ndash;26. About{' '}
+          <a href={S_CDC} target="_blank" rel="noopener">280,000</a> started kindergarten with no
+          documentation of finishing the MMR series. Both are CDC figures from the same release. CDC
+          doesn&rsquo;t publish the crosswalk between them.
+        </Callout>
+
+        <P>
+          We already know the form and the shot come apart, because it happened in 2020. Exemption rates
+          fell that year. Not because objections fell &mdash; because{' '}
+          <a href={S_USAF} target="_blank" rel="noopener">states expanded grace periods and provisional enrollment</a>,
+          so kids went to school unvaccinated without anyone filing for an exemption. The line that moved
+          was the paperwork line.
+        </P>
+
+        <Fig caption={<>All of the movement since 2019&ndash;20 is in the non-medical box: 2.2% to 4.0%, while medical exemptions slipped 0.3% to 0.2%. Non-medical rose 1.8 points while the combined rate rose 1.7. Figures via <a href={S_KFF} target="_blank" rel="noopener" style={{ color:'inherit' }}>KFF</a>, from <a href={S_CDC} target="_blank" rel="noopener" style={{ color:'inherit' }}>CDC SchoolVaxView</a>.</>}>
+          <img src={CHART_EXEMPT} alt="Grouped bar chart comparing 2019-20 and 2025-26 US kindergarten exemption rates: any exemption 2.5% to 4.2%, non-medical 2.2% to 4.0%, medical 0.3% to 0.2%." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <H2>One vaccine, two directions</H2>
+
+        <P>
+          One more, because it&rsquo;s my favorite kind of artifact. Varicella coverage{' '}
+          <a href={S_ABC} target="_blank" rel="noopener">fell from 94% to 93.4% this year. Two-dose varicella coverage went up, 92.1% to 92.2%.</a>{' '}
+          Same vaccine, same year, same file, opposite directions. Whichever one lands in the headline is
+          an editorial decision wearing a lab coat.
+        </P>
+
+        <P>
+          None of this is CDC hiding anything. The footnotes are right there, the state file is{' '}
+          <a href={S_DATA} target="_blank" rel="noopener">downloadable</a>, and the page says out loud that
+          data collection methodology differs by state. The problem is that the footnote never survives the
+          trip to the second paragraph of the news story.
+        </P>
+
+        <Divider />
+
+        <P>
+          Do the subtraction in that callout. 280,000 minus 155,000 is 125,000, and that&rsquo;s a floor
+          rather than a count, because some of the 155,000 exemptions are for vaccines other than MMR. At
+          least 125,000 five-year-olds are missing MMR documentation and nobody filed a single form about
+          them.
+        </P>
+
+        <P>
+          The 4.2% counts parents who filled something out. The 280,000 counts kids nobody has a record
+          for. Guess which one made the headline.
+        </P>
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href={S_CDC} target="_blank" rel="noopener">CDC SchoolVaxView &mdash; Vaccination Coverage and Exemptions among Kindergartners</a>, updated August 17, 2026 (4.2% exemptions, 92.4% MMR and polio, 92.0% DTaP, ~155,000 exempt, ~280,000 without MMR documentation, 41 states and DC increasing, 24 states above 5%).</>,
+          <><a href={S_KFF} target="_blank" rel="noopener">KFF, &ldquo;Kindergarten Routine Vaccination Rates Continue to Decline,&rdquo; August 21, 2026</a> (per-year reporting counts in figure footnotes; 2.5% to 4.2% exemptions; non-medical 2.2% to 4.0%; medical 0.3% to 0.2%; 39 states under 95%, 18 under 90%; KS and MT non-reporting).</>,
+          <><a href={S_ABC} target="_blank" rel="noopener">ABC News, &ldquo;Vaccine exemption rate for kindergarteners reaches record high,&rdquo; August 17, 2026</a> (varicella one-dose and two-dose split; the unresolved question of why exemptions rose).</>,
+          <><a href={S_USAF} target="_blank" rel="noopener">USAFacts, &ldquo;More kids are getting vaccine exemptions. Here&rsquo;s where.&rdquo;</a> (CDC attribution of the 2020 exemption dip to grace periods and provisional enrollment).</>,
+          <><a href={S_CIDRAP} target="_blank" rel="noopener">CIDRAP, &ldquo;US kindergarten vaccine exemptions jumped last school year&rdquo;</a> (280,000 figure, corroborating).</>,
+          <><a href={S_DATA} target="_blank" rel="noopener">CDC open data: state-level coverage and exemption file (ijqb-a7ye)</a>.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
