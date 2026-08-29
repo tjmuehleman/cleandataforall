@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>Colorado&rsquo;s early reading win is a Denver number &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:     'Data Study',
+  number:   '130',
+  date:     'August 29, 2026',
+  readTime: '3 min',
+  title:    'Colorado’s early reading win is a Denver number',
+  dek:      'The 69% that got quoted as proof Colorado’s reading law worked came from one district’s press release, off a dyslexia screener that districts buy from five different vendors.',
+  byline:   'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ maxWidth:900, margin:'0 auto 56px', borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'24px 0' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Gr+3%22%2C%22Gr+4%22%2C%22Gr+5%22%2C%22Gr+6%22%2C%22Gr+7%22%2C%22Gr+8%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222024%22%2C%22data%22%3A%5B42.1%2C42.0%2C47.3%2C44.0%2C46.3%2C42.8%5D%2C%22backgroundColor%22%3A%22%23bbb%22%7D%2C%7B%22label%22%3A%222025%22%2C%22data%22%3A%5B42.0%2C42.0%2C48.0%2C44.2%2C48.8%2C43.9%5D%2C%22backgroundColor%22%3A%22%235a5a5a%22%7D%2C%7B%22label%22%3A%222026%22%2C%22data%22%3A%5B40.8%2C47.0%2C49.9%2C41.6%2C46.6%2C42.2%5D%2C%22backgroundColor%22%3A%22%23141210%22%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Colorado+CMAS+English+language+arts%3A+%25+meeting+or+exceeding+expectations%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A60%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+met+or+exceeded%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Grouped bar chart of Colorado CMAS English language arts percent meeting or exceeding expectations, grades 3 through 8, for 2024, 2025 and 2026." style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, textAlign:'center' }}>
+        Source: <a href="https://ed.cde.state.co.us/newsbureau/newsrelease/state-level-results-cmas-psat-sat-2026" target="_blank" rel="noopener">Colorado Department of Education, 2026 CMAS and PSAT/SAT state-level results</a>. All values as published by CDE.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          A Colorado superintendent published a number this week, and within about a day it had stopped being his.
+        </P>
+
+        <P>
+          Denver Public Schools put out its year-end results on August 29. Alex Marrero&rsquo;s line, quoted in <a href="https://completecolorado.com/2026/08/25/state-spins-bad-colorado-education-testing-data/" target="_blank" rel="noopener">Complete Colorado</a>: &ldquo;Across the district on READ Act assessments, 69% of K-3 students were at Grade Level &amp; Above.&rdquo; A district figure. Clearly labeled. In a district press release. It is now traveling around as evidence that Colorado&rsquo;s early-literacy law worked statewide, set against the state&rsquo;s middle-grades reading slide.
+        </P>
+
+        <P>
+          It isn&rsquo;t a state number. Colorado doesn&rsquo;t publish one that means what people think it means.
+        </P>
+
+        <H2>Five rulers, one district</H2>
+
+        <P>
+          Here&rsquo;s the part that matters if you work with data for a living. The READ Act K-3 assessment isn&rsquo;t a reading test in the sense anyone assumes. CDE says so <a href="https://ed.cde.state.co.us/coloradoliteracy/readact-programming/readactassessments" target="_blank" rel="noopener">plainly</a>: the interim assessment exists &ldquo;to determine whether a student has a significant reading deficiency in grades K through 3,&rdquo; and screens for characteristics of dyslexia. It&rsquo;s a screener. Screeners are built to be sensitive at the bottom of the distribution, not accurate across all of it. Reporting &ldquo;percent at grade level and above&rdquo; off a dyslexia screener is like reporting median household income off a food-stamp eligibility form.
+        </P>
+
+        <P>
+          And districts don&rsquo;t run the same screener. CDE keeps an advisory list, and a Colorado district picks one of five: Acadience Reading K-6, Amplify&rsquo;s mCLASS with DIBELS 8, i-Ready, ISIP Reading, or Renaissance&rsquo;s Star Early Learning. Five instruments. Five separate cut-score tables, each posted as its own PDF on CDE&rsquo;s site. A kid who is &ldquo;at grade level&rdquo; in one district might not be in the district next door, and neither district did anything wrong.
+        </P>
+
+        <Callout label="Scope check">
+          69% is Denver Public Schools, not Colorado. There is no comparable statewide K-3 READ Act &ldquo;at grade level&rdquo; percentage in the sources I could pull.
+        </Callout>
+
+        <H2>The part I&rsquo;d actually put weight on</H2>
+
+        <P>
+          CMAS is the good data here. One test, same grades, published as a clean three-year table. English language arts, percent meeting or exceeding expectations, 2025 to 2026: grade 3 went <a href="https://ed.cde.state.co.us/newsbureau/newsrelease/state-level-results-cmas-psat-sat-2026" target="_blank" rel="noopener">42.0 to 40.8</a>. Grade 4, 42.0 to 47.0. Grade 5, 48.0 to 49.9. Then grade 6, 44.2 to 41.6. Grade 7, 48.8 to 46.6. Grade 8, 43.9 to 42.2.
+        </P>
+
+        <Fig caption={<>Percentage-point change, 2026 minus 2025, CMAS ELA. Arithmetic is CDE&rsquo;s own published difference column. Source: <a href="https://ed.cde.state.co.us/newsbureau/newsrelease/state-level-results-cmas-psat-sat-2026" target="_blank" rel="noopener">CDE 2026 state-level results</a>.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Gr+3%22%2C%22Gr+4%22%2C%22Gr+5%22%2C%22Gr+6%22%2C%22Gr+7%22%2C%22Gr+8%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%222026+minus+2025%2C+percentage+points%22%2C%22data%22%3A%5B-1.2%2C5.0%2C1.9%2C-2.6%2C-2.2%2C-1.7%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23777%22%2C%22%23777%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Same+test%2C+same+grade%2C+one+year+apart%3A+the+sign+flips+at+grade+6%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22min%22%3A-4%2C%22max%22%3A6%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22percentage-point+change+in+%25+met+or+exceeded%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of the percentage-point change in Colorado CMAS English language arts proficiency from 2025 to 2026, by grade: grade 3 down 1.2, grade 4 up 5.0, grade 5 up 1.9, grade 6 down 2.6, grade 7 down 2.2, grade 8 down 1.7." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <P>
+          Three up, three down, sign flips at grade six. That&rsquo;s a real finding, in one instrument, and it&rsquo;s the only piece of this story I&rsquo;d defend without a footnote.
+        </P>
+
+        <P>
+          Notice which grade fell, though. Third. The grade the READ Act exists to fix.
+        </P>
+
+        <H2>The third ruler</H2>
+
+        <P>
+          Commissioner Susana C&oacute;rdova, in the <a href="https://ed.cde.state.co.us/newsbureau/newsrelease/state-level-results-cmas-psat-sat-2026" target="_blank" rel="noopener">May 29 release</a>: &ldquo;CMAS English Language Arts (ELA) scores increased by 5 percentage points from third grade in 2025 to fourth grade in 2026.&rdquo; And nearly 8 points from fourth to fifth.
+        </P>
+
+        <P>
+          Both true. Both computed straight off the table above &mdash; 42.0 to 47.0, 42.0 to 49.9. And both are a grade-3 pass rate minus a grade-4 pass rate. Two different tests, two separately adopted sets of cut scores. Percent-proficient is not a scale score. You can&rsquo;t difference it across grades and call the result growth. I don&rsquo;t think that&rsquo;s spin so much as a category error that happens to point the direction a press release wants.
+        </P>
+
+        <P>
+          Colorado publishes real growth percentiles. They&rsquo;re in the August file. Nobody quoted them.
+        </P>
+
+        <Divider />
+
+        <P>
+          One more number to set beside all of it. CDE released attendance data on August 27: <a href="https://www.chalkbeat.org/colorado/2026/08/27/chronic-absenteeism-rate-down-but-still-higher-than-pre-pandemic/" target="_blank" rel="noopener">27.5% of Colorado students were chronically absent</a> in 2025-26, down from 28.4%, still above the 22.6% of 2019-20. More than 230,000 kids missed a tenth of the year. High school seniors were the worst grade in the state. Denver &mdash; the district that supplied the 69% &mdash; ran 36.6%.
+        </P>
+
+        <P>
+          I don&rsquo;t know what a reading score means for a student who wasn&rsquo;t there. Neither does the reading score.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
