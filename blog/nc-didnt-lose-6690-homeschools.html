@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>North Carolina didn&rsquo;t lose 6,690 homeschools. It closed 6,690 records. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:     'Data Study',
+  number:   '131',
+  date:     'August 30, 2026',
+  readTime: '3 min',
+  title:    'North Carolina didn’t lose 6,690 homeschools. It closed 6,690 records.',
+  dek:      'The headline says a universal voucher pulled 6,690 homeschools out of existence. The state quietly cleaned up its homeschool registry the same year, and nobody quoting the number mentioned it.',
+  byline:   'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ maxWidth:900, margin:'0 auto 56px', borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'24px 0' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Homeschool+%28est.%29%22%2C%22District+public%22%2C%22Public+lab%22%2C%22Public+regional%22%2C%22Public+charter%22%2C%22Private%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Change+in+students%22%2C%22data%22%3A%5B-12346%2C-9071%2C-158%2C2%2C4533%2C8260%5D%2C%22backgroundColor%22%3A%5B%22%23bbb%22%2C%22%23141210%22%2C%22%23777%22%2C%22%23777%22%2C%22%235a5a5a%22%2C%22%233a3a3a%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Every+NC+school+sector+moved.+The+public+share+did+not.%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A-14000%2C%22max%22%3A10000%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Change+in+students%2C+2024-25+to+2025-26%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of the change in North Carolina student counts by sector from 2024-25 to 2025-26: estimated homeschool down 12,346, district public down 9,071, public lab down 158, public regional up 2, public charter up 4,533, private up 8,260." style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, textAlign:'center' }}>
+        Sector changes computed from the 2024-25 and 2025-26 columns of <a href="https://www.ednc.org/market-share-declines-for-homeschools-increases-for-private-schools-holds-steady-for-public-schools-overall/" target="_blank" rel="noopener">EdNC&rsquo;s market share table</a>, built on <a href="https://www.dpi.nc.gov/documents/fbs/budget/highlights-2026-finalpdf/download?attachment" target="_blank" rel="noopener">DPI Budget Highlights 2025-26</a> and <a href="https://www.doa.nc.gov/divisions/non-public-education/home-school-statistics" target="_blank" rel="noopener">NC DNPE</a>. Homeschool figure is an estimate, not a count.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          North Carolina public schools served <a href="https://www.ednc.org/market-share-declines-for-homeschools-increases-for-private-schools-holds-steady-for-public-schools-overall/" target="_blank" rel="noopener">1,533,869 students in 2025-26</a>. That is 84% of every student in the state. Same 84% as last year. Same 84% as the year before. Three years into a universal private school voucher, the market share number has not moved a tick.
+        </P>
+
+        <P>
+          Both sides of that fight predicted it would. Neither got it. Fine &mdash; that&rsquo;s a real finding, and a boring one.
+        </P>
+
+        <P>
+          The number underneath it is the one that got written up. Registered homeschools fell from <a href="https://www.doa.nc.gov/divisions/non-public-education/home-school-statistics" target="_blank" rel="noopener">101,880 to 95,190</a>, a drop of 6,690 in a single year. Estimated homeschool students fell from 165,243 to 152,897 &mdash; 12,346 kids, down 7.5%. Private schools gained <a href="https://www.carolinajournal.com/nc-private-schools-post-biggest-jump-in-four-decades-amid-voucher-boom/" target="_blank" rel="noopener">8,260 students and 67 schools</a> in the same window, the largest one-year jump in the number of private schools in more than four decades.
+        </P>
+
+        <P>
+          The story writes itself. The voucher turned the kitchen table into a tuition invoice.
+        </P>
+
+        <P>
+          Except.
+        </P>
+
+        <H2>Somebody cleaned the registry</H2>
+
+        <P>
+          During the 2025-26 school year, DNPE went through its files and closed out homeschools that had gone inactive over the years but were <a href="https://nche.com/stats/" target="_blank" rel="noopener">never officially closed</a>. Some got flipped to inactive because a family hadn&rsquo;t updated their online portal info, or hadn&rsquo;t answered an email asking whether the school still existed. Some families report being marked inactive in error.
+        </P>
+
+        <P>
+          So part of the 6,690 is families who stopped homeschooling and part of it is a database that finally got weeded. Nobody has published the split. It might be mostly real. I have no idea, and that&rsquo;s the whole problem &mdash; neither does anyone quoting the number.
+        </P>
+
+        <Callout label="What changed">
+          The registration count is a hard number. What changed this year wasn&rsquo;t only how many people homeschool. It was also who was still on the list.
+        </Callout>
+
+        <H2>The multiplier is bigger than the finding</H2>
+
+        <P>
+          North Carolina does not count homeschool students. State law doesn&rsquo;t require homeschools to report enrollment, so <a href="https://www.doa.nc.gov/divisions/non-public-education/home-school-statistics" target="_blank" rel="noopener">DNPE</a> counts registered schools and multiplies by about 1.6 to get kids. North Carolinians for Home Education says <a href="https://nche.com/stats/" target="_blank" rel="noopener">the right multiplier is 2</a>.
+        </P>
+
+        <Fig caption={<>Reported figures from <a href="https://www.ednc.org/market-share-declines-for-homeschools-increases-for-private-schools-holds-steady-for-public-schools-overall/" target="_blank" rel="noopener">EdNC</a>. The two right bars are arithmetic on the 95,190 registered homeschools in the <a href="https://www.doa.nc.gov/dnpe/dnpe-home-school-annual-report-2025-26/download?attachment" target="_blank" rel="noopener">2025-26 DNPE report</a>: 95,190 &times; 1.6 = 152,304 (DNPE&rsquo;s own multiplier) and 95,190 &times; 2.0 = 190,380 (<a href="https://nche.com/stats/" target="_blank" rel="noopener">NCHE&rsquo;s</a>).</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222024-25+reported%22%2C%222025-26+reported%22%2C%2295%2C190+x+1.6+%28DNPE%29%22%2C%2295%2C190+x+2.0+%28NCHE%29%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Estimated+students%22%2C%22data%22%3A%5B165243%2C152897%2C152304%2C190380%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%23141210%22%2C%22%235a5a5a%22%2C%22%23bbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+homeschool+decline+is+smaller+than+the+argument+over+the+multiplier%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A200000%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Estimated+NC+homeschool+students%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart comparing estimated North Carolina homeschool student counts: 165,243 reported for 2024-25, 152,897 reported for 2025-26, 152,304 from 95,190 times 1.6, and 190,380 from 95,190 times 2.0." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <P>
+          The distance between those two assumptions is 38,076 students. The year-over-year decline everyone is writing about is 12,346. The argument about the multiplier is three times the size of the finding the multiplier produced.
+        </P>
+
+        <P>
+          DNPE says the quiet part on its own stats page. Enrollment data &ldquo;reflects a snapshot in time&rdquo; of numbers &ldquo;self-reported by the home schools,&rdquo; and &ldquo;may not be current.&rdquo;
+        </P>
+
+        <H2>The losses are in the wrong counties</H2>
+
+        <P>
+          If a voucher were converting homeschoolers into private school students, the two county maps should be near mirror images. They aren&rsquo;t. Estimated homeschool enrollment <a href="https://www.carolinajournal.com/nc-private-schools-post-biggest-jump-in-four-decades-amid-voucher-boom/" target="_blank" rel="noopener">grew</a> in Wake, Guilford, Forsyth, Mecklenburg, Johnston, and Iredell &mdash; the same metro counties where private school growth was strongest.
+        </P>
+
+        <P>
+          The steep losses are in the mountains, a year after Helene. Buncombe fell 24.6%, from 4,846 to 3,655, and its registered homeschools went from 3,121 to 2,362. Fifteen mountain counties produced roughly 23% of the statewide drop while holding about 12% of the state&rsquo;s homeschoolers.
+        </P>
+
+        <P>
+          That is not a voucher pattern. That is a hurricane and a filing cabinet.
+        </P>
+
+        <H2>Read the footnotes</H2>
+
+        <P>
+          EdNC published its market share table with a note saying it isn&rsquo;t sure why the number on page 1 of DPI&rsquo;s Budget Highlights runs 20 higher than its own public school subtotal, or why page 1 disagrees with page 7. That&rsquo;s a careful newsroom flagging a discrepancy in the state budget document, in public, because there was nowhere else to put it.
+        </P>
+
+        <P>
+          And the <a href="https://www.doa.nc.gov/dnpe/dnpe-home-school-annual-report-2025-26/download?attachment" target="_blank" rel="noopener">DNPE 2025-26 homeschool report</a> &mdash; the document everybody cited &mdash; carries an age-by-age enrollment table whose column header reads &ldquo;23-24.&rdquo; The total under that header is 152,897. This year&rsquo;s number, last year&rsquo;s label, in the file of record.
+        </P>
+
+        <Divider />
+
+        <P>
+          Three years of universal vouchers and the cleanest sentence anyone can write about North Carolina is that the public share held at 84%. The state has a <a href="https://www.ednc.org/market-share-declines-for-homeschools-increases-for-private-schools-holds-steady-for-public-schools-overall/" target="_blank" rel="noopener">published goal of 89% by 2030</a>, so at least that one has a scoreboard.
+        </P>
+
+        <P>
+          Everything below the 84% line is a registration count times a number somebody picked.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
