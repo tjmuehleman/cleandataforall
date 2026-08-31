@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>Newark&rsquo;s chronic absenteeism fell to 8.5%. The denominator moved the same year. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:     'Data Study',
+  number:   '132',
+  date:     'August 31, 2026',
+  readTime: '3 min',
+  title:    'Newark’s chronic absenteeism fell to 8.5%. The denominator moved the same year.',
+  dek:      'New Jersey raised the enrollment threshold for landing in the chronic absenteeism calculation from 45 days to 90. Newark posted a district record. Nobody has published what the old rule would have shown.',
+  byline:   'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ maxWidth:900, margin:'0 auto 56px', borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'24px 0' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Newark+NJ+2025-26%22%2C%22Alabama+2025+%28lowest+state%29%22%2C%22New+Jersey+2024-25%22%2C%2245-state+average+2025%22%2C%22Colorado+2025-26%22%2C%22Denver+CO+2025-26%22%2C%22Sheridan+CO+2025-26%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Chronic+absenteeism+%28%25%29%22%2C%22data%22%3A%5B8.5%2C12.0%2C14.4%2C22.6%2C27.5%2C36.6%2C66.2%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23bbb%22%2C%22%235a5a5a%22%2C%22%233a3a3a%22%2C%22%23777%22%2C%22%235a5a5a%22%2C%22%23bbb%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Same+phrase%2C+seven+different+rulers%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A70%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+chronically+absent%2C+as+published%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Horizontal bar chart of published chronic absenteeism rates: Newark 8.5 percent, Alabama 12 percent, New Jersey 14.4 percent, 45-state average 22.6 percent, Colorado 27.5 percent, Denver 36.6 percent, Sheridan Colorado 66.2 percent." style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, textAlign:'center' }}>
+        Rates exactly as each body published them. Newark from <a href="https://www.chalkbeat.org/newark/2026/08/28/2025-2026-chronic-absenteeism-rate-drops-to-85-percent/" target="_blank" rel="noopener">Chalkbeat Newark</a>; New Jersey statewide 2024-25 from the same piece; Alabama and the 45-state average from <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/" target="_blank" rel="noopener">AEI</a>; Colorado, Denver and Sheridan from <a href="https://www.chalkbeat.org/colorado/2026/08/27/chronic-absenteeism-rate-down-but-still-higher-than-pre-pandemic/" target="_blank" rel="noopener">Chalkbeat Colorado</a>. Different school years and different counting rules &mdash; that is the point.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Newark Public Schools told its board last Thursday that <a href="https://www.chalkbeat.org/newark/2026/08/28/2025-2026-chronic-absenteeism-rate-drops-to-85-percent/" target="_blank" rel="noopener">8.5% of students were chronically absent</a> in 2025-26. Down from 27% in 2018-19. Down from 29.7% back in 2016-17, when the district was under state operation and staring at a corrective action plan.
+        </P>
+
+        <P>
+          One day earlier, Colorado reported <a href="https://www.chalkbeat.org/colorado/2026/08/27/chronic-absenteeism-rate-down-but-still-higher-than-pre-pandemic/" target="_blank" rel="noopener">27.5% statewide and 36.6% in Denver</a>.
+        </P>
+
+        <P>
+          Put those side by side and Newark looks like it solved the thing nobody else can solve. Both numbers are honestly reported. Neither one is measuring quite the same thing.
+        </P>
+
+        <H2>The threshold moved</H2>
+
+        <P>
+          New Jersey&rsquo;s ESSA state plan used to say a student had to be enrolled at a school for at least 45 days before their attendance counted toward that school&rsquo;s chronic absenteeism rate. NJDOE&rsquo;s April 2025 <a href="https://www.nj.gov/education/safety/sandp/attendance/docs/ReportingStudentAttendanceandDeterminingChronicAbsenteeismRates.pdf" target="_blank" rel="noopener">reporting guidance</a> says the department submitted an amendment to raise that to 90 days &ldquo;to align with federal requirements,&rdquo; effective for 2024-25 if the feds approved it by fall 2025.
+        </P>
+
+        <P>
+          Ninety days out of 180. Half a year of enrollment before you are in the math at all.
+        </P>
+
+        <P>
+          Let me be careful about what did <em>not</em> change, because some of the coverage has gotten this backwards. Chronic absenteeism in New Jersey is still missing 10% or more of the days you were enrolled. That definition is untouched. What changed is who gets a row in the table.
+        </P>
+
+        <Callout label="What changed">
+          Not the bar for being absent. The bar for being counted.
+        </Callout>
+
+        <P>
+          And the students that rule removes are not a random sample. Read the same guidance on transfer students: a kid at School 1 from September to November and School 2 after that gets filed as two separate records, and their attendance &ldquo;should reference ONLY the time period for each school instance and should not be combined.&rdquo; Move once mid-year and you can land under 90 days at both schools. Kids who move mid-year are also, and every attendance clerk in America knows this, the kids who miss the most school.
+        </P>
+
+        <P>
+          Newark&rsquo;s superintendent said it out loud at the August board retreat: &ldquo;We did extraordinarily well this past year simply because the state of New Jersey actually changed the rules to assist more school districts in their chronic absenteeism rates, at least that is from our perspective.&rdquo;
+        </P>
+
+        <P>
+          Chalkbeat&rsquo;s line is that it&rsquo;s unclear how much the change influenced the rate. Which is the correct thing to write, and also the whole problem. Nobody has run the counterfactual. The district&rsquo;s Office of Data and Research is sitting on the enrollment-duration distribution that would settle it in an afternoon.
+        </P>
+
+        <H2>This is not a Newark problem</H2>
+
+        <P>
+          Nat Malkus at AEI publishes the closest thing the country has to a national attendance scoreboard. His <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/" target="_blank" rel="noopener">June 2026 report</a> covers 45 states with 2025 data: about 15% chronically absent in 2018 and 2019, a 28.3% peak in 2022, then 25.7%, then 23.5%, then 22.6%.
+        </P>
+
+        <Fig caption={<>Annual declines from the 45-state series in <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/" target="_blank" rel="noopener">AEI&rsquo;s June 2026 report</a>: 28.3% &rarr; 25.7% &rarr; 23.5% &rarr; 22.6%. Differences are 2.6, 2.2 and 0.9; AEI states them as 2.7, 2.1 and &ldquo;just under 1&rdquo; from unrounded figures, and those are the values plotted.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222023%22%2C%222024%22%2C%222025%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Annual+change%22%2C%22data%22%3A%5B-2.7%2C-2.1%2C-0.9%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%235a5a5a%22%2C%22%23141210%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22The+national+improvement+is+dying+by+thirds%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A-3%2C%22max%22%3A0%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Change+in+chronic+absenteeism%2C+45+states+%28pct+pts%29%22%2C%22fontColor%22%3A%22%23141210%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart of annual change in chronic absenteeism across 45 states: down 2.7 points in 2023, down 2.1 points in 2024, down 0.9 points in 2025." style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <P>
+          Two point seven, then two point one, then under one. The country has essentially stopped improving, which is what makes a district record look so loud right now.
+        </P>
+
+        <P>
+          Buried in that same report is the sentence that should be stapled to every attendance dashboard in America:
+        </P>
+
+        <BQ cite="AEI, From Attendance Crisis to Chronic Condition?, June 2026">
+          States also vary in which students they include in their calculations, with some states counting all students enrolled for at least 10 days and others using longer enrollment thresholds. These differences can produce different rates for similar attendance behaviors.
+        </BQ>
+
+        <P>
+          That is the guy who builds the scoreboard telling you the scoreboard is not a scoreboard. He says it every year. It gets quoted approximately never.
+        </P>
+
+        <H2>The part I can&rsquo;t stop thinking about</H2>
+
+        <P>
+          Same NJDOE document, further down: New Jersey is required to report attendance to the feds through EDFacts, and EDFacts &ldquo;does include students with 10 or more days in membership.&rdquo;
+        </P>
+
+        <P>
+          So New Jersey computes this metric twice. Ten-day threshold for Washington. Ninety-day threshold for the School Performance Reports that parents actually read, that reporters actually quote, that districts actually get flagged on. Same state, same kids, same year, two denominators.
+        </P>
+
+        <P>
+          Only one of them ever makes the headline.
+        </P>
+
+        <Divider />
+
+        <P>
+          None of this means Newark faked anything. Reviving an attendance department, individualized intervention plans, a truancy task force, staff calling five families apiece before the first day &mdash; that is real work, done for eight years, and the trend was bending long before the threshold moved.
+        </P>
+
+        <P>
+          It means we can&rsquo;t tell how much of 8.5% is the work. And we could tell, easily, if anyone published the same year computed both ways. Two numbers instead of one. That&rsquo;s the whole ask.
+        </P>
+
+        <P>
+          Newark&rsquo;s own Kids Count data says homeless students were chronically absent at 25% in 2024-25. Those are the kids who move mid-year. Those are the kids the 90-day rule is most likely to drop.
+        </P>
+
+        <P>
+          A metric that gets better when you stop counting the students who move is not measuring attendance. It&rsquo;s measuring stability, and calling it attendance.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
