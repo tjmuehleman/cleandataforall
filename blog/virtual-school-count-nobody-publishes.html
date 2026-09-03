@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The government still counts virtual school students. It just stopped telling you. &mdash; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '135',
+  date:    'September 3, 2026',
+  readTime: '4 min',
+  title:   'The government still counts virtual school students. It just stopped telling you.',
+  dek:     'Just over 600,000 American kids are in fully virtual public schools, about double the pre-pandemic number. The federal series that tracked it stops at 2022–23. The collection never stopped — only the publishing did.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 0 56px', borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'28px 0' }}>
+      <img
+        src="https://quickchart.io/chart?c=%7B%22type%22%3A%22line%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222013-14%22%2C%222014-15%22%2C%222015-16%22%2C%222016-17%22%2C%222017-18%22%2C%222018-19%22%2C%222019-20%22%2C%222020-21%22%2C%222021-22%22%2C%222022-23%22%2C%222023-24%22%2C%222024-25%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22NCES+Digest+Table+216.20+%28published%29%22%2C%22data%22%3A%5B200343%2C229608%2C234148%2C212311%2C278783%2C289614%2C293689%2C590267%2C566188%2C562659%2Cnull%2Cnull%5D%2C%22borderColor%22%3A%22%23141210%22%2C%22backgroundColor%22%3A%22%23141210%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A3%2C%22pointRadius%22%3A4%2C%22lineTension%22%3A0%2C%22spanGaps%22%3Afalse%7D%2C%7B%22label%22%3A%22Computed+from+raw+CCD+by+Chalkbeat%22%2C%22data%22%3A%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C562659%2Cnull%2C600000%5D%2C%22borderColor%22%3A%22%23777%22%2C%22backgroundColor%22%3A%22%23777%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A3%2C%22borderDash%22%3A%5B7%2C5%5D%2C%22pointRadius%22%3A4%2C%22lineTension%22%3A0%2C%22spanGaps%22%3Atrue%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22position%22%3A%22top%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A13%2C%22boxWidth%22%3A24%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Virtual+public+school+enrollment%3A+the+series%2C+and+where+it+stops%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%2C%22maxRotation%22%3A50%2C%22minRotation%22%3A50%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%2C%22beginAtZero%22%3Atrue%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Students+enrolled%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=520&bkg=transparent&devicePixelRatio=2"
+        alt="Line chart of virtual public school enrollment from 2013-14 to 2024-25. A solid line shows the published NCES Digest series rising from about 200,000 to 590,267 in 2020-21 and ending at 562,659 in 2022-23. A dashed line continues to about 600,000 in 2024-25, computed from raw federal files by Chalkbeat."
+        style={{ display:'block', width:'100%', maxWidth:900, margin:'0 auto', height:'auto' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, maxWidth:900, marginLeft:'auto', marginRight:'auto' }}>
+        Solid line: NCES Digest Table 216.20, &ldquo;all virtual schools,&rdquo; 2013&ndash;14 through 2022&ndash;23, the last year published. 2020&ndash;21 omits California, Illinois and Utah; 2021&ndash;22 omits California. Dashed segment connects the final published point to Chalkbeat&rsquo;s 2024&ndash;25 figure computed from the raw CCD files; 2023&ndash;24 is not published anywhere and is left empty.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Just over 600,000 American public school kids went to a fully virtual school last year.
+          About 1 in 80. Roughly double the pre-pandemic number.
+        </P>
+
+        <P>
+          I did not get that from the Department of Education. I got it from{' '}
+          <a href="https://www.chalkbeat.org/2026/08/27/virtual-school-enrollment-has-surged-since-pandemic-new-federal-data-shows/">a reporter at Chalkbeat</a>{' '}
+          who pulled the raw federal files and did the join himself.
+        </P>
+
+        <P>
+          That&rsquo;s the actual story here, and it&rsquo;s a data story before it&rsquo;s an education story.
+        </P>
+
+        <H2>The series everyone used to use</H2>
+
+        <P>
+          <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_216.20.asp">NCES Digest Table 216.20</a>{' '}
+          &mdash; public school enrollment by charter, magnet, and virtual status. It runs 2013&ndash;14 through
+          2022&ndash;23. It ends at 562,659 virtual students. The table says it was prepared in December 2023,
+          and it hasn&rsquo;t moved since.
+        </P>
+
+        <P>
+          Two things about that line should bother you more than the slope does.
+        </P>
+
+        <P>
+          First, look at the last three published points: 590,267, then 566,188, then 562,659. Going down.
+          Now read the footnotes. 2020&ndash;21 is missing California, Illinois, and Utah. 2021&ndash;22 is
+          missing California. So some of the decline in the official series is a decline in the number of
+          states in the denominator. That&rsquo;s not a trend in the world. It&rsquo;s a trend in the response rate.
+        </P>
+
+        <P>
+          Second, the line stops. Not because the counting stopped &mdash; this is the part that gets me. The{' '}
+          <a href="https://ies.ed.gov/learn/news/2024-25-common-core-data-ccd-universe-data-files-now-available-0">2024&ndash;25 CCD universe files shipped</a>.
+          They are on the IES site right now. The collection ran. The states reported. The virtual status flag
+          is sitting in the file.
+        </P>
+
+        <P>
+          Nobody turned it into a table.
+        </P>
+
+        <H2>The report is the product</H2>
+
+        <P>
+          DOGE canceled the Education Department&rsquo;s research contracts in February 2025, and most of the
+          staff at the Institute of Education Sciences were laid off. Since then{' '}
+          <a href="https://www.chalkbeat.org/2026/05/07/education-department-ies-cuts-weaken-school-data-and-digest-statistics/">a big chunk of the Digest has just sat there</a>.
+          Per-pupil spending. Student-to-teacher ratio. Average teacher salary. SAT and ACT takers.
+          Disciplinary incidents. Teacher prep enrollment. Stale since at least January 2025. A department
+          spokesperson said a new contract would be awarded before the fiscal year ends in September.
+        </P>
+
+        <P>
+          I&rsquo;ve spent a lot of years now working in the gap between &ldquo;the data exists&rdquo; and
+          &ldquo;somebody can actually use it.&rdquo; Districts live in that gap. The student information
+          system has the field, the field is populated, and there is no report. The report is the product.
+          A fixed-width extract and a 90-page codebook is not a fact anybody can act on. It&rsquo;s a
+          homework assignment.
+        </P>
+
+        <P>
+          The feds just ran that experiment on themselves.
+        </P>
+
+        <Fig caption={<>High school and grades 1&ndash;8 shares are Chalkbeat&rsquo;s figures from the 2024&ndash;25 CCD. The all-students bar is 1.25%, which is 1 divided by 80. Indiana bars compare the federal count for fall 2024 (1%) with Chalkbeat&rsquo;s analysis of state records for the same year (about 3%). Cross-state comparisons are shaky by Chalkbeat&rsquo;s own caution; Indiana is shown as a check on the count, not a ranking.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22High+school%22%2C%22Grades+1-8%22%2C%22All+students+%281+in+80%29%22%2C%22Indiana%2C+federal+count%22%2C%22Indiana%2C+state+count%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22%25+of+public+school+students+in+fully+virtual+schools%22%2C%22data%22%3A%5B1.6%2C0.8%2C1.25%2C1.0%2C3.0%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23141210%22%2C%22%23141210%22%2C%22%23bbb%22%2C%22%235a5a5a%22%5D%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Fully+virtual+enrollment%2C+2024-25+%28%25%29+-+and+one+state+where+the+count+disagrees%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%2C%22beginAtZero%22%3Atrue%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22%25+of+students%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=420&bkg=transparent&devicePixelRatio=2"
+            alt="Horizontal bar chart. High school 1.6 percent, grades 1 to 8 0.8 percent, all students 1.25 percent, Indiana federal count 1 percent, Indiana state count 3 percent."
+            style={{ display:'block', width:'100%', maxWidth:900, margin:'0 auto', height:'auto' }} />
+        </Fig>
+
+        <H2>What we can&rsquo;t see</H2>
+
+        <P>
+          This matters here specifically because virtual school is a decision parents make one kid at a time.
+          1.6% of high schoolers are in one. 0.8% of grades 1&ndash;8. A majority are charters. Two vendors,
+          Stride and Pearson, account for a large chunk of it &mdash; Stride&rsquo;s own{' '}
+          <a href="https://investors.stridelearning.com/news/news-details/2026/Stride-reports-fourth-quarter-and-full-year-2026-financial-results/default.aspx">earnings report</a>{' '}
+          says its K12 schools now enroll over 240,000 students across public and private.
+        </P>
+
+        <P>
+          And the best evidence anybody has about whether these schools work is from 2016. Fordham{' '}
+          <a href="https://fordhaminstitute.org/national/research/enrollment-and-achievement-ohios-virtual-charter-schools">looked at Ohio&rsquo;s e-schools</a>{' '}
+          and found students there lost ground against otherwise-similar kids in brick-and-mortar schools.
+          That was ten years ago, when the sector was about half the size it is now.
+        </P>
+
+        <Callout label="The count itself is soft">
+          Federal data put 1% of Indiana students in fully virtual schools in fall 2024. Chalkbeat&rsquo;s
+          analysis using more detailed state records put it at about 3%. Same kids, same year, two systems,
+          three times the number.
+        </Callout>
+
+        <P>
+          So the enrollment doubled, the official series stopped, the last real outcomes study is a decade old,
+          and in the one state where somebody bothered to check the federal number against the state&rsquo;s
+          own records, it was off by 3x.
+        </P>
+
+        <Divider />
+
+        <P>
+          Everybody agrees remote school failed. Half a million families signed up for it anyway. On purpose,
+          with public money, years after anyone made them.
+        </P>
+
+        <P>
+          We stopped publishing the number right when it got interesting.
+        </P>
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href="https://www.chalkbeat.org/2026/08/27/virtual-school-enrollment-has-surged-since-pandemic-new-federal-data-shows/">Chalkbeat, &ldquo;Virtual school enrollment has doubled in recent years, following pandemic-era surge&rdquo;</a> (Matt Barnum, Aug 27, 2026; data analysis by Kae Petrin). Source for 600,000+ fully virtual students in 2024&ndash;25, 1 in 80, twofold increase, 195,000 additional students in primarily-online schools, 1.6% of high schoolers vs 0.8% of grades 1&ndash;8, majority in charters, the Indiana 1% vs 3% discrepancy, and the Stride figure.</>,
+          <><a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_216.20.asp">NCES Digest of Education Statistics, Table 216.20</a> &mdash; enrollment by school level, type, and charter, magnet, and virtual status, 2012&ndash;13 through 2022&ndash;23. Source for every point on the solid line, the December 2023 preparation date, and the missing-state footnotes.</>,
+          <><a href="https://ies.ed.gov/learn/news/2024-25-common-core-data-ccd-universe-data-files-now-available-0">IES, 2024&ndash;25 Common Core of Data universe data files</a> &mdash; confirmation that the underlying collection ran and the files are public.</>,
+          <><a href="https://www.chalkbeat.org/2026/05/07/education-department-ies-cuts-weaken-school-data-and-digest-statistics/">Chalkbeat, &ldquo;School data goes stale after Trump administration cuts Education Department research arm&rdquo;</a> (May 7, 2026). Source for the February 2025 contract cancellations, the IES layoffs, the list of Digest tables unupdated since at least January 2025, and the department&rsquo;s statement about a new contract before the end of the fiscal year.</>,
+          <><a href="https://fordhaminstitute.org/national/research/enrollment-and-achievement-ohios-virtual-charter-schools">Thomas B. Fordham Institute, &ldquo;Enrollment and Achievement in Ohio&rsquo;s Virtual Charter Schools&rdquo;</a> (June Ahn, 2016).</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
