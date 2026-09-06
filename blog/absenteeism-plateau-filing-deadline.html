@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>The absenteeism plateau might be a filing deadline &#8212; Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+const POST = {
+  kind:     'Data Study',
+  number:   '138',
+  date:     'September 6, 2026',
+  readTime: '3 min',
+  title:    'The absenteeism plateau might be a filing deadline',
+  dek:      'The national chronic-absenteeism number is a year old and missing six jurisdictions, Texas among them. The two states that publish fastest both posted bigger declines than it did. That’s a reporting story before it’s a plateau.',
+  byline:   'T.J. Müehleman',
+};
+
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>&#8592; All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:24, flexWrap:'wrap' }}>
+        <Small style={{ background:'var(--ink)', color:'var(--paper)', padding:'4px 10px' }}>{POST.kind}</Small>
+        <Small style={{ color:'var(--muted)' }}>No. {POST.number}</Small>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+const PostHero = () => (
+  <Container>
+    <div style={{ borderTop:'1px solid var(--rule)', borderBottom:'1px solid var(--rule)', padding:'40px 0', margin:'0 0 56px' }}>
+      <figure style={{ margin:0, textAlign:'center' }}>
+        <img
+          src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22U.S.+2023%22%2C%22U.S.+2024%22%2C%22U.S.+2025%22%2C%22Georgia+2026%22%2C%22Rhode+Island+2026%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22pp+drop%22%2C%22data%22%3A%5B2.7%2C2.1%2C0.9%2C1.8%2C2.4%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%23777%22%2C%22%23777%22%2C%22%23141210%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Annual+drop+in+chronic+absenteeism%3A+national+average+vs.+the+two+fastest+reporters%22%2C%22fontSize%22%3A15%2C%22fontStyle%22%3A%22bold%22%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A20%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A3%2C%22stepSize%22%3A1%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percentage-point+drop+in+one+school+year%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=460&bkg=transparent&devicePixelRatio=2"
+          alt="Bar chart of the annual percentage-point drop in chronic absenteeism. The national average falls 2.7 points in 2023, 2.1 in 2024, and 0.9 in 2025. Georgia, reporting the 2025-26 year, fell 1.8 points, and Rhode Island fell 2.4."
+          style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }}
+        />
+        <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:12, maxWidth:760, margin:'12px auto 0' }}>
+          National bars are the school years ending 2023, 2024 and 2025 across 44 states and DC, from <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/">Malkus, <em>From Attendance Crisis to Chronic Condition?</em> (AEI, June 2026)</a>: 28.3% &#8594; 25.7% &#8594; 23.5% &#8594; 22.6%. Georgia and Rhode Island bars are the <em>following</em> school year, 2025&#8211;26. Georgia&#8217;s 1.8 = 19.5% &#8722; 17.7%, both from <a href="https://georgiainsights.gadoe.org/dashboards/attendance/">GaDOE&#8217;s attendance dashboard</a> as reported by <a href="https://capitol-beat.org/2026/07/student-absenteeism-a-persistent-problem-but-georgia-is-doing-better-than-most-states/">Capitol Beat</a>. Rhode Island&#8217;s 2.4 is stated directly in <a href="https://ride.ri.gov/press-releases/rhode-island-department-education-releases-2026-state-education-highlighting-progress-across-student-achievement-attendance-and-school">RIDE&#8217;s 2026 State of Education</a>.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+);
+
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>&#8212; {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          In June, AEI published its annual national read on chronic absenteeism. It covers the school
+          year that ended in June 2025. A full year of lag, and the reason is boring: states release
+          attendance data whenever they get around to it, and{' '}
+          <a href="https://www.aei.org/education/early-returns-and-good-news-on-attendance-in-georgia/">the
+          last few 2024&#8211;25 releases landed in late May</a>.
+        </P>
+
+        <P>
+          The headline is{' '}
+          <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/">22.6%,
+          down from 23.5%</a>. Just under a point. In 2023 the country improved 2.7 points, in 2024 it
+          improved 2.1, and now 0.9. Everybody read that as a plateau &#8212; the recovery running out of
+          gas, roughly half the pandemic increase hardening into the new normal.
+        </P>
+
+        <P>
+          Maybe. But before I buy a plateau I want to know who&#8217;s in the average.
+        </P>
+
+        <H2>Six jurisdictions aren&#8217;t in it</H2>
+
+        <P>
+          The report covers{' '}
+          <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/">44
+          states and the District of Columbia</a>. That&#8217;s 45 of 51 jurisdictions (50 states plus DC),
+          which leaves six missing, and Nat Malkus names two of them:{' '}
+          <a href="https://www.aei.org/education/early-returns-and-good-news-on-attendance-in-georgia/">&#8220;there
+          are some states &#8212; Minnesota and Texas among them &#8212; that still have not released data
+          for the 2024&#8211;25 school year.&#8221;</a> He wrote that on July 30, 2026. Thirteen months
+          after those kids finished the year. Texas is not a rounding error in American public education,
+          and Texas is not in the number.
+        </P>
+
+        <P>
+          Meanwhile, Georgia published its <em>2025&#8211;26</em> rate in July: 17.7%, down from 19.5%.
+          That&#8217;s 1.8 points, the same size as the year before, which makes it{' '}
+          <a href="https://capitol-beat.org/2026/07/student-absenteeism-a-persistent-problem-but-georgia-is-doing-better-than-most-states/">a
+          fifth consecutive year of decline</a> and a curve that is not decaying at all. Rhode Island
+          published in August:{' '}
+          <a href="https://ride.ri.gov/press-releases/rhode-island-department-education-releases-2026-state-education-highlighting-progress-across-student-achievement-attendance-and-school">19.7%,
+          down 2.4 points, and 14.4 points off its peak</a>. Both states are a full school year ahead of
+          the national number. Both are moving faster than it.
+        </P>
+
+        <P>
+          Two states is not a sample, and I&#8217;m not going to pretend otherwise. But look at what&#8217;s
+          on offer: the states that publish fast are the states that look good. There are two clean
+          explanations and they point opposite directions. Either the states that take attendance seriously
+          also take reporting it seriously (flattering), or we have built a national indicator whose freshest
+          data comes disproportionately from the slowest and most stuck systems (less flattering). I
+          don&#8217;t know which. Neither does anyone else, because you can&#8217;t test it until the slow
+          states file.
+        </P>
+
+        <H2>What the metric is quietly also counting</H2>
+
+        <P>
+          Colorado released its 2025&#8211;26 district file in August. Statewide, 28.4% down to 27.5% &#8212;
+          the same shrinking increment. But{' '}
+          <a href="https://www.chalkbeat.org/colorado/2026/08/27/chronic-absenteeism-rate-down-but-still-higher-than-pre-pandemic/">tiny
+          Sheridan School District went from 34.6% to 66.2% in one year</a>, because its teachers were on
+          strike for more than three weeks in April. Nobody stopped valuing school in Sheridan. The building
+          was closed.
+        </P>
+
+        <P>
+          That&#8217;s a metric sold to parents as a measure of whether their kid shows up, and it is also
+          measuring adult labor disputes, snow, heat closures, and anything else that empties a building. In
+          three years someone will plot Sheridan on a trend line and it will just sit there looking like a
+          town that gave up. Nothing in the file will say &#8220;strike.&#8221; That&#8217;s what happens to
+          data nobody annotates.
+        </P>
+
+        <Fig caption={<>Percent increase over each grade&#8217;s <em>own</em> 2019 rate, in 2025, across 13 states covering roughly 9.4 million students. From <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/">Malkus, AEI, Table 5</a>. Kindergartners in 2025 were not born when schools closed; first, second and third graders never attended a pandemic school year.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Kindergarten%22%2C%221st+grade%22%2C%222nd+grade%22%2C%223rd+grade%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22pct+above+2019%22%2C%22data%22%3A%5B48%2C58%2C64%2C70%5D%2C%22backgroundColor%22%3A%5B%22%23bbb%22%2C%22%23777%22%2C%22%235a5a5a%22%2C%22%23141210%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Kids+who+never+attended+a+pandemic+school%2C+2025+vs.+their+own+2019+baseline%22%2C%22fontSize%22%3A15%2C%22fontStyle%22%3A%22bold%22%2C%22fontColor%22%3A%22%23141210%22%2C%22padding%22%3A16%7D%2C%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A10%2C%22bottom%22%3A12%2C%22left%22%3A12%2C%22right%22%3A24%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A80%2C%22stepSize%22%3A20%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+above+the+same+grade%27s+2019+chronic+absenteeism+rate%22%2C%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=400&bkg=transparent&devicePixelRatio=2"
+            alt="Horizontal bar chart. Chronic absenteeism in 2025 as a percent above each grade's own 2019 baseline: kindergarten 48 percent, first grade 58, second grade 64, third grade 70."
+            style={{ width:'100%', maxWidth:760, display:'block', margin:'0 auto' }}
+          />
+        </Fig>
+
+        <P>
+          Here&#8217;s the one finding in the report that doesn&#8217;t care who filed on time. Malkus checks
+          whether elevated absenteeism is a cohort injury (the kids who lived through remote school) or a
+          norms injury (everybody). If it were a cohort effect, it would break along a diagonal in the heat
+          map as those kids age up. It doesn&#8217;t. Kindergartners in 2025 &#8212; many of them not yet
+          born when schools closed &#8212; were{' '}
+          <a href="https://www.aei.org/research-products/report/from-attendance-crisis-to-chronic-condition-tracking-post-pandemic-chronic-absenteeism-into-2025/">48%
+          above their 2019 baseline</a>. First, second and third graders: 58%, 64%, 70%. None of them ever
+          sat in a pandemic classroom.
+        </P>
+
+        <Callout label="Key figure">
+          Only 29% of students are in districts on pace to cut 2022 absenteeism in half by 2027 &#8212;
+          down from 34% the year before. The goal has a deadline. The data does not.
+        </Callout>
+
+        <Divider />
+
+        <P>
+          None of this means the plateau isn&#8217;t real. The K&#8211;3 result is solid and it&#8217;s bleak,
+          and 29% on pace is worse than last year&#8217;s 34%. But the shape of the national curve is being
+          argued about using a composite that is a year stale, missing six jurisdictions, and built from
+          fifty-one agencies with fifty-one release calendars and fifty-one definitions of what counts as a
+          day. And the two states that got their homework in early are the two that look nothing like it.
+        </P>
+
+        <P>
+          A plateau is a finding. A filing delay is a chore. We&#8217;ve spent a year treating one like the
+          other.
+        </P>
+
+        <P style={{ fontStyle:'italic', color:'var(--muted)' }}>&#8212; TJ</P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
