@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>North Carolina published four proficiency rates from one test — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '143',
+  date:    'September 11, 2026',
+  readTime: '3 min',
+  title:   'North Carolina published four proficiency rates from one test. All four are correct.',
+  dek:     'The state put out 2026 results on September 2. Depending on where you draw the line and which exams you count, the share of kids who are proficient is 59.2%, 56%, 37.5%, or 33.2%. Same students, same day.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Hero visual ====================
+const PostHero = () => (
+  <Container>
+    <figure style={{ margin:'0 0 56px' }}>
+      <img
+        src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Grade+Level+Proficient+-+all+EOG%2FEOC%2C+all+subjects%22%2C%22Grade+Level+Proficient+-+grades+3-8+reading%22%2C%22College-and-Career+Ready+-+all+EOG%2FEOC%2C+all+subjects%22%2C%22College-and-Career+Ready+-+grades+3-8+reading%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Percent+of+students%22%2C%22data%22%3A%5B59.2%2C56.0%2C37.5%2C33.2%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%233a3a3a%22%2C%22%23777777%22%2C%22%23bbbbbb%22%5D%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Four+%5C%22proficiency%5C%22+rates+from+one+North+Carolina+release%2C+Sept+2+2026%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22fontStyle%22%3A%22bold%22%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A70%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+of+students%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A11%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%2C%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=460&bkg=transparent&devicePixelRatio=2"
+        alt="Horizontal bar chart of four North Carolina proficiency rates published September 2, 2026: 59.2 percent grade level proficient across all exams, 56 percent grade level proficient in grades 3-8 reading, 37.5 percent college-and-career ready across all exams, and 33.2 percent college-and-career ready in grades 3-8 reading."
+        style={{ display:'block', width:'100%', maxWidth:900, margin:'0 auto', height:'auto' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10, maxWidth:900, marginLeft:'auto', marginRight:'auto' }}>
+        All four figures come from North Carolina&rsquo;s 2025&ndash;26 accountability results, released September 2, 2026. The 59.2% and 37.5% all-subject composites are from the <a href="https://www.dpi.nc.gov/news/press-releases/2026/09/02/2026-graduation-rate-reaches-historic-high-accountability-results-continue-positive-trend-north">NC DPI press release</a>. The 56% and 33.2% grades 3&ndash;8 reading figures are from the <a href="https://statetestscoreresults.substack.com/p/north-carolina-2026-assessment-results">Education Data Center&rsquo;s</a> read of the same release. Grade Level Proficient counts scores of 3, 4 or 5; College-and-Career Ready counts 4 or 5.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          North Carolina released its 2026 test results on September 2. The share of students
+          who are proficient is 59.2%. It is also 56%. It is also 37.5%, and also 33.2%.
+        </P>
+
+        <P>
+          All four are correct. All four came out of the same testing program, about the same
+          kids, on the same Wednesday.
+        </P>
+
+        <P>
+          I run a data company, and this is the thing I have the hardest time explaining to
+          people outside the work: a proficiency rate is not a measurement. It&rsquo;s a query.
+          Change the cutoff, change the answer. Change the rows you count, change it again.
+        </P>
+
+        <H2>Where the line goes</H2>
+
+        <P>
+          North Carolina publishes two designations off the same exams. Per DPI,
+          {' '}<a href="https://www.dpi.nc.gov/news/press-releases/2026/09/02/2026-graduation-rate-reaches-historic-high-accountability-results-continue-positive-trend-north">Grade Level Proficient is a score of 3, 4 or 5</a>, and College-and-Career Ready
+          is a 4 or 5. Statewide, across every end-of-grade and end-of-course test,
+          that&rsquo;s 59.2% and 37.5%. Nothing about the students changes between those two
+          numbers. One boundary moves one notch.
+        </P>
+
+        <P>
+          Then narrow the rows. The <a href="https://statetestscoreresults.substack.com/p/north-carolina-2026-assessment-results">Education Data Center</a>, working the same
+          release, reports grades 3&ndash;8 reading at 56% under the friendlier standard and 33.2%
+          under the stricter one. Math is 59.8% and 40.6%. So in reading, 22.8% of North Carolina
+          kids in those grades are proficient and not proficient at the same time, depending on
+          which of two official words you use.
+        </P>
+
+        <Callout label="The legacy column">
+          The EDC notes the state effectively has four achievement levels, and they&rsquo;re
+          labeled <em>Not Proficient, Level 3, Level 4, Level 5</em> &mdash; a holdover from the
+          assessments before these ones. So the bottom bucket is not Level 1 or Level 2. It&rsquo;s
+          just <em>Not Proficient</em>, sitting where 1 and 2 used to be.
+        </Callout>
+
+        <P>
+          Every data system I&rsquo;ve worked in has a column like that. A field whose name stopped
+          matching its contents years ago and got kept anyway, because renaming it breaks twelve
+          reports and one dashboard nobody will admit to owning. It&rsquo;s fine. Until somebody
+          who wasn&rsquo;t there writes a headline off it.
+        </P>
+
+        <H2>The fourth grade problem</H2>
+
+        <P>
+          Here&rsquo;s my favorite one, and it isn&rsquo;t a trick.
+        </P>
+
+        <P>
+          Fourth grade reading was the one subject that didn&rsquo;t improve &mdash;
+          {' '}<a href="https://www.wunc.org/education/2026-09-02/north-carolina-students-gains-2026-state-exams">57% proficient, down from 58%</a>. A dip. Except DPI&rsquo;s chief accountability
+          officer told the state board, unprompted, that when you follow the actual 2026 fourth
+          graders back to their third grade scores, they went from 47% to 57%.
+        </P>
+
+        <Fig caption={<>North Carolina grade 4 reading, grade level proficient. The grey pair is the year-over-year comparison the accountability system runs &mdash; this year&rsquo;s fourth graders against last year&rsquo;s fourth graders. The black pair follows the 2026 fourth graders back to their own third grade scores. Both readings were presented at the same September 2 State Board meeting. Source: <a href="https://www.wunc.org/education/2026-09-02/north-carolina-students-gains-2026-state-exams">WUNC</a>, reporting Michael Maher&rsquo;s presentation.</>}>
+          <img
+            src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Spring+2025%22%2C%22Spring+2026%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22Grade+4+vs.+last+year%5Cu2019s+grade+4+%28different+kids%29%22%2C%22data%22%3A%5B58%2C57%5D%2C%22backgroundColor%22%3A%22%23bbbbbb%22%2C%22borderWidth%22%3A0%7D%2C%7B%22label%22%3A%22The+same+kids%3A+grade+3%2C+then+grade+4%22%2C%22data%22%3A%5B47%2C57%5D%2C%22backgroundColor%22%3A%22%23141210%22%2C%22borderWidth%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Atrue%2C%22position%22%3A%22bottom%22%2C%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%2C%22boxWidth%22%3A14%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22North+Carolina+grade+4+reading%3A+one+57%25%2C+two+readings%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A16%2C%22fontStyle%22%3A%22bold%22%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22id%22%3A%22y%22%2C%22ticks%22%3A%7B%22beginAtZero%22%3Atrue%2C%22max%22%3A70%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%2C%22scaleLabel%22%3A%7B%22display%22%3Atrue%2C%22labelString%22%3A%22Percent+grade+level+proficient%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22id%22%3A%22x%22%2C%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A12%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%2C%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2"
+            alt="Grouped bar chart of North Carolina grade 4 reading proficiency. Cross-sectionally, grade 4 fell from 58 percent in 2025 to 57 percent in 2026. Following the same cohort, the students rose from 47 percent in grade 3 to 57 percent in grade 4."
+            style={{ display:'block', width:'100%', maxWidth:900, margin:'0 auto', height:'auto' }} />
+        </Fig>
+
+        <P>
+          Minus one, or plus ten. Cross-sectional or longitudinal. Neither is a fudge, and the
+          state said both out loud in the same meeting. But the accountability system runs the
+          first one, so the first one is what lands in the file, in the report card, in the
+          school&rsquo;s letter grade, and in the sentence a parent reads on their phone.
+        </P>
+
+        <H2>The best paragraph in the whole release</H2>
+
+        <P>
+          Buried past the graduation rate: the ACT composite for 11th graders rose to 18.4. DPI
+          then discloses that <a href="https://www.dpi.nc.gov/news/press-releases/2026/09/02/2026-graduation-rate-reaches-historic-high-accountability-results-continue-positive-trend-north">ACT found a technical scoring issue</a> in its spring 2026 online
+          school-day testing and rescored affected exams nationwide, that this year&rsquo;s composite
+          therefore includes a one-time increase, and that NCDPI will watch how it compares to
+          future years.
+        </P>
+
+        <P>
+          That is a vendor-side data correction, flagged by the state, in its own good-news press
+          release. I don&rsquo;t think most organizations do that. Genuinely good.
+        </P>
+
+        <P>
+          It also means this year&rsquo;s ACT line is not comparable to last year&rsquo;s, and the
+          only place that&rsquo;s recorded is a sentence in a press release that will be four clicks
+          deep by Thanksgiving.
+        </P>
+
+        <Divider />
+
+        <P>
+          None of this is North Carolina being sneaky. The release defines both designations. The
+          accountability officer explained the cohort thing without being asked. The ACT caveat is
+          right there. This is a state doing the documentation part reasonably well.
+        </P>
+
+        <P>
+          The failure is downstream, and it&rsquo;s structural. A parent opens a school report card,
+          sees a percentage next to the word <em>proficient</em>, and has no way to know whether
+          they&rsquo;re looking at a 3-4-5 cutoff or a 4-5 cutoff, all subjects or one, this
+          year&rsquo;s cohort or theirs. The number arrives stripped of the four decisions that made it.
+        </P>
+
+        <P>
+          A proficiency rate isn&rsquo;t a fact about kids. It&rsquo;s a fact about a WHERE clause.
+        </P>
+
+        <H2>Sources</H2>
+
+        <UL items={[
+          <><a href="https://www.dpi.nc.gov/news/press-releases/2026/09/02/2026-graduation-rate-reaches-historic-high-accountability-results-continue-positive-trend-north">NC DPI, &ldquo;2026 Graduation Rate Reaches Historic High, Accountability Results Continue Positive Trend for North Carolina Public School Students&rdquo;</a> (September 2, 2026). Source for the 88.8% four-year graduation rate; the 59.2% all-subject, all-grade composite proficiency; the definitions of Grade Level Proficient (3, 4 or 5) and College and Career Ready (4 or 5); the 37.5% CCR rate, up from 34.7%; the ACT composite of 18.4 and the disclosure of ACT&rsquo;s spring 2026 rescoring.</>,
+          <><a href="https://statetestscoreresults.substack.com/p/north-carolina-2026-assessment-results">Education Data Center, &ldquo;North Carolina: 2026 Assessment Results&rdquo;</a> (September 3, 2026). Source for the grades 3&ndash;8 figures &mdash; reading at 56% GLP and 33.2% CCR, math at 59.8% and 40.6% &mdash; and for the description of the state&rsquo;s four effective achievement levels labeled Not Proficient, Level 3, Level 4 and Level 5.</>,
+          <><a href="https://www.wunc.org/education/2026-09-02/north-carolina-students-gains-2026-state-exams">Liz Schlemmer, &ldquo;North Carolina students showed broad gains on 2026 state exams,&rdquo; WUNC</a> (September 2, 2026). Source for grade 4 reading at 57% versus 58% the prior year, and for Chief Accountability Officer Michael Maher&rsquo;s cohort comparison showing the same students at 47% in grade 3.</>,
+          <><a href="https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/accountability-data-sets-and-reports">NC DPI accountability data sets and reports</a> &mdash; the underlying 2025&ndash;26 files behind every rate here.</>,
+        ]} />
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
