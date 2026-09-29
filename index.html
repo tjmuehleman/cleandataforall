@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '161', date: 'September 29, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Nobody voted to shrink Head Start. Grantees filed requests.',
+    dek: 'Head Start’s cumulative enrollment fell by 296,844 in nine years. HHS files trace part of it to enrollment-reduction requests, 39 in FY2021 and 746 in FY2024. No source I can open ties the two counts together.',
+    href: 'blog/nobody-voted-shrink-head-start-grantees-filed-requests.html', shape: 'pulse' },
   { n: '160', date: 'September 28, 2026', read: '3 min', kind: 'Data Study',
     title: 'Minnesota’s 15-day rule turns a missing kid into a departed one',
     dek: '29 Minnesota districts and charters lost about 1,700 students midyear after Operation Metro Surge, against fewer than 80 a year earlier. A 15-absence rule means the count that sets the money is partly a count of who stopped showing up.',
@@ -950,11 +954,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['Nobody voted to shrink Head Start. Grantees filed requests.', 'blog/nobody-voted-shrink-head-start-grantees-filed-requests.html'],
             ['Minnesota’s 15-day rule turns a missing kid into a departed one', 'blog/minnesota-15-day-rule-missing-kid-departed.html'],
             ['Indiana redesigned the test, told everyone not to trust it, then built the school grades on it anyway', 'blog/indiana-redesigned-test-graded-anyway.html'],
             ['Teen mental health got better right when the survey measuring it got worse at asking questions', 'blog/cdc-survey-shrank-as-teens-got-better.html'],
             ['Nobody voted to end free lunch in Miami-Dade. A formula did.', 'blog/nobody-voted-free-lunch-off.html'],
-            ['America counted more homeless kids than ever. The money that counted them is gone.', 'blog/four-in-five-districts-fund-nothing.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
