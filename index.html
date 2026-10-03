@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '165', date: 'October 3, 2026', read: '3 min', kind: 'Analysis',
+    title: 'Louisiana is cheap and good, if you ignore three denominators',
+    dek: 'Louisiana spends $12,162 a student against a national $17,619 and is the only state back above its 2019 scores. Check what each of those numbers is divided by, and the headline gets a lot smaller.',
+    href: 'blog/louisiana-cheap-and-good-three-denominators.html', shape: 'scatter' },
   { n: '164', date: 'October 2, 2026', read: '3 min', kind: 'Data Study',
     title: 'New York can’t tell if its third graders fell or its test moved',
     dek: 'New York City third graders lost 13.8 points of reading proficiency in a year, after the whole city gained 7.2 the year before. Math sat flat. Before anyone argues about phonics, somebody should check the ruler.',
@@ -966,11 +970,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['Louisiana is cheap and good, if you ignore three denominators', 'blog/louisiana-cheap-and-good-three-denominators.html'],
             ['New York can’t tell if its third graders fell or its test moved', 'blog/new-york-third-graders-fell-or-test-moved.html'],
             ['Texas counted its voucher kids three ways in 15 days', 'blog/texas-counted-voucher-kids-three-ways.html'],
             ['Schools lost students and hired adults. The ‘other’ column did it.', 'blog/schools-lost-students-hired-adults-other-column.html'],
             ['Nobody voted to shrink Head Start. Grantees filed requests.', 'blog/nobody-voted-shrink-head-start-grantees-filed-requests.html'],
-            ['Minnesota’s 15-day rule turns a missing kid into a departed one', 'blog/minnesota-15-day-rule-missing-kid-departed.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
