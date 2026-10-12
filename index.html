@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '174', date: 'October 12, 2026', read: '3 min', kind: 'Data Study',
+    title: 'The schools turning down free lunch for everyone are doing arithmetic',
+    dek: 'One in four eligible schools doesn’t run free lunch for everyone, and two in three of the holdouts sit in the lowest-poverty band, where the federal formula covers 40% to 62% of meals. Nobody’s refusing. They’re counting.',
+    href: 'blog/free-lunch-decliners-are-doing-arithmetic.html', shape: 'overlap' },
   { n: '173', date: 'October 11, 2026', read: '3 min', kind: 'Analysis',
     title: 'School lunch runs on another agency’s spreadsheet',
     dek: 'More than 5.6 million people left SNAP in a year, and school meal eligibility reads that caseload through a formula most cafeterias never see. The number that matters, kids losing direct certification, isn’t published anywhere I could find.',
@@ -1002,11 +1006,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['The schools turning down free lunch for everyone are doing arithmetic', 'blog/free-lunch-decliners-are-doing-arithmetic.html'],
             ['School lunch runs on another agency’s spreadsheet', 'blog/school-lunch-runs-on-a-snap-spreadsheet.html'],
             ['Everyone’s writing about boys falling behind. Check the math.', 'blog/boys-falling-behind-check-the-math.html'],
             ['42 states banned phones. The big study measured one kind of pouch.', 'blog/42-states-ban-phones-study-counts-pouches.html'],
             ['The suspension count held still. The days didn’t.', 'blog/suspension-count-held-still-days-didnt.html'],
-            ['The ten-to-one teacher shortage ratio divides one list of states by another', 'blog/ten-to-one-teacher-shortage-two-lists-of-states.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
