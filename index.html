@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '178', date: 'October 16, 2026', read: '3 min', kind: 'Data Study',
+    title: 'A record report card is a statement about the ruler',
+    dek: 'South Carolina and Virginia announced record school ratings this October. Kentucky got better reading scores and fewer top-rated schools. The difference is the rubric, and nobody publishes the old one.',
+    href: 'blog/record-report-card-is-a-rubric.html', shape: 'scatter' },
   { n: '177', date: 'October 15, 2026', read: '3 min', kind: 'Data Study',
     title: 'The longer walk to the bus stop is a survey answer, not a statistic',
     dek: 'Diesel is up $2.51 a gallon from a year ago, and a May survey says some districts made kids walk farther to their stops. That 8% is 188 respondents, no stated sampling frame, and no counts.',
@@ -1018,11 +1022,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['A record report card is a statement about the ruler', 'blog/record-report-card-is-a-rubric.html'],
             ['The longer walk to the bus stop is a survey answer, not a statistic', 'blog/walk-to-bus-stop-is-a-survey-answer.html'],
             ['Schools are safe in a shutdown (except 1,073 districts)', 'blog/schools-safe-in-shutdown-except-1073.html'],
             ['Eighteen states promised to halve absenteeism. The math wants four points a year.', 'blog/absenteeism-pledge-needs-four-points-a-year.html'],
             ['The schools turning down free lunch for everyone are doing arithmetic', 'blog/free-lunch-decliners-are-doing-arithmetic.html'],
-            ['School lunch runs on another agency’s spreadsheet', 'blog/school-lunch-runs-on-a-snap-spreadsheet.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
