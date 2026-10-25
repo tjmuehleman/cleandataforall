@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '187', date: 'October 25, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Computer science passed calculus. Check the denominator.',
+    dek: 'The 2023–24 federal school census says 51% of high schools offer computer science and 45% offer calculus. The gap between those two numbers is smaller than the definition of “high school” sitting underneath them.',
+    href: 'blog/cs-passed-calculus-check-the-denominator.html', shape: 'scatter' },
   { n: '186', date: 'October 24, 2026', read: '3 min', kind: 'Data Study',
     title: 'Georgia checks every young reader three times a year. We get the once-a-year number.',
     dek: 'Georgia has required a reading screener for K-3 students three times a year since August 2024. State guidance sends the results to parents. The number the public gets, Milestones ELA, comes once a year, and this year not until December.',
@@ -1054,11 +1058,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['Computer science passed calculus. Check the denominator.', 'blog/cs-passed-calculus-check-the-denominator.html'],
             ['Georgia checks every young reader three times a year. We get the once-a-year number.', 'blog/georgia-reads-three-times-we-get-one.html'],
             ['Kansas math rose 2.27 points on a test with one year of history', 'blog/kansas-math-up-test-one-year-old.html'],
             ['School choice has a rejection rate. Four states publish it.', 'blog/school-choice-rejection-rate-four-states.html'],
             ['The denominator is one day long', 'blog/denominator-is-one-day-long.html'],
-            ['Graduation stopped tracking attendance', 'blog/graduation-stopped-tracking-attendance.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
