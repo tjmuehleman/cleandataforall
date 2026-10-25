@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<title>Computer science passed calculus. Check the denominator. — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '187',
+  date:    'October 25, 2026',
+  readTime: '3 min',
+  title:   'Computer science passed calculus. Check the denominator.',
+  dek:     'The 2023–24 federal school census says 51% of high schools offer computer science and 45% offer calculus. The gap between those two numbers is smaller than the definition of “high school” sitting underneath them.',
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ maxWidth:900, margin:'0 auto 56px', textAlign:'center' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Computer+science%22%2C%22Calculus%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B51%2C45%5D%2C%22backgroundColor%22%3A%5B%22%23141210%22%2C%22%23777%22%5D%2C%22barPercentage%22%3A0.5%2C%22categoryPercentage%22%3A0.8%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Share+of+US+high+schools+offering+the+course%2C+2023-24%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22plugins%22%3A%7B%22datalabels%22%3A%7B%22color%22%3A%22%23141210%22%2C%22anchor%22%3A%22end%22%2C%22align%22%3A%22end%22%2C%22font%22%3A%7B%22size%22%3A20%2C%22weight%22%3A%22bold%22%7D%2C%22formatter%22%3A%22%28v%29%3D%3Ev%2B%5C%22%25%5C%22%22%7D%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A30%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A70%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart: 51% of US high schools offer computer science, 45% offer calculus, 2023-24" style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10 }}>
+        Source: <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">AdvancED Equity, A Second Look at the 2023–24 CRDC</a> (U.S. Dept. of Education Office for Civil Rights data)
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+        <P>
+          Six points. That&rsquo;s the margin by which computer science beat calculus in the newest federal school census. The 2023&ndash;24 Civil Rights Data Collection, as summarized by AdvancED Equity, finds <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">51% of high schools offered computer science and 45% offered calculus</a>. Headline writes itself.
+        </P>
+
+        <P>
+          So I went looking for what &ldquo;high school&rdquo; means. Here&rsquo;s the footnote: <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">a high school is &ldquo;any school or justice facility reporting any of grades 9&ndash;12 or ungraded students of high-school age.&rdquo;</a> Justice facility. As in, it&rsquo;s in the denominator. The collection covers <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">97,094 schools</a> in total, and I couldn&rsquo;t find a public count of how many of the ones that count as high schools are juvenile facilities (if you have it, send it, I&rsquo;ll update this).
+        </P>
+
+        <P>
+          Does that change the national story? Probably not by much. But it&rsquo;s a nice reminder that &ldquo;45% of high schools&rdquo; is a statement about a list, and somebody made the list. The same file that tells you calculus is the rarer course also counts a school with a handful of students in a facility the same as a 2,000-student comprehensive high school. One row, one vote.
+        </P>
+
+        <H2>The gap that doesn&rsquo;t depend on the list</H2>
+
+        <P>
+          Here&rsquo;s the part I&rsquo;d actually put on a slide. In high schools where Black and Latino students are more than three-quarters of enrollment, <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">calculus is offered in 32% of schools</a>. That&rsquo;s <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">18 percentage points below</a> schools with less than a quarter Black and Latino students, which works out to about 50% (32 + 18; the brief gives the gap, I did the addition).
+        </P>
+
+        <Fig caption={<>Source: <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">AdvancED Equity, A Second Look at the 2023&ndash;24 CRDC</a>, from <a href="https://civilrightsdata.ed.gov/data">OCR&rsquo;s public-use files</a>. The 50% bar is derived: 32% + 18 points. Only the two endpoint groups are reported.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22bar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Under+25%25+Black+%2B+Latino%22%2C%22Over+75%25+Black+%2B+Latino%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B50%2C32%5D%2C%22backgroundColor%22%3A%5B%22%23777%22%2C%22%23141210%22%5D%2C%22barPercentage%22%3A0.5%2C%22categoryPercentage%22%3A0.8%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Share+of+high+schools+offering+calculus%2C+2023-24%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A18%7D%2C%22plugins%22%3A%7B%22datalabels%22%3A%7B%22color%22%3A%22%23141210%22%2C%22anchor%22%3A%22end%22%2C%22align%22%3A%22end%22%2C%22font%22%3A%7B%22size%22%3A20%2C%22weight%22%3A%22bold%22%7D%2C%22formatter%22%3A%22%28v%29%3D%3Ev%2B%5C%22%25%5C%22%22%7D%7D%2C%22layout%22%3A%7B%22padding%22%3A%7B%22top%22%3A30%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A15%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%2C%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A70%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart: calculus offered in about 50% of high schools under 25% Black and Latino enrollment versus 32% of those over 75%" style={{ width:'100%', maxWidth:900, display:'block', margin:'0 auto' }} />
+        </Fig>
+
+        <P>
+          And the other side of the flip? If 45% of schools offer calculus, 55% don&rsquo;t (that one&rsquo;s just subtraction, and it&rsquo;s the number the headline buried). Computer science &ldquo;winning&rdquo; at 51% still leaves 49% of schools with nothing, by the same definition.
+        </P>
+
+        <H2>What I&rsquo;d want before repeating the claim</H2>
+
+        <P>
+          A prior wave to compare against, on the same definition. The brief compares this collection with 2021&ndash;22, but <a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">its page doesn&rsquo;t show that coursework comparison</a>, so I can&rsquo;t tell you whether calculus fell or CS rose or the list of schools just changed. Those are three different stories that all produce the same crossover. Same story as always: the chart is easy. The denominator is the work.
+        </P>
+
+        <Divider />
+
+        <P>
+          Two courses, one list, and a footnote that says some of the schools are locked.
+        </P>
+
+        <P><em>&mdash; TJ</em></P>
+
+        <H3>Sources</H3>
+        <UL items={[
+          <><a href="https://www.advancedequity.org/briefs/a-second-look-202324crdc">AdvancED Equity: A Second Look at the 2023&ndash;24 Civil Rights Data Collection</a> (45%, 51%, 32%, 18-point gap, 97,094 schools, high school definition)</>,
+          <><a href="https://civilrightsdata.ed.gov/data">U.S. Department of Education OCR: Civil Rights Data Collection data portal</a></>,
+          <><a href="https://www.ed.gov/media/document/2023-24-first-look-civil-rights-data-collection-september-30-2026-114593.pdf">OCR: A First Look, 2023&ndash;24 Civil Rights Data Collection (Sept. 30, 2026)</a></>,
+        ]} />
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
