@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '189', date: 'October 27, 2026', read: '3 min', kind: 'Fact Check',
+    title: 'The “1 in 10” recovery number has no link',
+    dek: 'CRPE’s new report says 10.5% of US students are in districts back to pre-pandemic math and reading. The label says Education Scorecard. The Scorecard’s last report on this said 6%, and its newest one doesn’t print the number at all.',
+    href: 'blog/one-in-ten-recovery-number-has-no-link.html', shape: 'line' },
   { n: '188', date: 'October 26, 2026', read: '3 min', kind: 'Data Study',
     title: 'California’s kindergarten absence number is a year old. And it isn’t TK.',
     dek: 'California’s 2025–26 release celebrated a decade-high graduation rate and falling absenteeism. The kindergarten figure behind the “four-year-olds are the worst attenders” story is from 2024–25, folds TK into K, and sits a point below high school.',
@@ -1062,11 +1066,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['The “1 in 10” recovery number has no link', 'blog/one-in-ten-recovery-number-has-no-link.html'],
             ['California’s kindergarten absence number is a year old. And it isn’t TK.', 'blog/california-k-absence-number-year-old.html'],
             ['Computer science passed calculus. Check the denominator.', 'blog/cs-passed-calculus-check-the-denominator.html'],
             ['Georgia checks every young reader three times a year. We get the once-a-year number.', 'blog/georgia-reads-three-times-we-get-one.html'],
             ['Kansas math rose 2.27 points on a test with one year of history', 'blog/kansas-math-up-test-one-year-old.html'],
-            ['School choice has a rejection rate. Four states publish it.', 'blog/school-choice-rejection-rate-four-states.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
