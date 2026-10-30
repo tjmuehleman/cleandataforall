@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '192', date: 'October 30, 2026', read: '4 min', kind: 'Analysis',
+    title: 'The English learner count fell. The kids may not have.',
+    dek: 'California’s English learner count fell by more than its whole enrollment did. Massachusetts lost 7,000 of them. Nobody publishing the numbers can say how many left school and how many just changed columns.',
+    href: 'blog/el-count-fell-the-kids-may-not-have.html', shape: 'strata' },
   { n: '191', date: 'October 29, 2026', read: '3 min', kind: 'Data Study',
     title: 'The FAFSA record has two numbers',
     dek: 'NCAN says the class of 2026 set a record at 59.1%. Three months later its own tracker puts the same class at 64.6%. A record is a snapshot, and the snapshot date is doing a lot of the work.',
@@ -1074,11 +1078,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['The English learner count fell. The kids may not have.', 'blog/el-count-fell-the-kids-may-not-have.html'],
             ['The FAFSA record has two numbers', 'blog/fafsa-record-has-two-numbers.html'],
             ['Missing from the IRS list isn’t a no', 'blog/missing-from-the-irs-list-isnt-a-no.html'],
             ['The “1 in 10” recovery number has no link', 'blog/one-in-ten-recovery-number-has-no-link.html'],
             ['California’s kindergarten absence number is a year old. And it isn’t TK.', 'blog/california-k-absence-number-year-old.html'],
-            ['Computer science passed calculus. Check the denominator.', 'blog/cs-passed-calculus-check-the-denominator.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
