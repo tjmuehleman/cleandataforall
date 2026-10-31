@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '193', date: 'October 31, 2026', read: '3 min', kind: 'Data Study',
+    title: 'New York shrank its enrollment and grew its smallest schools',
+    dek: 'NYC enrollment is down 147,930 since 2013-14, while schools with 200 or fewer students went from 165 to 224. Both numbers shift depending on who counts and where they draw the line.',
+    href: 'blog/nyc-shrank-enrollment-grew-tiny-schools.html', shape: 'bars' },
   { n: '192', date: 'October 30, 2026', read: '4 min', kind: 'Analysis',
     title: 'The English learner count fell. The kids may not have.',
     dek: 'California’s English learner count fell by more than its whole enrollment did. Massachusetts lost 7,000 of them. Nobody publishing the numbers can say how many left school and how many just changed columns.',
@@ -1078,11 +1082,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['New York shrank its enrollment and grew its smallest schools', 'blog/nyc-shrank-enrollment-grew-tiny-schools.html'],
             ['The English learner count fell. The kids may not have.', 'blog/el-count-fell-the-kids-may-not-have.html'],
             ['The FAFSA record has two numbers', 'blog/fafsa-record-has-two-numbers.html'],
             ['Missing from the IRS list isn’t a no', 'blog/missing-from-the-irs-list-isnt-a-no.html'],
             ['The “1 in 10” recovery number has no link', 'blog/one-in-ten-recovery-number-has-no-link.html'],
-            ['California’s kindergarten absence number is a year old. And it isn’t TK.', 'blog/california-k-absence-number-year-old.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
