@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '195', date: 'November 3, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Michigan’s 8% school bond stat is probably one bond',
+    dek: 'A stat says Michigan bonds pass 60% of the time with no tax-rate increase and 8% with one. The source page lists no counts, and four sources disagree on the basic pass rate. Michigan votes today.',
+    href: 'blog/michigan-8-percent-bond-stat-one-bond.html', shape: 'bars' },
   { n: '194', date: 'November 2, 2026', read: '3 min', kind: 'Data Study',
     title: 'The 10% ceiling is gone, and 27% of Illinois schools noticed',
     dek: 'Illinois says 27% of its schools are now Exemplary. A year ago the rules capped that label at 10%. Reading scores rose 3 points on the same test. Those are two different kinds of number.',
@@ -1086,11 +1090,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['Michigan’s 8% school bond stat is probably one bond', 'blog/michigan-8-percent-bond-stat-one-bond.html'],
             ['The 10% ceiling is gone, and 27% of Illinois schools noticed', 'blog/ten-percent-ceiling-gone-illinois-exemplary.html'],
             ['New York shrank its enrollment and grew its smallest schools', 'blog/nyc-shrank-enrollment-grew-tiny-schools.html'],
             ['The English learner count fell. The kids may not have.', 'blog/el-count-fell-the-kids-may-not-have.html'],
             ['The FAFSA record has two numbers', 'blog/fafsa-record-has-two-numbers.html'],
-            ['Missing from the IRS list isn’t a no', 'blog/missing-from-the-irs-list-isnt-a-no.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
