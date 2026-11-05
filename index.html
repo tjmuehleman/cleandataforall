@@ -222,6 +222,10 @@ const ArchiveShape = () => (
 
 // ==================== data.jsx ====================
 const DISPATCHES = [
+  { n: '197', date: 'November 5, 2026', read: '3 min', kind: 'Data Study',
+    title: 'Teachers up, students down, and a shortage in the headlines',
+    dek: 'Across 9,500 districts, fewer than a quarter have fewer teachers per student than eight years ago. Chicago added teachers while losing 54,000 kids. A ratio is two numbers, and the shortage story only watches one of them.',
+    href: 'blog/teachers-up-students-down-ratio-fell.html', shape: 'overlap' },
   { n: '196', date: 'November 4, 2026', read: '3 min', kind: 'Data Study',
     title: 'Washington school bonds win the vote and fail anyway',
     dek: 'On one 2024 ballot, 18 of 21 Washington school bonds won a majority and 7 passed. Levies sailed through at 90%. Same voters, same envelope. The only variable is the cutoff.',
@@ -1094,11 +1098,11 @@ const HeroLede = () => (
           <Small style={{ color:'var(--muted)' }}>Recent articles</Small>
           <ol style={{ margin:0, padding:0, listStyle:'none', fontFamily:'var(--body)', fontSize:17, lineHeight:1.6 }}>
             {[
+            ['Teachers up, students down, and a shortage in the headlines', 'blog/teachers-up-students-down-ratio-fell.html'],
             ['Washington school bonds win the vote and fail anyway', 'blog/wa-school-bonds-win-vote-fail-anyway.html'],
             ['Michigan’s 8% school bond stat is probably one bond', 'blog/michigan-8-percent-bond-stat-one-bond.html'],
             ['The 10% ceiling is gone, and 27% of Illinois schools noticed', 'blog/ten-percent-ceiling-gone-illinois-exemplary.html'],
             ['New York shrank its enrollment and grew its smallest schools', 'blog/nyc-shrank-enrollment-grew-tiny-schools.html'],
-            ['The English learner count fell. The kids may not have.', 'blog/el-count-fell-the-kids-may-not-have.html'],
             ].map(([t,href],i)=>(
               <li key={i} style={{ borderBottom:'1px dotted var(--rule)' }}>
                 <a href={href} style={{ display:'flex', gap:12, padding:'8px 0', textDecoration:'none', color:'inherit' }}>
