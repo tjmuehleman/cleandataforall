@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-pair="slab-serif">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="/favicon.ico" />
+<!-- TEMPLATE: Update title for each post -->
+<title>Washington’s attendance scoreboard is a year behind the data — Clean Data for All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#F4EFE6;
+    --rule: rgba(20,18,16,.18);
+    --rule-soft: rgba(20,18,16,.10);
+    --muted: rgba(20,18,16,.62);
+    --display: 'Roboto Slab', serif;
+    --body: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html[data-theme="paper"]{ --ink:#141210; --paper:#F4EFE6; --rule:rgba(20,18,16,.18); --rule-soft:rgba(20,18,16,.10); --muted:rgba(20,18,16,.62); }
+  html[data-theme="poster"]{ --ink:#EDE6D8; --paper:#171413; --rule:rgba(237,230,216,.22); --rule-soft:rgba(237,230,216,.10); --muted:rgba(237,230,216,.6); }
+  html[data-theme="zine"]{ --ink:#0A0908; --paper:#EFEBDF; --rule:rgba(10,9,8,.35); --rule-soft:rgba(10,9,8,.18); --muted:rgba(10,9,8,.68); }
+
+  html[data-pair="slab-serif"]{ --display:'Roboto Slab', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+  html[data-pair="grotesk-serif"]{ --display:'Archivo', sans-serif; --body:'Fraunces', Georgia, serif; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="slab-mono"]{ --display:'Roboto Slab', serif; --body:'IBM Plex Mono', monospace; --mono:'IBM Plex Mono', monospace; }
+  html[data-pair="display-serif"]{ --display:'Instrument Serif', serif; --body:'Fraunces', Georgia, serif; --mono:'JetBrains Mono', monospace; }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; padding:0; background: var(--paper); color: var(--ink); }
+  body{ font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","onum"; }
+  a{ color: inherit; }
+  ::selection{ background: var(--ink); color: var(--paper); }
+
+  body::before{
+    content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;
+    background-image:
+      radial-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      radial-gradient(rgba(20,18,16,.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+    opacity: .7;
+  }
+  html[data-theme="poster"] body::before{
+    background-image:
+      radial-gradient(rgba(237,230,216,.04) 1px, transparent 1px),
+      radial-gradient(rgba(237,230,216,.025) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  #root{ position: relative; z-index: 2; }
+
+  /* Post body typography */
+  .post-body p { margin: 0 0 1.5em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body h2 { font-family: var(--display); font-weight: 900; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.05; margin: 2em 0 0.5em; letter-spacing: -0.01em; }
+  .post-body h3 { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; margin: 1.8em 0 0.4em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.5em; padding-left: 1.4em; font-size: 19px; line-height: 1.65; max-width: 68ch; }
+  .post-body li { margin-bottom: 0.4em; }
+  .post-body blockquote { margin: 2em 0; padding: 0 0 0 24px; border-left: 3px solid var(--ink); font-style: italic; font-size: 20px; line-height: 1.6; max-width: 60ch; color: var(--ink); }
+  .post-body blockquote cite { display: block; margin-top: 0.75em; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 3em 0; }
+  .post-body a { border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .post-body a:hover { border-bottom-color: var(--ink); }
+  .post-body figure { margin: 2.5em 0; }
+  .post-body figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  .post-body .callout { border: 1px solid var(--ink); padding: 24px 28px; margin: 2.5em 0; max-width: 68ch; }
+  .post-body .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .post-body code { font-family: var(--mono); font-size: 0.88em; background: var(--rule-soft); padding: 2px 5px; }
+  .post-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; background: var(--rule-soft); padding: 20px 24px; overflow-x: auto; margin: 2em 0; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y08F73FJN5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y08F73FJN5');
+</script>
+</head>
+<body>
+  <div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ==================== TEMPLATE DATA — update for each post ====================
+const POST = {
+  kind:    'Data Study',
+  number:  '201',
+  date:    'November 10, 2026',
+  readTime: '3 min',
+  title:   "Washington’s attendance scoreboard is a year behind the data",
+  dek:     "Washington’s 5-Year Challenge chart stops at 2024-25. The state’s open data already has 2025-26, and it shows 25.6% against a 22.0% goal. Hitting 13.7% by 2028-29 now takes about 4.0 points a year, not 1.7.",
+  byline:  'T.J. Müehleman',
+};
+// =============================================================================
+
+// ==================== Shared primitives ====================
+const Rule = ({ double, style }) => (
+  double
+    ? <div style={{ borderTop:'1px solid var(--ink)', borderBottom:'1px solid var(--ink)', height:6, margin:0, ...style }} />
+    : <hr style={{ height:1, background:'var(--rule)', border:0, margin:0, ...style }} />
+);
+
+const Small = ({ children, style }) => (
+  <span style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', fontWeight:500, ...style }}>
+    {children}
+  </span>
+);
+
+const Container = ({ children, style }) => (
+  <div style={{ maxWidth:1240, margin:'0 auto', padding:'0 clamp(24px, 5vw, 72px)', ...style }}>
+    {children}
+  </div>
+);
+
+const Prose = ({ children, style }) => (
+  <div style={{ maxWidth:760, margin:'0 auto', ...style }}>
+    {children}
+  </div>
+);
+
+// ==================== Top bar ====================
+const TopBar = () => (
+  <div style={{ borderBottom:'1px solid var(--rule)', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)' }}>
+    <Container>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 0', gap:16, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', gap:20 }}>
+          <span>{POST.date}</span>
+        </div>
+        <div style={{ display:'flex', gap:20 }}>
+          <a href="../index.html" style={{ textDecoration:'none' }}>← All dispatches</a>
+          <a href="../index.html#about" style={{ textDecoration:'none' }}>About</a>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+// ==================== Post header ====================
+const PostHeader = () => (
+  <Container>
+    <div style={{ padding:'48px 0 40px' }}>
+      {/* Wordmark */}
+      <div style={{ marginBottom:32 }}>
+        <a href="../index.html" style={{ textDecoration:'none' }}>
+          <div style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(28px, 4vw, 48px)', lineHeight:0.9, letterSpacing:'-0.02em', textTransform:'uppercase' }}>
+            Clean Data For All
+          </div>
+        </a>
+      </div>
+
+      <Rule double />
+
+      {/* Meta row */}
+      <div style={{ display:'flex', gap:24, padding:'16px 0', flexWrap:'wrap', alignItems:'center' }}>
+        <Small>№ {POST.number}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small>{POST.kind}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.date}</Small>
+        <span style={{ opacity:.4, fontFamily:'var(--mono)', fontSize:11 }}>·</span>
+        <Small style={{ color:'var(--muted)' }}>{POST.readTime} read</Small>
+      </div>
+
+      <Rule />
+
+      {/* Title + dek */}
+      <div style={{ maxWidth:900, paddingTop:32 }}>
+        <h1 style={{ fontFamily:'var(--display)', fontWeight:900, fontSize:'clamp(38px, 6vw, 82px)', lineHeight:0.95, margin:'0 0 24px', letterSpacing:'-0.015em', textWrap:'balance' }}>
+          {POST.title}
+        </h1>
+        <p style={{ fontSize:'clamp(18px, 2vw, 24px)', lineHeight:1.45, margin:'0 0 24px', maxWidth:'54ch', textWrap:'pretty', color:'var(--ink)' }}>
+          {POST.dek}
+        </p>
+        <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <Small style={{ color:'var(--muted)' }}>By {POST.byline}</Small>
+        </div>
+      </div>
+    </div>
+  </Container>
+);
+
+// ==================== Optional hero visual ====================
+// Remove this block if the post doesn't have a lead visual.
+const PostHero = () => (
+  <Container>
+    <figure style={{ maxWidth:900, margin:'0 auto 56px' }}>
+      <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22line%22%2C%22data%22%3A%7B%22labels%22%3A%5B%222023-24%22%2C%222024-25%22%2C%222025-26%22%2C%222026-27%22%2C%222027-28%22%2C%222028-29%22%5D%2C%22datasets%22%3A%5B%7B%22label%22%3A%22OSPI+goal+path%22%2C%22data%22%3A%5B27.3%2C25.0%2C22.0%2C19.0%2C16.0%2C13.7%5D%2C%22borderColor%22%3A%22%23777%22%2C%22backgroundColor%22%3A%22%23777%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A3%2C%22pointRadius%22%3A4%2C%22borderDash%22%3A%5B8%2C6%5D%2C%22lineTension%22%3A0%7D%2C%7B%22label%22%3A%22Actual+%28100+minus+regular+attendance%29%22%2C%22data%22%3A%5B27.4%2C27.3%2C25.6%2Cnull%2Cnull%2Cnull%5D%2C%22borderColor%22%3A%22%23141210%22%2C%22backgroundColor%22%3A%22%23141210%22%2C%22fill%22%3Afalse%2C%22borderWidth%22%3A4%2C%22pointRadius%22%3A6%2C%22lineTension%22%3A0%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22labels%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A14%7D%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Washington+chronic+absence%3A+goal+vs.+actual+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%7D%2C%22plugins%22%3A%7B%22datalabels%22%3A%7B%22display%22%3Afalse%7D%7D%2C%22scales%22%3A%7B%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A10%2C%22max%22%3A30%2C%22stepSize%22%3A5%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A14%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Line chart: Washington chronic absence actual 27.4% (2023-24), 27.3% (2024-25), 25.6% (2025-26) against an OSPI goal path of 27.3, 25.0, 22.0, 19.0, 16.0 and 13.7%" style={{ width:'100%', height:'auto', display:'block' }} />
+      <figcaption style={{ fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)', marginTop:10 }}>
+        OSPI goal path 27.3, 25.0, 22.0, 19.0, 16.0, 13.7 (<a href="https://ospi.k12.wa.us/student-success/support-programs/attendance-chronic-absenteeism-truancy/washingtons-5-year-challenge-cut-chronic-absenteeism-half" target="_blank" rel="noopener">OSPI</a>). Actual = 100 minus statewide regular attendance, all students, all grades: 72.6% (<a href="https://data.wa.gov/d/q9gf-prrp" target="_blank" rel="noopener">2023-24</a>), 72.7% (<a href="https://data.wa.gov/d/f7j6-nk2h" target="_blank" rel="noopener">2024-25</a>), 74.4% (<a href="https://data.wa.gov/d/5pzm-ence" target="_blank" rel="noopener">2025-26</a>), i.e. 27.4, 27.3, 25.6. OSPI&rsquo;s own chart prints 27.3 and 27.1 for the first two.
+      </figcaption>
+    </figure>
+  </Container>
+);
+
+// ==================== Post body ====================
+// Write the article inside the <article> tag below.
+// Available helper components:
+//   <H2>Section heading</H2>
+//   <H3>Sub-heading</H3>
+//   <P>Paragraph text.</P>
+//   <UL items={['Item one', 'Item two']} />
+//   <OL items={['First', 'Second']} />
+//   <BQ cite="Source name">Blockquote text.</BQ>
+//   <Callout label="Note">Callout box text.</Callout>
+//   <Divider />  (section break)
+//   <Fig caption="Caption text."><img src="..." /></Fig>
+const H2 = ({ children }) => <h2>{children}</h2>;
+const H3 = ({ children }) => <h3>{children}</h3>;
+const P  = ({ children }) => <p>{children}</p>;
+const UL = ({ items }) => <ul>{items.map((x,i)=><li key={i}>{x}</li>)}</ul>;
+const OL = ({ items }) => <ol>{items.map((x,i)=><li key={i}>{x}</li>)}</ol>;
+const BQ = ({ children, cite }) => <blockquote>{children}{cite && <cite>— {cite}</cite>}</blockquote>;
+const Callout = ({ label='Note', children }) => (
+  <div className="callout"><div className="callout-label">{label}</div>{children}</div>
+);
+const Divider = () => <hr />;
+const Fig = ({ caption, children }) => <figure>{children}{caption && <figcaption>{caption}</figcaption>}</figure>;
+
+const PostBody = () => (
+  <Container>
+    <Prose>
+      <article className="post-body">
+
+        <P>
+          Washington&rsquo;s <a href="https://ospi.k12.wa.us/student-success/support-programs/attendance-chronic-absenteeism-truancy/washingtons-5-year-challenge-cut-chronic-absenteeism-half" target="_blank" rel="noopener">5-Year Challenge page</a> has a chart. A goal line, an actual line, 2023&ndash;24 through 2028&ndash;29. The actual line stops at 27.1% in 2024&ndash;25. That&rsquo;s the last dot on the page as I write this. The 2025&ndash;26 numbers have been public since the state&rsquo;s <a href="https://ospi.k12.wa.us/about-ospi/news-center/news-releases/state-superintendent-chris-reykdal-unveils-new-student-achievement-data-and-budget-priorities" target="_blank" rel="noopener">September 10 release</a> pointed everyone to the Report Card.
+        </P>
+
+        <P>
+          So I went and got them. Statewide regular attendance (fewer than two absences a month, on average) was <a href="https://data.wa.gov/d/5pzm-ence" target="_blank" rel="noopener">74.4%</a> in 2025&ndash;26, up from <a href="https://data.wa.gov/d/f7j6-nk2h" target="_blank" rel="noopener">72.7%</a>. Flip it and 25.6% of students fell short, versus 27.3% a year earlier. I&rsquo;m using that as a stand-in for chronic absence (more on why that&rsquo;s slippery in a minute). The goal line says 22.0% for 2025&ndash;26. Washington is 3.6 points behind its own glide path.
+        </P>
+
+        <H2>The arithmetic nobody posted</H2>
+
+        <P>
+          From 25.6% to the 2028&ndash;29 goal of 13.7% is 11.9 points. Three school years left. That&rsquo;s about 4.0 points a year. Last year the state moved 1.7. Not close, and not a rounding thing: the pace has to more than double, and it has to start with the 2026&ndash;27 data that doesn&rsquo;t exist yet.
+        </P>
+
+        <H2>Two numbers for the same thing</H2>
+
+        <P>
+          OSPI&rsquo;s chart says 27.3% for the 2023&ndash;24 baseline and 27.1% for 2024&ndash;25. The open file, flipped, says 27.4% and 27.3%. A tenth or two. Could be the definition (OSPI defines chronic absence as missing 10% or more of school days, about 18 days; the file&rsquo;s regular-attendance measure is under two absences a month). Could be data revised after the chart was drawn. I can&rsquo;t tell from the outside, and nobody should lose sleep. But the goal is specified to the tenth, 13.7%, and the thing being measured against it has two versions.
+        </P>
+
+        <P>
+          Same file, different trap. The count of students short of regular attendance fell from 298,029 to 275,583, which is 22,446 fewer. The enrolled count in the denominator also fell, by 16,319 (1,092,735 to 1,076,416). A headline that says &ldquo;tens of thousands fewer absent kids&rdquo; is mixing a rate story and a headcount story.
+        </P>
+
+        <H2>Who carries the gap</H2>
+
+        <P>
+          The goal is one statewide number. The file has the groups. Homeless students: 49.7% regular attendance, so half miss the bar. Low-income: 66.2%, a third. Every group below sits above the statewide figure, and the statewide figure is still 11.9 points from the goal.
+        </P>
+
+        <Fig caption={<>Share of students not meeting regular attendance (100 minus the published rate), state total, 2025-26, <a href="https://data.wa.gov/d/5pzm-ence" target="_blank" rel="noopener">data.wa.gov</a>: homeless 49.7% regular, low income 66.2%, migrant 67.0%, students with disabilities 67.5%, English learners 68.4%, all students 74.4%. Goal: <a href="https://ospi.k12.wa.us/student-success/support-programs/attendance-chronic-absenteeism-truancy/washingtons-5-year-challenge-cut-chronic-absenteeism-half" target="_blank" rel="noopener">OSPI 2028-29 goal</a> 13.7%.</>}>
+          <img src="https://quickchart.io/chart?c=%7B%22type%22%3A%22horizontalBar%22%2C%22data%22%3A%7B%22labels%22%3A%5B%22Homeless%22%2C%22Low+income%22%2C%22Migrant%22%2C%22Students+with+disabilities%22%2C%22English+learners%22%2C%22Statewide%22%2C%222028-29+goal%22%5D%2C%22datasets%22%3A%5B%7B%22data%22%3A%5B50.3%2C33.8%2C33.0%2C32.5%2C31.6%2C25.6%2C13.7%5D%2C%22backgroundColor%22%3A%5B%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%233a3a3a%22%2C%22%23141210%22%2C%22%23bbb%22%5D%2C%22barPercentage%22%3A0.6%2C%22categoryPercentage%22%3A0.8%7D%5D%7D%2C%22options%22%3A%7B%22legend%22%3A%7B%22display%22%3Afalse%7D%2C%22title%22%3A%7B%22display%22%3Atrue%2C%22text%22%3A%22Share+not+meeting+regular+attendance%2C+2025-26+%28%25%29%22%2C%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A17%7D%2C%22plugins%22%3A%7B%22datalabels%22%3A%7B%22color%22%3A%22%23141210%22%2C%22anchor%22%3A%22end%22%2C%22align%22%3A%22end%22%2C%22font%22%3A%7B%22weight%22%3A%22bold%22%2C%22size%22%3A14%7D%7D%7D%2C%22scales%22%3A%7B%22xAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22min%22%3A0%2C%22max%22%3A60%2C%22stepSize%22%3A10%7D%2C%22gridLines%22%3A%7B%22color%22%3A%22rgba%2820%2C18%2C16%2C0.10%29%22%2C%22zeroLineColor%22%3A%22rgba%2820%2C18%2C16%2C0.30%29%22%7D%7D%5D%2C%22yAxes%22%3A%5B%7B%22ticks%22%3A%7B%22fontColor%22%3A%22%23141210%22%2C%22fontSize%22%3A14%7D%2C%22gridLines%22%3A%7B%22display%22%3Afalse%7D%7D%5D%7D%7D%7D&v=2.9.4&w=900&h=480&bkg=transparent&devicePixelRatio=2" alt="Bar chart: share not meeting regular attendance in 2025-26: homeless 50.3%, low income 33.8%, migrant 33.0%, students with disabilities 32.5%, English learners 31.6%, statewide 25.6%, against a 2028-29 goal of 13.7%" style={{ width:'100%', height:'auto', display:'block' }} />
+        </Fig>
+
+        <Divider />
+
+        <P>
+          A pledge is a promise. A scoreboard is a data pipeline. Washington has the first one, and it&rsquo;s a few months late on the second. The data&rsquo;s already there. Somebody just has to hit refresh.
+        </P>
+
+      </article>
+    </Prose>
+  </Container>
+);
+
+// ==================== Footer ====================
+const Footer = () => (
+  <footer style={{ borderTop:'1px solid var(--ink)', marginTop:80 }}>
+    <Container>
+      <div style={{ padding:'48px 0 32px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--muted)' }} className="cdfa-colophon">
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>Colophon</div>
+          <div>Hosted on Github pages. Built with a mix of Claude and TJ.</div>
+        </div>
+        <div>
+          <div style={{ color:'var(--ink)', marginBottom:6 }}>License</div>
+          <div>All text, charts, and datasets are published under CC BY 4.0. Copy us, cite us, improve us. Corrections, at the bottom of every piece.</div>
+        </div>
+      </div>
+
+      <div style={{ borderTop:'1px solid var(--rule)', padding:'18px 0', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12, fontFamily:'var(--mono)', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <span>© 2013–2026 <a href="https://www.standardco.de" target="_blank" rel="noopener" style={{ color:'inherit', borderBottom:'1px solid currentColor', textDecoration:'none' }}>Standard Co</a> · All rights unreserved</span>
+      </div>
+    </Container>
+    <style>{`
+      @media (max-width: 820px){
+        .cdfa-colophon{ grid-template-columns: 1fr !important; }
+      }
+    `}</style>
+  </footer>
+);
+
+// ==================== App ====================
+function App() {
+  return (
+    <div>
+      <TopBar />
+      <PostHeader />
+      <PostHero />
+      <PostBody />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
